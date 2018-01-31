@@ -66,6 +66,15 @@ class LIBLOGICALACCESS_API IslogKeyServer
      */
     ByteVector aes_encrypt(const ByteVector &in, const std::string &key_name,
                            const std::array<uint8_t, 16> &iv);
+
+    /**
+     * Request an AES Encryption by the key server.
+     *
+     * The IV is a vector. The function will throw if the IV is not 16 bytes.
+     */
+    ByteVector aes_encrypt(const ByteVector &in, const std::string &key_name,
+                           const ByteVector &iv);
+
     /**
      * Request an AES Decryption by the key server.
      */

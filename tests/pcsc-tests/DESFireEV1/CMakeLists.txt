@@ -9,3 +9,4 @@ ${CMAKE_SOURCE_DIR}/plugins/
 lla_create_test(desfireev1 test_general)
 lla_create_test(desfireev1 test_storage_service)
 lla_create_test(desfireev1 test_changekey_iks)
+lla_create_test(desfireev1 test_access_control_iks)
