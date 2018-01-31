@@ -1683,10 +1683,11 @@ void DESFireEV1ISO7816Commands::selectApplication(unsigned int aid)
 void DESFireEV1ISO7816Commands::onAuthenticated()
 {
     auto crypto = getDESFireChip()->getCrypto();
-    LOG(DEBUGS) << "We have authenticated: Current session key is: " <<
-                crypto->d_sessionKey;
+    LOG(DEBUGS) << "We have authenticated: Current session key is: "
+                << crypto->d_sessionKey;
 
-    std::cout << "SESSION KEY: " << BufferHelper::getHex(crypto->d_sessionKey) <<std::endl;
+    std::cout << "SESSION KEY: " << BufferHelper::getHex(crypto->d_sessionKey)
+              << std::endl;
 
     // Reset the key so we lose it... this is to simulate prod behavior later.
     crypto->d_sessionKey = ByteVector(16, 0);
