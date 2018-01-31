@@ -11,9 +11,11 @@
 #include <logicalaccess/plugins/crypto/des_cipher.hpp>
 #include <logicalaccess/plugins/crypto/aes_cipher.hpp>
 
+#include <memory>
 #include <string>
 #include <vector>
 #include <iostream>
+#include <string>
 
 namespace logicalaccess
 {
@@ -25,6 +27,18 @@ typedef enum {
     CM_ISO    = 0x01, // EV1
     CM_EV2    = 0x02  // EV2
 } CryptoMethod;
+
+    // manage desfire crypto operation through iks.
+    struct IKSCryptoWrapper
+    {
+        // IKS would generate a temporary key
+        // after a proper Desfire authentication (through IKS).
+        // Obviously key name is non-guessable and is unique per client / auth process
+        std::string remote_key_name;
+
+        IKSCryptoWrapper():remote_key_name("session_key")
+        {}
+    };
 
 /**
  * \brief DESFire cryptographic functions.
@@ -488,6 +502,9 @@ class LIBLOGICALACCESS_API DESFireCrypto
      * \brief The current Key number.
      */
     unsigned char d_currentKeyNo;
+
+    // If present it means we use IKS...
+    std::unique_ptr<IKSCryptoWrapper> iks_wrapper_;
 
   protected:
     /**
