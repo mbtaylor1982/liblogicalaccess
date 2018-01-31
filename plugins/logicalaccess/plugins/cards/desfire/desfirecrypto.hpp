@@ -28,17 +28,19 @@ typedef enum {
     CM_EV2    = 0x02  // EV2
 } CryptoMethod;
 
-    // manage desfire crypto operation through iks.
-    struct IKSCryptoWrapper
-    {
-        // IKS would generate a temporary key
-        // after a proper Desfire authentication (through IKS).
-        // Obviously key name is non-guessable and is unique per client / auth process
-        std::string remote_key_name;
+// manage desfire crypto operation through iks.
+struct IKSCryptoWrapper
+{
+    // IKS would generate a temporary key
+    // after a proper Desfire authentication (through IKS).
+    // Obviously key name is non-guessable and is unique per client / auth process
+    std::string remote_key_name;
 
-        IKSCryptoWrapper():remote_key_name("session_key")
-        {}
-    };
+    IKSCryptoWrapper()
+        : remote_key_name("session_key")
+    {
+    }
+};
 
 /**
  * \brief DESFire cryptographic functions.

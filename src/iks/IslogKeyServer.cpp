@@ -23,10 +23,8 @@ IslogKeyServer &IslogKeyServer::fromGlobalSettings()
 IslogKeyServer::IslogKeyServer(const std::string &ip, uint16_t port,
                                const std::string &client_cert,
                                const std::string &client_key, const std::string &root_ca)
-    :
-    ssl_ctx_(boost::asio::ssl::context::tlsv12_client)
-    ,
-    config_(ip, port, client_cert, client_key, root_ca)
+    : ssl_ctx_(boost::asio::ssl::context::tlsv12_client)
+    , config_(ip, port, client_cert, client_key, root_ca)
 {
     ssl_ctx_.use_certificate_file(client_cert,
                                   boost::asio::ssl::context_base::file_format::pem);
@@ -52,12 +50,12 @@ ByteVector IslogKeyServer::get_random(size_t sz)
 }
 
 ByteVector IslogKeyServer::aes_encrypt(const ByteVector &in, const std::string &key_name,
-                       const ByteVector &iv)
+                                       const ByteVector &iv)
 {
     if (iv.size() != 16)
         throw LibLogicalAccessException("Invalid IV size.");
 
-    std::array<uint8_t ,16> iv_array;
+    std::array<uint8_t, 16> iv_array;
     std::copy_n(iv.begin(), 16, iv_array.begin());
 
     return aes_encrypt(in, key_name, iv_array);
