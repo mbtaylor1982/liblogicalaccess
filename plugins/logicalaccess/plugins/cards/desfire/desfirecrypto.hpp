@@ -28,18 +28,17 @@ typedef enum {
     CM_EV2    = 0x02  // EV2
 } CryptoMethod;
 
-// manage desfire crypto operation through iks.
-struct IKSCryptoWrapper
-{
-    // IKS would generate a temporary key
-    // after a proper Desfire authentication (through IKS).
-    // Obviously key name is non-guessable and is unique per client / auth process
-    std::string remote_key_name;
+    // manage desfire crypto operation through iks.
+    struct IKSCryptoWrapper
+    {
+        // IKS would generate a temporary key
+        // after a proper Desfire authentication (through IKS).
+        // Obviously key name is non-guessable and is unique per client / auth process
+        std::string remote_key_name;
 
-    // Simply the last signature received when we call aes_decrypt() through
-    // and IKSRPCClient.
-    std::string last_sig;
-};
+        IKSCryptoWrapper():remote_key_name("session_key")
+        {}
+    };
 
 /**
  * \brief DESFire cryptographic functions.
@@ -506,15 +505,6 @@ class LIBLOGICALACCESS_API DESFireCrypto
 
     // If present it means we use IKS...
     std::unique_ptr<IKSCryptoWrapper> iks_wrapper_;
-
-    /**
-     * Retrieve the IKS signature (if requested) for the last decrypted
-     * data block.
-     *
-     * This will return the empty string if no IKS was used or if the operation
-     * mode does make sense to have that.
-     */
-    std::string get_last_signature() const;
 
   protected:
     /**

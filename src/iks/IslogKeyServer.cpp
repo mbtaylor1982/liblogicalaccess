@@ -50,12 +50,12 @@ ByteVector IslogKeyServer::get_random(size_t sz)
 }
 
 ByteVector IslogKeyServer::aes_encrypt(const ByteVector &in, const std::string &key_name,
-                                       const ByteVector &iv)
+                       const ByteVector &iv)
 {
     if (iv.size() != 16)
         throw LibLogicalAccessException("Invalid IV size.");
 
-    std::array<uint8_t, 16> iv_array;
+    std::array<uint8_t ,16> iv_array;
     std::copy_n(iv.begin(), 16, iv_array.begin());
 
     return aes_encrypt(in, key_name, iv_array);

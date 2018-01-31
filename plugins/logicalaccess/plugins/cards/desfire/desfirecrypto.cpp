@@ -24,7 +24,6 @@
 #include <logicalaccess/plugins/crypto/cmac.hpp>
 #include <logicalaccess/myexception.hpp>
 #include <logicalaccess/iks/IslogKeyServer.hpp>
-#include <logicalaccess/iks/IKSRPCClient.hpp>
 
 namespace logicalaccess
 {
@@ -983,8 +982,8 @@ DESFireCrypto::desfire_cmac(const ByteVector &key,
 
     if (iks_wrapper_)
     {
-        ByteVector ret = openssl::CMACCrypto::cmac_iks(iks_wrapper_->remote_key_name,
-                                                       data, d_lastIV, block_size);
+        ByteVector  ret = openssl::CMACCrypto::cmac_iks(iks_wrapper_->remote_key_name,
+                                                        data, d_lastIV, block_size);
         d_lastIV = ByteVector(ret.end() - block_size, ret.end());
         // Need to understand this "if (chipher == d_cipher)".
         return ret;
@@ -1023,41 +1022,33 @@ ByteVector DESFireCrypto::desfire_iso_decrypt(
 {
     ByteVector decdata;
 
-    if (iks_wrapper_ == nullptr)
-    {
+    if (iks_wrapper_ == nullptr) {
         std::shared_ptr<openssl::SymmetricKey> isokey;
         std::shared_ptr<openssl::InitializationVector> iv;
-        if (std::dynamic_pointer_cast<openssl::AESCipher>(cipher))
-        {
-            isokey.reset(new openssl::AESSymmetricKey(
-                openssl::AESSymmetricKey::createFromData(key)));
+        if (std::dynamic_pointer_cast<openssl::AESCipher>(cipher)) {
+            isokey.reset(
+                    new openssl::AESSymmetricKey(openssl::AESSymmetricKey::createFromData(key)));
             iv.reset(new openssl::AESInitializationVector(
-                openssl::AESInitializationVector::createFromData(d_lastIV)));
-        }
-        else
-        {
-            isokey.reset(new openssl::DESSymmetricKey(
-                openssl::DESSymmetricKey::createFromData(key)));
+                    openssl::AESInitializationVector::createFromData(d_lastIV)));
+        } else {
+            isokey.reset(
+                    new openssl::DESSymmetricKey(openssl::DESSymmetricKey::createFromData(key)));
             iv.reset(new openssl::DESInitializationVector(
-                openssl::DESInitializationVector::createFromData(d_lastIV)));
+                    openssl::DESInitializationVector::createFromData(d_lastIV)));
         }
 
         assert(cipher);
         cipher->decipher(data, decdata, *isokey, *iv, false);
-        if (cipher == d_cipher)
-        {
+        if (cipher == d_cipher) {
             d_lastIV = ByteVector(data.end() - block_size, data.end());
         }
     }
     else
     {
         // Delegate cryptography to the IKS.
-        iks::IKSRPCClient rpc(iks::IslogKeyServer::get_global_config());
-        std::string signature;
-        decdata =
-            rpc.aes_decrypt(data, iks_wrapper_->remote_key_name, d_lastIV, &signature);
-        d_lastIV               = ByteVector(data.end() - block_size, data.end());
-        iks_wrapper_->last_sig = signature;
+        iks::IslogKeyServer &srv = iks::IslogKeyServer::fromGlobalSettings();
+        decdata = srv.aes_decrypt(data, iks_wrapper_->remote_key_name, d_lastIV);
+        d_lastIV = ByteVector(data.end() - block_size, data.end());
     }
     LOG(DEBUGS) << "Decrypted data: " << decdata;
 
@@ -1201,6 +1192,10 @@ ByteVector DESFireCrypto::desfire_iso_encrypt(
 
     if (iks_wrapper_ == nullptr)
     {
+    std::shared_ptr<openssl::SymmetricKey> isokey;
+    std::shared_ptr<openssl::InitializationVector> iv;
+    if (std::dynamic_pointer_cast<openssl::AESCipher>(cipher))
+    {
         std::shared_ptr<openssl::SymmetricKey> isokey;
         std::shared_ptr<openssl::InitializationVector> iv;
         if (std::dynamic_pointer_cast<openssl::AESCipher>(cipher))
@@ -1228,6 +1223,12 @@ ByteVector DESFireCrypto::desfire_iso_encrypt(
         // Delegate cryptography to the IKS.
         iks::IKSRPCClient rpc(iks::IslogKeyServer::get_global_config());
         encdata  = rpc.aes_encrypt(decdata, iks_wrapper_->remote_key_name, d_lastIV);
+        d_lastIV = ByteVector(encdata.end() - block_size, encdata.end());
+    }
+        } else{
+        // Delegate cryptography to the IKS.
+        iks::IslogKeyServer &srv = iks::IslogKeyServer::fromGlobalSettings();
+        encdata = srv.aes_encrypt(decdata, iks_wrapper_->remote_key_name, d_lastIV);
         d_lastIV = ByteVector(encdata.end() - block_size, encdata.end());
     }
 

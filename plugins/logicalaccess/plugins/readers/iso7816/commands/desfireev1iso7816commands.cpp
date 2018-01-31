@@ -1682,6 +1682,21 @@ void DESFireEV1ISO7816Commands::selectApplication(unsigned int aid)
 
 void DESFireEV1ISO7816Commands::onAuthenticated()
 {
+    auto crypto = getDESFireChip()->getCrypto();
+    LOG(DEBUGS) << "We have authenticated: Current session key is: " <<
+                crypto->d_sessionKey;
+
+    std::cout << "SESSION KEY: " << BufferHelper::getHex(crypto->d_sessionKey) <<std::endl;
+
+    // Reset the key so we lose it... this is to simulate prod behavior later.
+    crypto->d_sessionKey = ByteVector(16, 0);
+
+    // todo: clean up.
+    // For PoC only: we use this hook to setup remote crypto for the desfire.
+    // IKS does not support DesfireAuth proto yet. so we inject a key here.
+
+    crypto->iks_wrapper_ = std::make_unique<IKSCryptoWrapper>();
+
     // If we don't have the read UID, we retrieve it
     if (!getDESFireChip()->hasRealUID())
     {

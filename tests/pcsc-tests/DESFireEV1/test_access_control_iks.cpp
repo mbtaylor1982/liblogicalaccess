@@ -19,8 +19,6 @@
 
 #include <logicalaccess/plugins/lla-tests/macros.hpp>
 #include <logicalaccess/plugins/lla-tests/utils.hpp>
-#include <logicalaccess/services/accesscontrol/formats/rawformat.hpp>
-#include <logicalaccess/services/accesscontrol/formats/customformat/customformat.hpp>
 
 void introduction() {
     PRINT_TIME("This test target DESFireEV1 cards. It tests that we are "
@@ -44,11 +42,11 @@ int main(int ac, char **av) {
     ChipPtr chip;
     tie(provider, readerUnit, chip) = lla_test_init();
 
-    iks::IslogKeyServer::configureGlobalInstance("localhost",
-                                                 6565,
-                                                 "/home/xaqq/Documents/iks/crypto/MyClient1.pem",
-                                                 "/home/xaqq/Documents/iks/crypto/MyClient1.key",
-                                                 "/home/xaqq/Documents/iks/crypto/MyRootCA.pem");
+    iks::IslogKeyServer::configureGlobalInstance("127.0.0.1",
+                                                 9876,
+                                                 "/home/xaqq/Downloads/demo/certs/MyClient1.pem",
+                                                 "/home/xaqq/Downloads/demo/certs/MyClient1.key",
+                                                 "/home/xaqq/Downloads/demo/certs/mydomain.crt");
 
     PRINT_TIME("Chip identifier: "
                        << logicalaccess::BufferHelper::getHex(chip->getChipIdentifier()));
@@ -58,52 +56,20 @@ int main(int ac, char **av) {
 
     auto storage =
             std::dynamic_pointer_cast<StorageCardService>(chip->getService(CST_STORAGE));
-    std::shared_ptr<AccessControlCardService> acs =
-        std::dynamic_pointer_cast<AccessControlCardService>(
-            chip->getService(CST_ACCESS_CONTROL));
 
-    auto fmt = std::make_shared<RawFormat>();
-    // Yeah we need this hack to specify the size we need.
-    fmt->setRawData(ByteVector(4, 0));
-    auto loc = std::make_shared<DESFireLocation>();
-    loc->aid = 0x000521;
-    loc->file = 1;
-    loc->byte_ = 0;
-
-    std::shared_ptr<DESFireKey> key(new DESFireKey());
-    key->setKeyType(DF_KEY_AES);
-    //key->fromString("00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00");
-    //key->setKeyStorage(std::make_shared<IKSStorage>("d852a915-7435-464d-9fbf-680d056c827b"));
-    //key->setKeyStorage(std::make_shared<IKSStorage>("a83532a3-022d-4d3c-a8e3-c03f92f76ee4"));
-    key->setKeyStorage(std::make_shared<IKSStorage>("e5eb5e5a-36a9-43e1-9f9d-c5d1e04a7ae2"));
-    auto ai = std::make_shared<DESFireAccessInfo>();
-    ai->readKey = key;
-    auto fmt_result = acs->readFormat(fmt, loc, ai);
-
-    if (!fmt_result)
-    {
-        std::cout << "Failed to read access information." << std::endl;
-        return-1;
-    }
-
-    std::cout << "Read data: " << fmt_result->getLinearData() << std::endl;
-    auto sig_str = acs->IKS_getPayloadSignature();
-    ByteVector signature(sig_str.begin(), sig_str.end());
-    std::cout << "Signature: " << signature << std::endl;
-
-    /*
     auto cmd = std::dynamic_pointer_cast<DESFireISO7816Commands>(chip->getCommands());
     std::shared_ptr<DESFireEV1ISO7816Commands> cmdev1 =
             std::dynamic_pointer_cast<DESFireEV1ISO7816Commands>(chip->getCommands());
 
-    //key->setKeyStorage(std::make_shared<IKSStorage>("00000000-0000-0000-0000-000000000000"));
-    //key->setKeyStorage(std::make_shared<IKSStorage>("44a68205-b486-4867-95d6-26f8c09d5729"));
-    //key->fromString("00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00");
+    std::shared_ptr<DESFireKey> key(new DESFireKey());
+    key->setKeyType(DF_KEY_AES);
+    key->fromString("00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00");
 
     cmd->selectApplication(0x000521);
     cmdev1->authenticate(0, key);
 
-    auto ret = cmd->readData(1, 0, 4, logicalaccess::EncryptionMode::CM_ENCRYPT);
-*/
+    auto ret = cmd->readData(0, 0, 68, logicalaccess::EncryptionMode::CM_ENCRYPT);
+    std::cout << "Read data: " << ret << std::endl;
+
     return 0;
 }
