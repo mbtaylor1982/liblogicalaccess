@@ -133,7 +133,8 @@ file(GLOB source_customformat ${NATIVE_SOURCE}/services/accesscontrol/formats/cu
 file(GLOB source_nfctag ${NATIVE_SOURCE}/services/nfctag/*.cpp)
 file(GLOB source_storage ${NATIVE_SOURCE}/services/storage/*.cpp)
 file(GLOB source_uidchanger ${NATIVE_SOURCE}/services/uidchanger/*.cpp)
-file(GLOB source_iks ${NATIVE_SOURCE}/iks/*.cpp ${NATIVE_SOURCE}/iks/packet/*.cpp)
+# Yeah, for now grpc/proto generate source are there, in includes.
+file(GLOB source_iks ${NATIVE_SOURCE}/iks/*.cpp ${NATIVE_SOURCE}/iks/packet/*.cpp ${NATIVE_INCLUDE}/logicalaccess/iks/packet/*.cc)
 file(GLOB source_service_identity ${NATIVE_SOURCE}/services/identity/*.cpp)
 
 #Include Files
@@ -250,7 +251,7 @@ set(include ${include_root} ${include_cards} ${include_readerproviders}
         ${include_license_checker}
         ${include_dynlibrary} ${include_storage} ${include_vc}
         ${include_iks} ${include_iks_packet} ${include_service_identity}
-        )
+        include/logicalaccess/iks/IKSRPCClient.hpp src/iks/IKSRPCClient.cpp include/logicalaccess/iks/RPCException.hpp)
 
 
 add_library(
@@ -270,7 +271,7 @@ if (MSVC)
 endif()
 
 set_target_properties(${LIBLOGICALACCESS_LIBRARY} PROPERTIES VERSION ${LIBLOGICALACCESS_VERSION_STRING})
-target_link_libraries(${LIBLOGICALACCESS_LIBRARY} ${OPENSSL_LIBRARIES})
+target_link_libraries(${LIBLOGICALACCESS_LIBRARY} ${OPENSSL_LIBRARIES} grpc grpc++ protobuf)
 
 if (WIN32)
 

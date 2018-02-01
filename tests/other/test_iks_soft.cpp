@@ -2,6 +2,7 @@
 #include <thread>
 #include <logicalaccess/logs.hpp>
 #include <logicalaccess/plugins/lla-tests/macros.hpp>
+#include <logicalaccess/iks/IKSRPCClient.hpp>
 
 using namespace logicalaccess;
 using namespace iks;
@@ -25,13 +26,28 @@ static void test_big()
     assert(bytes == decrypted);
 }
 
+int test_grpc()
+{
+    iks::IslogKeyServer::IKSConfig config("127.0.0.1",
+            9876,
+            "/home/xaqq/Downloads/demo/certs/MyClient1.pem",
+            "/home/xaqq/Downloads/demo/certs/MyClient1.key",
+            "/home/xaqq/Downloads/demo/certs/mydomain.crt");
+
+    iks::IKSRPCClient rpc(config);
+    std::cout<<"random bytes: " << rpc.gen_random(42) << std::endl;
+}
+
 int main() {
     iks::IslogKeyServer::configureGlobalInstance("127.0.0.1",
                                                  9876,
                                                  "/home/xaqq/Downloads/demo/certs/MyClient1.pem",
                                                  "/home/xaqq/Downloads/demo/certs/MyClient1.key",
                                                  "/home/xaqq/Downloads/demo/certs/mydomain.crt");
-  IslogKeyServer &srv = IslogKeyServer::fromGlobalSettings();
+    test_grpc();
+    return 0;
+
+    IslogKeyServer &srv = IslogKeyServer::fromGlobalSettings();
 
     srv.get_random(17);
     auto bytes = ByteVector{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
