@@ -4,12 +4,15 @@
 
 namespace logicalaccess
 {
-    namespace iks
+namespace iks
+{
+class RPCException : public LibLogicalAccessException
+{
+  public:
+    RPCException(const std::string &message)
+        : LibLogicalAccessException(message)
     {
-        class RPCException : public LibLogicalAccessException
-        {
-        public:
-            RPCException(const std::string &message) : LibLogicalAccessException(message) {}
-        };
-    };
+    }
+};
+};
 }
