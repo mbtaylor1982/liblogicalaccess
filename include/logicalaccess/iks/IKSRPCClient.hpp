@@ -29,6 +29,5 @@ namespace logicalaccess {
             std::shared_ptr<::grpc::ChannelInterface> channel;
             std::unique_ptr<IKSService::Stub> stub_;
         };
-
     }
 }

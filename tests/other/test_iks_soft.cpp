@@ -28,11 +28,11 @@ static void test_big()
 
 int test_grpc()
 {
-    iks::IslogKeyServer::IKSConfig config("127.0.0.1",
-            9876,
-            "/home/xaqq/Downloads/demo/certs/MyClient1.pem",
-            "/home/xaqq/Downloads/demo/certs/MyClient1.key",
-            "/home/xaqq/Downloads/demo/certs/mydomain.crt");
+    iks::IslogKeyServer::IKSConfig config("localhost",
+            6565,
+            "/home/xaqq/Documents/iks/crypto/MyClient1.pem",
+            "/home/xaqq/Documents/iks/crypto/MyClient1.key",
+            "/home/xaqq/Documents/iks/crypto/MyRootCA.pem");
 
     iks::IKSRPCClient rpc(config);
     std::cout<<"random bytes: " << rpc.gen_random(42) << std::endl;
