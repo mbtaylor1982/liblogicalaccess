@@ -44,9 +44,9 @@ int main(int ac, char **av) {
 
     iks::IslogKeyServer::configureGlobalInstance("127.0.0.1",
                                                  9876,
-                                                 "/home/xaqq/Downloads/demo/certs/MyClient1.pem",
-                                                 "/home/xaqq/Downloads/demo/certs/MyClient1.key",
-                                                 "/home/xaqq/Downloads/demo/certs/mydomain.crt");
+                                                 "/home/xaqq/Documents/iks/certs/MyClient1.pem",
+                                                 "/home/xaqq/Documents/iks/certs/MyClient1.key",
+                                                 "/home/xaqq/Documents/iks/certs/mydomain.crt");
 
     PRINT_TIME("Chip identifier: "
                        << logicalaccess::BufferHelper::getHex(chip->getChipIdentifier()));
@@ -63,7 +63,8 @@ int main(int ac, char **av) {
 
     std::shared_ptr<DESFireKey> key(new DESFireKey());
     key->setKeyType(DF_KEY_AES);
-    key->fromString("00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00");
+    key->setKeyStorage(std::make_shared<IKSStorage>("zero"));
+    //key->fromString("00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00");
 
     cmd->selectApplication(0x000521);
     cmdev1->authenticate(0, key);
