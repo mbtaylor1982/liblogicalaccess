@@ -148,6 +148,11 @@ class LIBLOGICALACCESS_API IslogKeyServer
 
     std::shared_ptr<BaseResponse> recv() const;
 
+    /**
+     * Retrieve a copy of the global IKS configuration.
+     */
+    static IKSConfig get_global_config();
+
   private:
     void setup_transport();
     std::shared_ptr<BaseResponse> build_response(uint32_t size, uint16_t opcode,

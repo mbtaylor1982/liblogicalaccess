@@ -24,6 +24,7 @@
 #include <logicalaccess/plugins/crypto/cmac.hpp>
 #include <logicalaccess/myexception.hpp>
 #include <logicalaccess/iks/IslogKeyServer.hpp>
+#include <logicalaccess/iks/IKSRPCClient.hpp>
 
 namespace logicalaccess
 {
@@ -1051,8 +1052,8 @@ ByteVector DESFireCrypto::desfire_iso_decrypt(
     else
     {
         // Delegate cryptography to the IKS.
-        iks::IslogKeyServer &srv = iks::IslogKeyServer::fromGlobalSettings();
-        decdata  = srv.aes_decrypt(data, iks_wrapper_->remote_key_name, d_lastIV);
+        iks::IKSRPCClient rpc(iks::IslogKeyServer::get_global_config());
+        decdata  = rpc.aes_decrypt(data, iks_wrapper_->remote_key_name, d_lastIV);
         d_lastIV = ByteVector(data.end() - block_size, data.end());
     }
     LOG(DEBUGS) << "Decrypted data: " << decdata;
@@ -1222,8 +1223,8 @@ ByteVector DESFireCrypto::desfire_iso_encrypt(
     else
     {
         // Delegate cryptography to the IKS.
-        iks::IslogKeyServer &srv = iks::IslogKeyServer::fromGlobalSettings();
-        encdata  = srv.aes_encrypt(decdata, iks_wrapper_->remote_key_name, d_lastIV);
+        iks::IKSRPCClient rpc(iks::IslogKeyServer::get_global_config());
+        encdata  = rpc.aes_encrypt(decdata, iks_wrapper_->remote_key_name, d_lastIV);
         d_lastIV = ByteVector(encdata.end() - block_size, encdata.end());
     }
 
