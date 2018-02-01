@@ -310,8 +310,7 @@ void IslogKeyServer::configureGlobalInstance(const std::string &ip, uint16_t por
     pre_configuration_ = IKSConfig(ip, port, client_cert, client_key, root_ca);
 }
 
-IslogKeyServer::IKSConfig IslogKeyServer::get_global_config()
-{
+IslogKeyServer::IKSConfig IslogKeyServer::get_global_config() {
     return pre_configuration_;
 }
 

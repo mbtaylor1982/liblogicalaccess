@@ -1588,12 +1588,11 @@ void DESFireEV1ISO7816Commands::iks_iso_authenticate(std::shared_ptr<DESFireKey>
     assert(key->getKeyType() == DF_KEY_AES &&
            key->getKeyStorage()->getType() == KST_SERVER);
     std::shared_ptr<DESFireCrypto> crypto = getDESFireChip()->getCrypto();
-    ByteVector RPICC1                     = iso_getChallenge(16); // 16 because aes
+    ByteVector RPICC1 = iso_getChallenge(16); // 16 because aes
 
     iks::IKSRPCClient rpc_client(iks::IslogKeyServer::get_global_config());
     CMSG_DesfireAuth_Step1 step1_req;
-    step1_req.set_key_uuid(
-        std::dynamic_pointer_cast<IKSStorage>(key->getKeyStorage())->getKeyIdentity());
+    step1_req.set_key_name(std::dynamic_pointer_cast<IKSStorage>(key->getKeyStorage())->getKeyIdentity());
     step1_req.set_random_picc(std::string(RPICC1.begin(), RPICC1.end()));
 
     SMSG_DesfireAuth_Step1 step1_resp = rpc_client.desfire_auth_step1(step1_req);
@@ -1623,22 +1622,21 @@ void DESFireEV1ISO7816Commands::iks_iso_authenticate(std::shared_ptr<DESFireKey>
         iso_internalAuthenticate(DF_ALG_AES, isMasterCardKey, keyno, RPCD2, 2 * 16);
 
     CMSG_DesfireAuth_Step2 step2_req;
-    step2_req.set_key_uuid(
-        std::dynamic_pointer_cast<IKSStorage>(key->getKeyStorage())->getKeyIdentity());
+    step2_req.set_key_name(std::dynamic_pointer_cast<IKSStorage>(key->getKeyStorage())->getKeyIdentity());
     step2_req.set_auth_context_id(step1_resp.auth_context_id());
     step2_req.set_picc_cryptogram(std::string(cryptogram.begin(), cryptogram.end()));
 
-    /*    cmd.step_     = 2;
-        cmd.div_info_ = iks::KeyDivInfo::build(key, getChip()->getChipIdentifier(), keyno,
-                                               crypto->d_currentAid);
+/*    cmd.step_     = 2;
+    cmd.div_info_ = iks::KeyDivInfo::build(key, getChip()->getChipIdentifier(), keyno,
+                                           crypto->d_currentAid);
 
-        copy(cryptogram.begin(), cryptogram.end(), cmd.data_.begin());
-        iks.send_command(cmd);
-        resp = std::dynamic_pointer_cast<iks::DesfireAuthResponse>(iks.recv());
-        EXCEPTION_ASSERT_WITH_LOG(resp, IKSException,
-                                  "Cannot retrieve proper response from server.");
-        EXCEPTION_ASSERT_WITH_LOG(resp->success_, IKSException,
-                                  "Mutual authentication failure.");*/
+    copy(cryptogram.begin(), cryptogram.end(), cmd.data_.begin());
+    iks.send_command(cmd);
+    resp = std::dynamic_pointer_cast<iks::DesfireAuthResponse>(iks.recv());
+    EXCEPTION_ASSERT_WITH_LOG(resp, IKSException,
+                              "Cannot retrieve proper response from server.");
+    EXCEPTION_ASSERT_WITH_LOG(resp->success_, IKSException,
+                              "Mutual authentication failure.");*/
     SMSG_DesfireAuth_Step2 step2_resp = rpc_client.desfire_auth_step2(step2_req);
     EXCEPTION_ASSERT_WITH_LOG(step2_resp.success(), IKSException,
                               "Mutual authentication failure.");
@@ -1647,22 +1645,9 @@ void DESFireEV1ISO7816Commands::iks_iso_authenticate(std::shared_ptr<DESFireKey>
     crypto->d_sessionKey.clear();
     crypto->d_auth_method = CM_ISO;
 
-    // Session key from IKS. Either it is an IKS key reference, or directly
-    // the key value.
-    if (!step2_resp.session_key().empty())
-    {
-        // Raw key material. Use as is.
-        crypto->d_sessionKey =
-            ByteVector(step2_resp.session_key().begin(), step2_resp.session_key().end());
-    }
-    else
-    {
-        // We received a KeyReference. We need to create an IKSCryptoWrapper
-        // for use by DESFireCrypto so CMAC calculation, data decryption and stuff
-        // like that gets rerouted through IKS.
-        crypto->iks_wrapper_                  = std::make_unique<IKSCryptoWrapper>();
-        crypto->iks_wrapper_->remote_key_name = step2_resp.session_key_ref();
-    }
+    // Session key from IKS.
+    crypto->d_sessionKey = ByteVector(step2_resp.session_key().begin(),
+                                      step2_resp.session_key().end());
 
     crypto->d_cipher.reset(new openssl::AESCipher());
     crypto->d_block_size = 16;

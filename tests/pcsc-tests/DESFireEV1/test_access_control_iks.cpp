@@ -42,11 +42,11 @@ int main(int ac, char **av) {
     ChipPtr chip;
     tie(provider, readerUnit, chip) = lla_test_init();
 
-    iks::IslogKeyServer::configureGlobalInstance("127.0.0.1",
-                                                 9876,
-                                                 "/home/xaqq/Documents/iks/certs/MyClient1.pem",
-                                                 "/home/xaqq/Documents/iks/certs/MyClient1.key",
-                                                 "/home/xaqq/Documents/iks/certs/mydomain.crt");
+    iks::IslogKeyServer::configureGlobalInstance("localhost",
+                                                 6565,
+                                                 "/home/xaqq/Documents/iks/crypto/MyClient1.pem",
+                                                 "/home/xaqq/Documents/iks/crypto/MyClient1.key",
+                                                 "/home/xaqq/Documents/iks/crypto/MyRootCA.pem");
 
     PRINT_TIME("Chip identifier: "
                        << logicalaccess::BufferHelper::getHex(chip->getChipIdentifier()));
