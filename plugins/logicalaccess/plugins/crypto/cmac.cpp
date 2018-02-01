@@ -219,7 +219,7 @@ ByteVector CMACCrypto::cmac_iks(const std::string &iks_key_name, const ByteVecto
     ByteVector L;
 
     iks::IKSRPCClient rpc(iks::IslogKeyServer::get_global_config());
-    L                        = rpc.aes_encrypt(blankbuf, iks_key_name, ByteVector(16, 0));
+    L = rpc.aes_encrypt(blankbuf, iks_key_name, ByteVector(16, 0));
 
     ByteVector K1;
     if ((L[0] & 0x80) == 0x00)
