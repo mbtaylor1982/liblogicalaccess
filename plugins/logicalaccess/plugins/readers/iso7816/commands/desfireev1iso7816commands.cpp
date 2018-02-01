@@ -28,6 +28,7 @@
 #include <logicalaccess/plugins/cards/desfire/nxpav2keydiversification.hpp>
 #include <logicalaccess/myexception.hpp>
 #include <cassert>
+#include <logicalaccess/iks/IKSRPCClient.hpp>
 
 namespace logicalaccess
 {
@@ -1583,12 +1584,17 @@ void DESFireEV1ISO7816Commands::iks_iso_authenticate(std::shared_ptr<DESFireKey>
 {
     assert(key->getKeyType() == DF_KEY_AES &&
            key->getKeyStorage()->getType() == KST_SERVER);
-    iks::IslogKeyServer &iks = iks::IslogKeyServer::fromGlobalSettings();
-
     std::shared_ptr<DESFireCrypto> crypto = getDESFireChip()->getCrypto();
-
     ByteVector RPICC1 = iso_getChallenge(16); // 16 because aes
-    iks::DesfireAuthCommand cmd;
+
+    iks::IKSRPCClient rpc_client(iks::IslogKeyServer::get_global_config());
+    CMSG_DesfireAuth_Step1 step1_req;
+    step1_req.set_key_name(std::dynamic_pointer_cast<IKSStorage>(key->getKeyStorage())->getKeyIdentity());
+    step1_req.set_random_picc(std::string(RPICC1.begin(), RPICC1.end()));
+
+    SMSG_DesfireAuth_Step1 step1_resp = rpc_client.desfire_auth_step1(step1_req);
+
+    /*iks::DesfireAuthCommand cmd;
     cmd.algo_ = iks::DESFIRE_AUTH_ALGO_AES;
     cmd.step_ = 1;
     cmd.key_idt_ =
@@ -1601,15 +1607,23 @@ void DESFireEV1ISO7816Commands::iks_iso_authenticate(std::shared_ptr<DESFireKey>
     auto resp = std::dynamic_pointer_cast<iks::DesfireAuthResponse>(iks.recv());
     EXCEPTION_ASSERT_WITH_LOG(resp, IKSException,
                               "Cannot retrieve proper response from server.");
-    auto cryptogram = std::vector<uint8_t>(resp->data_.begin(), resp->data_.end());
+                              */
+
+    auto cryptogram = ByteVector(step1_resp.encrypted_cryptogram().begin(),
+                                 step1_resp.encrypted_cryptogram().end());
 
     iso_externalAuthenticate(DF_ALG_AES, isMasterCardKey, keyno, cryptogram);
 
-    auto RPCD2 = std::vector<uint8_t>(resp->random2_.begin(), resp->random2_.end());
+    auto RPCD2 = ByteVector(step1_resp.random2().begin(), step1_resp.random2().end());
     cryptogram =
         iso_internalAuthenticate(DF_ALG_AES, isMasterCardKey, keyno, RPCD2, 2 * 16);
 
-    cmd.step_     = 2;
+    CMSG_DesfireAuth_Step2 step2_req;
+    step2_req.set_key_name(std::dynamic_pointer_cast<IKSStorage>(key->getKeyStorage())->getKeyIdentity());
+    step2_req.set_auth_context_id(step1_resp.auth_context_id());
+    step2_req.set_picc_cryptogram(std::string(cryptogram.begin(), cryptogram.end()));
+
+/*    cmd.step_     = 2;
     cmd.div_info_ = iks::KeyDivInfo::build(key, getChip()->getChipIdentifier(), keyno,
                                            crypto->d_currentAid);
 
@@ -1619,6 +1633,9 @@ void DESFireEV1ISO7816Commands::iks_iso_authenticate(std::shared_ptr<DESFireKey>
     EXCEPTION_ASSERT_WITH_LOG(resp, IKSException,
                               "Cannot retrieve proper response from server.");
     EXCEPTION_ASSERT_WITH_LOG(resp->success_, IKSException,
+                              "Mutual authentication failure.");*/
+    SMSG_DesfireAuth_Step2 step2_resp = rpc_client.desfire_auth_step2(step2_req);
+    EXCEPTION_ASSERT_WITH_LOG(step2_resp.success(), IKSException,
                               "Mutual authentication failure.");
 
     crypto->d_currentKeyNo = keyno;
@@ -1626,8 +1643,8 @@ void DESFireEV1ISO7816Commands::iks_iso_authenticate(std::shared_ptr<DESFireKey>
     crypto->d_auth_method = CM_ISO;
 
     // Session key from IKS.
-    crypto->d_sessionKey.insert(crypto->d_sessionKey.end(), resp->data_.begin(),
-                                resp->data_.begin() + 16);
+    crypto->d_sessionKey = ByteVector(step2_resp.session_key().begin(),
+                                      step2_resp.session_key().end());
 
     crypto->d_cipher.reset(new openssl::AESCipher());
     crypto->d_block_size = 16;

@@ -12,6 +12,7 @@
 #include <logicalaccess/plugins/crypto/des_initialization_vector.hpp>
 #include <logicalaccess/bufferhelper.hpp>
 #include <logicalaccess/iks/IslogKeyServer.hpp>
+#include <logicalaccess/iks/IKSRPCClient.hpp>
 
 namespace logicalaccess
 {
@@ -216,8 +217,9 @@ ByteVector CMACCrypto::cmac_iks(const std::string &iks_key_name, const ByteVecto
     ByteVector blankbuf;
     blankbuf.resize(16, 0x00);
     ByteVector L;
-    iks::IslogKeyServer &srv = iks::IslogKeyServer::fromGlobalSettings();
-    L                        = srv.aes_encrypt(blankbuf, iks_key_name, ByteVector(16, 0));
+
+    iks::IKSRPCClient rpc(iks::IslogKeyServer::get_global_config());
+    L                        = rpc.aes_encrypt(blankbuf, iks_key_name, ByteVector(16, 0));
 
     ByteVector K1;
     if ((L[0] & 0x80) == 0x00)
@@ -275,7 +277,7 @@ ByteVector CMACCrypto::cmac_iks(const std::string &iks_key_name, const ByteVecto
         }
     }
 
-    return srv.aes_encrypt(padded_data, iks_key_name, lastIv);
+    return rpc.aes_encrypt(padded_data, iks_key_name, lastIv);
 }
 }
 }
