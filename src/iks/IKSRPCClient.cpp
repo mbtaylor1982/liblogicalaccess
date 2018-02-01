@@ -1,5 +1,6 @@
 #include <logicalaccess/iks/RPCException.hpp>
 #include "logicalaccess/iks/IKSRPCClient.hpp"
+#include <chrono>
 
 namespace logicalaccess
 {
@@ -8,8 +9,17 @@ namespace logicalaccess
 
         IKSRPCClient::IKSRPCClient(IslogKeyServer::IKSConfig config) :
                 config_(config){
-            channel = grpc::CreateChannel("localhost:6565",
-                                          grpc::InsecureChannelCredentials());
+            // Configure gRPC ssl from IKSConfig.
+            grpc::SslCredentialsOptions ssl_opts;
+            ssl_opts.pem_cert_chain = config.get_client_cert_pem();
+            ssl_opts.pem_private_key = config.get_client_key_pem();
+            ssl_opts.pem_root_certs = config.get_root_ca_pem();
+
+            channel = grpc::CreateChannel(config.get_target(),
+                                          grpc::SslCredentials(ssl_opts));
+            auto deadline = std::chrono::system_clock::now() +
+                            std::chrono::milliseconds(10000);
+            channel->WaitForConnected(deadline);
             stub_ = std::unique_ptr<IKSService::Stub>(IKSService::NewStub(channel));
         }
 
@@ -24,7 +34,7 @@ namespace logicalaccess
             {
                 return ByteVector(rep.randombytes().begin(), rep.randombytes().end());
             }
-            throw RPCException(rpc_status.error_details());
+            throw RPCException(rpc_status.error_message() + ": " + rpc_status.error_details());
         }
     }
 }

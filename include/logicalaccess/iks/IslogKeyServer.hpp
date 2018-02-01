@@ -27,9 +27,41 @@ class LIBLOGICALACCESS_API IslogKeyServer
                   const std::string &client_key, const std::string &root_ca);
         std::string ip;
         uint16_t port;
+
+        /**
+         * Path to the file containing the client certificate.
+         */
         std::string client_cert;
+
+        /**
+         * Path to the file containing the client key.
+         */
         std::string client_key;
+
+        /**
+         * Path to the root CA.
+         */
         std::string root_ca;
+
+        /**
+         * Return the *content* (PEM) of the client cert.
+         */
+        std::string get_client_cert_pem() const;
+
+        /**
+         * Retrieve the content of the client's private key.
+         */
+        std::string get_client_key_pem() const;
+
+        /**
+         * Retrieve the root CA content.
+         */
+        std::string get_root_ca_pem() const;
+
+        /**
+         * Network target (host:port).
+         */
+        std::string get_target() const;
     };
 
     /**
