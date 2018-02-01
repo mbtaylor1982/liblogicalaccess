@@ -310,7 +310,8 @@ void IslogKeyServer::configureGlobalInstance(const std::string &ip, uint16_t por
     pre_configuration_ = IKSConfig(ip, port, client_cert, client_key, root_ca);
 }
 
-IslogKeyServer::IKSConfig IslogKeyServer::get_global_config() {
+IslogKeyServer::IKSConfig IslogKeyServer::get_global_config()
+{
     return pre_configuration_;
 }
 
@@ -330,7 +331,8 @@ std::string read_file_content(const std::string &filepath)
 {
     std::ifstream ifs(filepath.c_str(), std::ios::in | std::ios::binary | std::ios::ate);
 
-    if (ifs.good()) {
+    if (ifs.good())
+    {
         std::ifstream::pos_type fileSize = ifs.tellg();
         ifs.seekg(0, std::ios::beg);
 
@@ -341,19 +343,23 @@ std::string read_file_content(const std::string &filepath)
     throw LibLogicalAccessException("Cannot open file {" + filepath + "}");
 }
 
-std::string IslogKeyServer::IKSConfig::get_client_cert_pem() const {
+std::string IslogKeyServer::IKSConfig::get_client_cert_pem() const
+{
     return read_file_content(client_cert);
 }
 
-std::string IslogKeyServer::IKSConfig::get_client_key_pem() const {
+std::string IslogKeyServer::IKSConfig::get_client_key_pem() const
+{
     return read_file_content(client_key);
 }
 
-std::string IslogKeyServer::IKSConfig::get_root_ca_pem() const {
+std::string IslogKeyServer::IKSConfig::get_root_ca_pem() const
+{
     return read_file_content(root_ca);
 }
 
-std::string IslogKeyServer::IKSConfig::get_target() const {
+std::string IslogKeyServer::IKSConfig::get_target() const
+{
     std::stringstream ss;
 
     ss << ip << ':' << port;
