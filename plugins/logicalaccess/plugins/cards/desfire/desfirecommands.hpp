@@ -531,6 +531,18 @@ class LIBLOGICALACCESS_API DESFireCommands : public Commands
      */
     virtual DESFireCardVersion getVersion() = 0;
 
+    /**
+     * Get the IKS signature corresponding to the last readData() call.
+     *
+     * This will return the empty string by default, and will only work if both:
+     *    1) DESFireEV1ISO7816 is used.
+     *    2) An IKS backed is used.
+     */
+    virtual std::string IKS_getLastReadSignature() const
+    {
+        return "";
+    }
+
   protected:
     std::shared_ptr<DESFireChip> getDESFireChip() const;
 };

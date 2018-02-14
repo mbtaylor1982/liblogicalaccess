@@ -382,14 +382,24 @@ class LIBLOGICALACCESS_API DESFireEV1ISO7816Commands : public DESFireISO7816Comm
         return DESFireISO7816Commands::getReaderCardAdapter();
     }
 
+    /**
+     * Retrieve the IKS signature corresponding the last PARTIAL read.
+     * todo: Should retrieve something for the whole readData() block.
+     *
+     * But currently this work using the underlying DESFireCrypto and
+     * therefore signature can only be retrieve for by block passed
+     * to handleReadData().
+     */
+    std::string IKS_getLastReadSignature() const override;
+
   protected:
     /**
-            * \brief Generic method to send read file cmd.
-            * \param cmd The command to send
-            * \param data The command parameters
-            * \param mode The communication mode
-            * \return The data buffer.
-            */
+     * \brief Generic method to send read file cmd.
+     * \param cmd The command to send
+     * \param data The command parameters
+     * \param mode The communication mode
+     * \return The data buffer.
+     */
     virtual ByteVector handleReadCmd(unsigned char cmd, const ByteVector &data,
                                      EncryptionMode mode);
 
@@ -474,6 +484,9 @@ class LIBLOGICALACCESS_API DESFireEV1ISO7816Commands : public DESFireISO7816Comm
     {
         return std::make_shared<ISO7816ISO7816Commands>();
     }
+
+  protected:
+    std::string handle_read_data_last_sig_;
 };
 }
 

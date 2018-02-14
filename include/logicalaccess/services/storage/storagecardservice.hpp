@@ -79,6 +79,18 @@ class LIBLOGICALACCESS_API StorageCardService : public CardService
      */
     virtual ByteVector readDataHeader(std::shared_ptr<Location> location,
                                       std::shared_ptr<AccessInfo> aiToUse) = 0;
+
+    /**
+     * Retrieve the signature for the data that were read last.
+     * This is an IKS specific feature.
+     */
+    std::string IKS_getLastReadSignature()
+    {
+        return last_read_signature_;
+    }
+
+  protected:
+    std::string last_read_signature_;
 };
 }
 
