@@ -1053,8 +1053,11 @@ ByteVector DESFireCrypto::desfire_iso_decrypt(
     {
         // Delegate cryptography to the IKS.
         iks::IKSRPCClient rpc(iks::IslogKeyServer::get_global_config());
-        decdata  = rpc.aes_decrypt(data, iks_wrapper_->remote_key_name, d_lastIV);
-        d_lastIV = ByteVector(data.end() - block_size, data.end());
+        std::string signature;
+        decdata =
+            rpc.aes_decrypt(data, iks_wrapper_->remote_key_name, d_lastIV, &signature);
+        d_lastIV               = ByteVector(data.end() - block_size, data.end());
+        iks_wrapper_->last_sig = signature;
     }
     LOG(DEBUGS) << "Decrypted data: " << decdata;
 
@@ -1346,5 +1349,13 @@ void DESFireCrypto::setKeyInAllKeySet(size_t aid, uint8_t keySlotNb, uint8_t nbK
 {
     for (auto x = 0; x < nbKeys; ++x)
         d_keys[std::make_tuple(aid, keySlotNb, x)] = key;
+}
+
+std::string DESFireCrypto::get_last_signature() const
+{
+    if (iks_wrapper_)
+        return iks_wrapper_->last_sig;
+
+    return "";
 }
 }

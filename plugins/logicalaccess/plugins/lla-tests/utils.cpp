@@ -34,8 +34,8 @@ pcsc_test_init(const std::string &card_type /* = "" */)
     readerConfig->setReaderProvider(provider);
 
     const logicalaccess::ReaderList readers =
-            readerConfig->getReaderProvider()->getReaderList();
-    //auto readerUnit = readerConfig->getReaderProvider()->createReaderUnit();
+        readerConfig->getReaderProvider()->getReaderList();
+    // auto readerUnit = readerConfig->getReaderProvider()->createReaderUnit();
     readerConfig->setReaderUnit(readers.at(2));
     auto readerUnit = readerConfig->getReaderUnit();
 

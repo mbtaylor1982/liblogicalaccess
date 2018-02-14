@@ -55,6 +55,17 @@ class LIBLOGICALACCESS_API AccessControlCardService : public CardService
                                                std::shared_ptr<AccessInfo> aiToUse);
 
     /**
+     * IKS Related call.
+     *
+     * This is when IKS sign decrypted packet as a proof that they
+     * were read using a DESFire Session Key stored on IKS.
+     */
+    std::string IKS_getPayloadSignature() const
+    {
+        return last_signature_;
+    }
+
+    /**
      * \brief Write format to the card.
      * \param format The format to write.
      * \param location The format location.
@@ -78,6 +89,9 @@ class LIBLOGICALACCESS_API AccessControlCardService : public CardService
     * \return The format list.
     */
     FormatList getHIDWiegandFormatList() const;
+
+  protected:
+    std::string last_signature_;
 };
 }
 
