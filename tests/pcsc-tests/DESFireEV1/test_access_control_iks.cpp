@@ -63,13 +63,16 @@ int main(int ac, char **av) {
 
     std::shared_ptr<DESFireKey> key(new DESFireKey());
     key->setKeyType(DF_KEY_AES);
-    key->setKeyStorage(std::make_shared<IKSStorage>("zero"));
+
+    //key->setKeyStorage(std::make_shared<IKSStorage>("00000000-0000-0000-0000-000000000000"));
+    key->setKeyStorage(std::make_shared<IKSStorage>("ac915136-545a-4599-b2c5-41d136e29cc3"));
+    //key->setKeyStorage(std::make_shared<IKSStorage>("44a68205-b486-4867-95d6-26f8c09d5729"));
     //key->fromString("00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00");
 
     cmd->selectApplication(0x000521);
     cmdev1->authenticate(0, key);
 
-    auto ret = cmd->readData(0, 0, 68, logicalaccess::EncryptionMode::CM_ENCRYPT);
+    auto ret = cmd->readData(1, 0, 4, logicalaccess::EncryptionMode::CM_ENCRYPT);
     std::cout << "Read data: " << ret << std::endl;
 
     return 0;
