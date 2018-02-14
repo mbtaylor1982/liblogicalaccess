@@ -16,6 +16,9 @@ IKSRPCClient::IKSRPCClient(IslogKeyServer::IKSConfig config)
     ssl_opts.pem_root_certs  = config.get_root_ca_pem();
 
     channel = grpc::CreateChannel(config.get_target(), grpc::SslCredentials(ssl_opts));
+    // test only, no ssl.
+    //channel = grpc::CreateChannel(config.get_target(), grpc::InsecureChannelCredentials());
+
     auto deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(10000);
     channel->WaitForConnected(deadline);
     stub_ = std::unique_ptr<IKSService::Stub>(IKSService::NewStub(channel));
@@ -41,7 +44,7 @@ ByteVector IKSRPCClient::aes_encrypt(const ByteVector &in, const std::string &ke
 {
     grpc::ClientContext context;
     CMSG_AESOperation req;
-    req.set_key_name(key_name);
+    req.set_key_uuid(key_name);
     req.set_payload(std::string(in.begin(), in.end()));
     req.set_iv(std::string(iv.begin(), iv.end()));
 
@@ -59,7 +62,7 @@ ByteVector IKSRPCClient::aes_decrypt(const ByteVector &in, const std::string &ke
 {
     grpc::ClientContext context;
     CMSG_AESOperation req;
-    req.set_key_name(key_name);
+    req.set_key_uuid(key_name);
     req.set_payload(std::string(in.begin(), in.end()));
     req.set_iv(std::string(iv.begin(), iv.end()));
 

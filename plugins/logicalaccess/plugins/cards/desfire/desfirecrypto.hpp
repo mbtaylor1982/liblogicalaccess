@@ -37,7 +37,7 @@ struct IKSCryptoWrapper
     std::string remote_key_name;
 
     IKSCryptoWrapper()
-        : remote_key_name("session_key")
+        : remote_key_name()
     {
     }
 };

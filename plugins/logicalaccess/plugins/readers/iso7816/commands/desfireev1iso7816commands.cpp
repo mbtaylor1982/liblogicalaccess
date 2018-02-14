@@ -1592,7 +1592,7 @@ void DESFireEV1ISO7816Commands::iks_iso_authenticate(std::shared_ptr<DESFireKey>
 
     iks::IKSRPCClient rpc_client(iks::IslogKeyServer::get_global_config());
     CMSG_DesfireAuth_Step1 step1_req;
-    step1_req.set_key_name(
+    step1_req.set_key_uuid(
         std::dynamic_pointer_cast<IKSStorage>(key->getKeyStorage())->getKeyIdentity());
     step1_req.set_random_picc(std::string(RPICC1.begin(), RPICC1.end()));
 
@@ -1623,7 +1623,7 @@ void DESFireEV1ISO7816Commands::iks_iso_authenticate(std::shared_ptr<DESFireKey>
         iso_internalAuthenticate(DF_ALG_AES, isMasterCardKey, keyno, RPCD2, 2 * 16);
 
     CMSG_DesfireAuth_Step2 step2_req;
-    step2_req.set_key_name(
+    step2_req.set_key_uuid(
         std::dynamic_pointer_cast<IKSStorage>(key->getKeyStorage())->getKeyIdentity());
     step2_req.set_auth_context_id(step1_resp.auth_context_id());
     step2_req.set_picc_cryptogram(std::string(cryptogram.begin(), cryptogram.end()));
@@ -1647,9 +1647,20 @@ void DESFireEV1ISO7816Commands::iks_iso_authenticate(std::shared_ptr<DESFireKey>
     crypto->d_sessionKey.clear();
     crypto->d_auth_method = CM_ISO;
 
-    // Session key from IKS.
-    crypto->d_sessionKey =
-        ByteVector(step2_resp.session_key().begin(), step2_resp.session_key().end());
+    // Session key from IKS. Either it is an IKS key reference, or directly
+    // the key value.
+    if (!step2_resp.session_key().empty()) {
+        crypto->d_sessionKey =
+                ByteVector(step2_resp.session_key().begin(), step2_resp.session_key().end());
+    }
+    else
+    {
+        // We received a Key reference. We need to instanciate an IKSCryptoWrapper
+        // for use by DESFireCrypto so CMAC calculation and stuff like that goes
+        // through IKS.
+        crypto->iks_wrapper_ = std::make_unique<IKSCryptoWrapper>();
+        crypto->iks_wrapper_->remote_key_name = step2_resp.session_key_ref();
+    }
 
     crypto->d_cipher.reset(new openssl::AESCipher());
     crypto->d_block_size = 16;
@@ -1669,22 +1680,6 @@ void DESFireEV1ISO7816Commands::selectApplication(unsigned int aid)
 
 void DESFireEV1ISO7816Commands::onAuthenticated()
 {
-    auto crypto = getDESFireChip()->getCrypto();
-    LOG(DEBUGS) << "We have authenticated: Current session key is: "
-                << crypto->d_sessionKey;
-
-    std::cout << "SESSION KEY: " << BufferHelper::getHex(crypto->d_sessionKey)
-              << std::endl;
-
-    // Reset the key so we lose it... this is to simulate prod behavior later.
-    crypto->d_sessionKey = ByteVector(16, 0);
-
-    // todo: clean up.
-    // For PoC only: we use this hook to setup remote crypto for the desfire.
-    // IKS does not support DesfireAuth proto yet. so we inject a key here.
-
-    crypto->iks_wrapper_ = std::make_unique<IKSCryptoWrapper>();
-
     // If we don't have the read UID, we retrieve it
     if (!getDESFireChip()->hasRealUID())
     {
