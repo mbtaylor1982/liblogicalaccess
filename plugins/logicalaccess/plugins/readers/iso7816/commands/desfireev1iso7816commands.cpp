@@ -1649,16 +1649,18 @@ void DESFireEV1ISO7816Commands::iks_iso_authenticate(std::shared_ptr<DESFireKey>
 
     // Session key from IKS. Either it is an IKS key reference, or directly
     // the key value.
-    if (!step2_resp.session_key().empty()) {
+    if (!step2_resp.session_key().empty())
+    {
+        // Raw key material. Use as is.
         crypto->d_sessionKey =
-                ByteVector(step2_resp.session_key().begin(), step2_resp.session_key().end());
+            ByteVector(step2_resp.session_key().begin(), step2_resp.session_key().end());
     }
     else
     {
-        // We received a Key reference. We need to instanciate an IKSCryptoWrapper
-        // for use by DESFireCrypto so CMAC calculation and stuff like that goes
-        // through IKS.
-        crypto->iks_wrapper_ = std::make_unique<IKSCryptoWrapper>();
+        // We received a KeyReference. We need to create an IKSCryptoWrapper
+        // for use by DESFireCrypto so CMAC calculation, data decryption and stuff
+        // like that gets rerouted through IKS.
+        crypto->iks_wrapper_                  = std::make_unique<IKSCryptoWrapper>();
         crypto->iks_wrapper_->remote_key_name = step2_resp.session_key_ref();
     }
 

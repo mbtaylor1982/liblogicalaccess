@@ -1053,8 +1053,11 @@ ByteVector DESFireCrypto::desfire_iso_decrypt(
     {
         // Delegate cryptography to the IKS.
         iks::IKSRPCClient rpc(iks::IslogKeyServer::get_global_config());
-        decdata  = rpc.aes_decrypt(data, iks_wrapper_->remote_key_name, d_lastIV);
-        d_lastIV = ByteVector(data.end() - block_size, data.end());
+        std::string signature;
+        decdata =
+            rpc.aes_decrypt(data, iks_wrapper_->remote_key_name, d_lastIV, &signature);
+        d_lastIV               = ByteVector(data.end() - block_size, data.end());
+        iks_wrapper_->last_sig = signature;
     }
     LOG(DEBUGS) << "Decrypted data: " << decdata;
 
