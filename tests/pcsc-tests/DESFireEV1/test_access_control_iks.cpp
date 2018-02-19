@@ -72,7 +72,10 @@ int main(int ac, char **av) {
 
     std::shared_ptr<DESFireKey> key(new DESFireKey());
     key->setKeyType(DF_KEY_AES);
-    key->setKeyStorage(std::make_shared<IKSStorage>("f252b8b0-671c-4aef-b60e-00f4546ba585"));
+    //key->fromString("00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00");
+    //key->setKeyStorage(std::make_shared<IKSStorage>("d852a915-7435-464d-9fbf-680d056c827b"));
+    //key->setKeyStorage(std::make_shared<IKSStorage>("a83532a3-022d-4d3c-a8e3-c03f92f76ee4"));
+    key->setKeyStorage(std::make_shared<IKSStorage>("e5eb5e5a-36a9-43e1-9f9d-c5d1e04a7ae2"));
     auto ai = std::make_shared<DESFireAccessInfo>();
     ai->readKey = key;
     auto fmt_result = acs->readFormat(fmt, loc, ai);
