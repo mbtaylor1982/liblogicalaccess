@@ -23,7 +23,6 @@ static const char* IKSService_method_names[] = {
 };
 
 std::unique_ptr< IKSService::Stub> IKSService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
-  (void)options;
   std::unique_ptr< IKSService::Stub> stub(new IKSService::Stub(channel));
   return stub;
 }
