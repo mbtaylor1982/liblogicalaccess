@@ -33,10 +33,10 @@ static void test_big()
 
 int test_grpc()
 {
-    iks::IslogKeyServer::IKSConfig config("localhost",
+    iks::IslogKeyServer::IKSConfig config("10.100.0.49",
             6565,
-            "/home/xaqq/Documents/iks/crypto/MyClient1.pem",
-            "/home/xaqq/Documents/iks/crypto/MyClient1.key",
+            "/home/xaqq/Documents/iks/crypto/arnaud.pem",
+            "/home/xaqq/Documents/iks/crypto/arnaud.key",
             "/home/xaqq/Documents/iks/crypto/MyRootCA.pem");
 
     iks::IKSRPCClient rpc(config);
@@ -44,23 +44,23 @@ int test_grpc()
 }
 
 int main(int ac, char **av) {
-    iks::IslogKeyServer::configureGlobalInstance("localhost",
+    iks::IslogKeyServer::configureGlobalInstance("iksf",
                                                  6565,
-                                                 "/home/xaqq/Documents/iks/crypto/MyClient1.pem",
-                                                 "/home/xaqq/Documents/iks/crypto/MyClient1.key",
+                                                 "/home/xaqq/Documents/iks/crypto/arnaud.pem",
+                                                 "/home/xaqq/Documents/iks/crypto/arnaud.key",
                                                  "/home/xaqq/Documents/iks/crypto/MyRootCA.pem");
 
-    iks::IslogKeyServer::configureGlobalInstance("127.0.0.1",
-                                                 50051,
+/*    iks::IslogKeyServer::configureGlobalInstance("10.100.0.49",
+                                                 6565,
                                                  "",
                                                  "",
-                                                 "");
+                                                 "");*/
     iks::IKSRPCClient rpc(iks::IslogKeyServer::get_global_config());
 
     if (ac == 2)
         key_name = std::string(av[1]);
     else
-        key_name = "zero";
+        key_name = "00000000-0000-0000-0000-000000000000";
 
     //rpc.get_random(17);
     auto bytes = ByteVector{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
