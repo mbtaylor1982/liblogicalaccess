@@ -44,10 +44,10 @@ int main(int ac, char **av) {
     ChipPtr chip;
     tie(provider, readerUnit, chip) = lla_test_init();
 
-    iks::IslogKeyServer::configureGlobalInstance("localhost",
+    iks::IslogKeyServer::configureGlobalInstance("iksf",
                                                  6565,
-                                                 "/home/xaqq/Documents/iks/crypto/MyClient1.pem",
-                                                 "/home/xaqq/Documents/iks/crypto/MyClient1.key",
+                                                 "/home/xaqq/Documents/iks/crypto/arnaud.pem",
+                                                 "/home/xaqq/Documents/iks/crypto/arnaud.key",
                                                  "/home/xaqq/Documents/iks/crypto/MyRootCA.pem");
 
     PRINT_TIME("Chip identifier: "
@@ -75,7 +75,7 @@ int main(int ac, char **av) {
     //key->fromString("00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00");
     //key->setKeyStorage(std::make_shared<IKSStorage>("d852a915-7435-464d-9fbf-680d056c827b"));
     //key->setKeyStorage(std::make_shared<IKSStorage>("a83532a3-022d-4d3c-a8e3-c03f92f76ee4"));
-    key->setKeyStorage(std::make_shared<IKSStorage>("e5eb5e5a-36a9-43e1-9f9d-c5d1e04a7ae2"));
+    key->setKeyStorage(std::make_shared<IKSStorage>("e8c0e771-3db8-4f53-9209-98ba4209ca59"));
     auto ai = std::make_shared<DESFireAccessInfo>();
     ai->readKey = key;
     auto fmt_result = acs->readFormat(fmt, loc, ai);
