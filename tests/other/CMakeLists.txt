@@ -9,4 +9,4 @@ ${CMAKE_SOURCE_DIR}/plugins/
 )
 
 lla_create_test(other test_access_control_format_prox)
-
+lla_create_test(other test_iks_soft)
