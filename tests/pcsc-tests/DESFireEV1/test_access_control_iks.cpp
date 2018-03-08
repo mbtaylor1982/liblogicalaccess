@@ -74,7 +74,7 @@ int main(int ac, char **av) {
     key->setKeyType(DF_KEY_AES);
     //key->fromString("00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00");
     //key->setKeyStorage(std::make_shared<IKSStorage>("d852a915-7435-464d-9fbf-680d056c827b"));
-    //key->setKeyStorage(std::make_shared<IKSStorage>("a83532a3-022d-4d3c-a8e3-c03f92f76ee4"));
+    //key->setKeyStorage(std::make_shared<IKSStorage>("df30845a-3ca4-40ab-91f4-f45cb2e37b67"));
     key->setKeyStorage(std::make_shared<IKSStorage>("e8c0e771-3db8-4f53-9209-98ba4209ca59"));
     auto ai = std::make_shared<DESFireAccessInfo>();
     ai->readKey = key;

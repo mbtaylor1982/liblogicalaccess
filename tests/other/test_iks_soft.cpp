@@ -14,7 +14,7 @@ static void test_big()
     iks::IKSRPCClient rpc(iks::IslogKeyServer::get_global_config());
     std::cout << "Testing with big payload" << std::endl;
 
-    for (int count = 0 ; count < 100;++count)
+    for (int count = 0 ; count < 1;++count)
     {
 
     auto bytes = ByteVector{};
@@ -72,7 +72,7 @@ int main(int ac, char **av) {
     auto decrypted = rpc.aes_decrypt(encrypted, key_name, iv);
     std::cout << "Decrypted: " << decrypted << std::endl;
     assert(bytes == decrypted);
-
-    for (auto i = 0 ; i < 100; i++)
-        test_big();
+/*
+    for (auto i = 0 ; i < 1; i++)
+        test_big();*/
 }
