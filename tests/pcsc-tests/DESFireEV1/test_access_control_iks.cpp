@@ -21,10 +21,11 @@
 #include <logicalaccess/plugins/lla-tests/utils.hpp>
 #include <logicalaccess/services/accesscontrol/formats/rawformat.hpp>
 #include <logicalaccess/services/accesscontrol/formats/customformat/customformat.hpp>
+#include <logicalaccess/iks/RPCException.hpp>
 
 void introduction() {
     PRINT_TIME("This test target DESFireEV1 cards. It tests that we are "
-                       "can read data from a card w/o knowing the session key");
+               "can read data from a card w/o knowing the session key");
 
     PRINT_TIME("You will have 20 seconds to insert a card. Test log below");
     PRINT_TIME("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -59,8 +60,8 @@ int main(int ac, char **av) {
     auto storage =
             std::dynamic_pointer_cast<StorageCardService>(chip->getService(CST_STORAGE));
     std::shared_ptr<AccessControlCardService> acs =
-        std::dynamic_pointer_cast<AccessControlCardService>(
-            chip->getService(CST_ACCESS_CONTROL));
+            std::dynamic_pointer_cast<AccessControlCardService>(
+                    chip->getService(CST_ACCESS_CONTROL));
 
     auto fmt = std::make_shared<RawFormat>();
     // Yeah we need this hack to specify the size we need.
@@ -75,35 +76,28 @@ int main(int ac, char **av) {
     //key->fromString("00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00");
     //key->setKeyStorage(std::make_shared<IKSStorage>("d852a915-7435-464d-9fbf-680d056c827b"));
     //key->setKeyStorage(std::make_shared<IKSStorage>("df30845a-3ca4-40ab-91f4-f45cb2e37b67"));
-    key->setKeyStorage(std::make_shared<IKSStorage>("e8c0e771-3db8-4f53-9209-98ba4209ca59"));
+    auto kst = std::make_shared<IKSStorage>("36ff2fbc-dcf5-413b-a274-b9531fdbd92c");
+    key->setKeyStorage(kst);
     auto ai = std::make_shared<DESFireAccessInfo>();
     ai->readKey = key;
-    auto fmt_result = acs->readFormat(fmt, loc, ai);
 
-    if (!fmt_result)
-    {
-        std::cout << "Failed to read access information." << std::endl;
-        return-1;
+    try {
+        auto fmt_result = acs->readFormat(fmt, loc, ai);
+
+        if (!fmt_result) {
+            std::cout << "Failed to read access information." << std::endl;
+            return -1;
+        }
+
+        std::cout << "Read data: " << fmt_result->getLinearData() << std::endl;
+        auto sig_str = acs->IKS_getPayloadSignature();
+        std::cout << "HAHAHAH: " << BufferHelper::getHex(sig_str) << std::endl;
+        ByteVector signature(sig_str.begin(), sig_str.end());
+        std::cout << "Signature: " << signature << std::endl;
+    }
+    catch (const iks::RPCException &e) {
+        std::cerr << "Something went wrong: " << e.what() << std::endl;
     }
 
-    std::cout << "Read data: " << fmt_result->getLinearData() << std::endl;
-    auto sig_str = acs->IKS_getPayloadSignature();
-    ByteVector signature(sig_str.begin(), sig_str.end());
-    std::cout << "Signature: " << signature << std::endl;
-
-    /*
-    auto cmd = std::dynamic_pointer_cast<DESFireISO7816Commands>(chip->getCommands());
-    std::shared_ptr<DESFireEV1ISO7816Commands> cmdev1 =
-            std::dynamic_pointer_cast<DESFireEV1ISO7816Commands>(chip->getCommands());
-
-    //key->setKeyStorage(std::make_shared<IKSStorage>("00000000-0000-0000-0000-000000000000"));
-    //key->setKeyStorage(std::make_shared<IKSStorage>("44a68205-b486-4867-95d6-26f8c09d5729"));
-    //key->fromString("00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00");
-
-    cmd->selectApplication(0x000521);
-    cmdev1->authenticate(0, key);
-
-    auto ret = cmd->readData(1, 0, 4, logicalaccess::EncryptionMode::CM_ENCRYPT);
-*/
     return 0;
 }

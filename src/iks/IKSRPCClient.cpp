@@ -1,6 +1,7 @@
 #include <logicalaccess/iks/RPCException.hpp>
 #include "logicalaccess/iks/IKSRPCClient.hpp"
 #include <chrono>
+#include <logicalaccess/bufferhelper.hpp>
 
 namespace logicalaccess
 {
@@ -76,6 +77,9 @@ ByteVector IKSRPCClient::aes_decrypt(const ByteVector &in, const std::string &ke
         {
             // copy signature.
             *out_signature = rep.signature();
+            SignatureDescription sig_desc = rep.signaturedescription();
+            std::cout << "Signed with nonce: " << sig_desc.nonce() << ", uuid: " << BufferHelper::getHex(sig_desc.uuid()) << std::endl;
+            std::cout << "SIG: " << BufferHelper::getHex(rep.signature()) << std::endl;
         }
         return ByteVector(rep.payload().begin(), rep.payload().end());
     }

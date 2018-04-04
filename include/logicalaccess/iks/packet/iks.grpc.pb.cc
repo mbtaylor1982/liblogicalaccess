@@ -20,6 +20,7 @@ static const char* IKSService_method_names[] = {
   "/IKSService/AESDecrypt",
   "/IKSService/DESFireAuth1",
   "/IKSService/DESFireAuth2",
+  "/IKSService/DESFireChangeKey",
 };
 
 std::unique_ptr< IKSService::Stub> IKSService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -34,6 +35,7 @@ IKSService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel
   , rpcmethod_AESDecrypt_(IKSService_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_DESFireAuth1_(IKSService_method_names[3], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_DESFireAuth2_(IKSService_method_names[4], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_DESFireChangeKey_(IKSService_method_names[5], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status IKSService::Stub::GenRandom(::grpc::ClientContext* context, const ::CMSG_GenRandom& request, ::SMSG_GenRandom* response) {
@@ -96,6 +98,18 @@ IKSService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel
   return ::grpc::internal::ClientAsyncResponseReaderFactory< ::SMSG_DesfireAuth_Step2>::Create(channel_.get(), cq, rpcmethod_DESFireAuth2_, context, request, false);
 }
 
+::grpc::Status IKSService::Stub::DESFireChangeKey(::grpc::ClientContext* context, const ::CMSG_DesfireChangeKey& request, ::SMSG_DesfireChangeKey* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_DESFireChangeKey_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::SMSG_DesfireChangeKey>* IKSService::Stub::AsyncDESFireChangeKeyRaw(::grpc::ClientContext* context, const ::CMSG_DesfireChangeKey& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::SMSG_DesfireChangeKey>::Create(channel_.get(), cq, rpcmethod_DESFireChangeKey_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::SMSG_DesfireChangeKey>* IKSService::Stub::PrepareAsyncDESFireChangeKeyRaw(::grpc::ClientContext* context, const ::CMSG_DesfireChangeKey& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::SMSG_DesfireChangeKey>::Create(channel_.get(), cq, rpcmethod_DESFireChangeKey_, context, request, false);
+}
+
 IKSService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       IKSService_method_names[0],
@@ -122,6 +136,11 @@ IKSService::Service::Service() {
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< IKSService::Service, ::CMSG_DesfireAuth_Step2, ::SMSG_DesfireAuth_Step2>(
           std::mem_fn(&IKSService::Service::DESFireAuth2), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      IKSService_method_names[5],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< IKSService::Service, ::CMSG_DesfireChangeKey, ::SMSG_DesfireChangeKey>(
+          std::mem_fn(&IKSService::Service::DESFireChangeKey), this)));
 }
 
 IKSService::Service::~Service() {
@@ -156,6 +175,13 @@ IKSService::Service::~Service() {
 }
 
 ::grpc::Status IKSService::Service::DESFireAuth2(::grpc::ServerContext* context, const ::CMSG_DesfireAuth_Step2* request, ::SMSG_DesfireAuth_Step2* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status IKSService::Service::DESFireChangeKey(::grpc::ServerContext* context, const ::CMSG_DesfireChangeKey* request, ::SMSG_DesfireChangeKey* response) {
   (void) context;
   (void) request;
   (void) response;

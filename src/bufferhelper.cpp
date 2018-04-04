@@ -135,6 +135,10 @@ std::string BufferHelper::getHex(const ByteVector &buffer)
     return result;
 }
 
+    std::string BufferHelper::getHex(const std::string &buffer) {
+        return getHex(ByteVector(buffer.begin(), buffer.end()));
+    }
+
 std::string BufferHelper::toBase64(const ByteVector &buf)
 {
     std::string result;
@@ -309,4 +313,5 @@ void BufferHelper::setString(ByteVector &buffer, const std::string &value)
 {
     buffer.insert(buffer.end(), value.begin(), value.end());
 }
+
 }

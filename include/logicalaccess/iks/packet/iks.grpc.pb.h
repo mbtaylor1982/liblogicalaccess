@@ -23,6 +23,9 @@ class ServerCompletionQueue;
 class ServerContext;
 }  // namespace grpc
 
+// The IKSF service, exposed to remote client.
+// This API is used by LibLogicalAccess to provide
+// server side cryptography.
 class IKSService final {
  public:
   static constexpr char const* service_full_name() {
@@ -73,6 +76,16 @@ class IKSService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step2>> PrepareAsyncDESFireAuth2(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step2>>(PrepareAsyncDESFireAuth2Raw(context, request, cq));
     }
+    // Generate DESFire change-key cryptogram where both keys
+    // are stored by IKS.
+    // This call is forward to IKSD which perform the cryptogram generation.
+    virtual ::grpc::Status DESFireChangeKey(::grpc::ClientContext* context, const ::CMSG_DesfireChangeKey& request, ::SMSG_DesfireChangeKey* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireChangeKey>> AsyncDESFireChangeKey(::grpc::ClientContext* context, const ::CMSG_DesfireChangeKey& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireChangeKey>>(AsyncDESFireChangeKeyRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireChangeKey>> PrepareAsyncDESFireChangeKey(::grpc::ClientContext* context, const ::CMSG_DesfireChangeKey& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireChangeKey>>(PrepareAsyncDESFireChangeKeyRaw(context, request, cq));
+    }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_GenRandom>* AsyncGenRandomRaw(::grpc::ClientContext* context, const ::CMSG_GenRandom& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_GenRandom>* PrepareAsyncGenRandomRaw(::grpc::ClientContext* context, const ::CMSG_GenRandom& request, ::grpc::CompletionQueue* cq) = 0;
@@ -84,6 +97,8 @@ class IKSService final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step1>* PrepareAsyncDESFireAuth1Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step1& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step2>* AsyncDESFireAuth2Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step2>* PrepareAsyncDESFireAuth2Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireChangeKey>* AsyncDESFireChangeKeyRaw(::grpc::ClientContext* context, const ::CMSG_DesfireChangeKey& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireChangeKey>* PrepareAsyncDESFireChangeKeyRaw(::grpc::ClientContext* context, const ::CMSG_DesfireChangeKey& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -123,6 +138,13 @@ class IKSService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>> PrepareAsyncDESFireAuth2(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>>(PrepareAsyncDESFireAuth2Raw(context, request, cq));
     }
+    ::grpc::Status DESFireChangeKey(::grpc::ClientContext* context, const ::CMSG_DesfireChangeKey& request, ::SMSG_DesfireChangeKey* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireChangeKey>> AsyncDESFireChangeKey(::grpc::ClientContext* context, const ::CMSG_DesfireChangeKey& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireChangeKey>>(AsyncDESFireChangeKeyRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireChangeKey>> PrepareAsyncDESFireChangeKey(::grpc::ClientContext* context, const ::CMSG_DesfireChangeKey& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireChangeKey>>(PrepareAsyncDESFireChangeKeyRaw(context, request, cq));
+    }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
@@ -136,11 +158,14 @@ class IKSService final {
     ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step1>* PrepareAsyncDESFireAuth1Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step1& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>* AsyncDESFireAuth2Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>* PrepareAsyncDESFireAuth2Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireChangeKey>* AsyncDESFireChangeKeyRaw(::grpc::ClientContext* context, const ::CMSG_DesfireChangeKey& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireChangeKey>* PrepareAsyncDESFireChangeKeyRaw(::grpc::ClientContext* context, const ::CMSG_DesfireChangeKey& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_GenRandom_;
     const ::grpc::internal::RpcMethod rpcmethod_AESEncrypt_;
     const ::grpc::internal::RpcMethod rpcmethod_AESDecrypt_;
     const ::grpc::internal::RpcMethod rpcmethod_DESFireAuth1_;
     const ::grpc::internal::RpcMethod rpcmethod_DESFireAuth2_;
+    const ::grpc::internal::RpcMethod rpcmethod_DESFireChangeKey_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -160,6 +185,10 @@ class IKSService final {
     virtual ::grpc::Status DESFireAuth1(::grpc::ServerContext* context, const ::CMSG_DesfireAuth_Step1* request, ::SMSG_DesfireAuth_Step1* response);
     // Desfire Authentication -- Step 2
     virtual ::grpc::Status DESFireAuth2(::grpc::ServerContext* context, const ::CMSG_DesfireAuth_Step2* request, ::SMSG_DesfireAuth_Step2* response);
+    // Generate DESFire change-key cryptogram where both keys
+    // are stored by IKS.
+    // This call is forward to IKSD which perform the cryptogram generation.
+    virtual ::grpc::Status DESFireChangeKey(::grpc::ServerContext* context, const ::CMSG_DesfireChangeKey* request, ::SMSG_DesfireChangeKey* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_GenRandom : public BaseClass {
@@ -261,7 +290,27 @@ class IKSService final {
       ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_GenRandom<WithAsyncMethod_AESEncrypt<WithAsyncMethod_AESDecrypt<WithAsyncMethod_DESFireAuth1<WithAsyncMethod_DESFireAuth2<Service > > > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_DESFireChangeKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_DESFireChangeKey() {
+      ::grpc::Service::MarkMethodAsync(5);
+    }
+    ~WithAsyncMethod_DESFireChangeKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DESFireChangeKey(::grpc::ServerContext* context, const ::CMSG_DesfireChangeKey* request, ::SMSG_DesfireChangeKey* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestDESFireChangeKey(::grpc::ServerContext* context, ::CMSG_DesfireChangeKey* request, ::grpc::ServerAsyncResponseWriter< ::SMSG_DesfireChangeKey>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_GenRandom<WithAsyncMethod_AESEncrypt<WithAsyncMethod_AESDecrypt<WithAsyncMethod_DESFireAuth1<WithAsyncMethod_DESFireAuth2<WithAsyncMethod_DESFireChangeKey<Service > > > > > > AsyncService;
   template <class BaseClass>
   class WithGenericMethod_GenRandom : public BaseClass {
    private:
@@ -343,6 +392,23 @@ class IKSService final {
     }
     // disable synchronous version of this method
     ::grpc::Status DESFireAuth2(::grpc::ServerContext* context, const ::CMSG_DesfireAuth_Step2* request, ::SMSG_DesfireAuth_Step2* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_DESFireChangeKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_DESFireChangeKey() {
+      ::grpc::Service::MarkMethodGeneric(5);
+    }
+    ~WithGenericMethod_DESFireChangeKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DESFireChangeKey(::grpc::ServerContext* context, const ::CMSG_DesfireChangeKey* request, ::SMSG_DesfireChangeKey* response) final override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -447,9 +513,29 @@ class IKSService final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedDESFireAuth2(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::CMSG_DesfireAuth_Step2,::SMSG_DesfireAuth_Step2>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_GenRandom<WithStreamedUnaryMethod_AESEncrypt<WithStreamedUnaryMethod_AESDecrypt<WithStreamedUnaryMethod_DESFireAuth1<WithStreamedUnaryMethod_DESFireAuth2<Service > > > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_DESFireChangeKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithStreamedUnaryMethod_DESFireChangeKey() {
+      ::grpc::Service::MarkMethodStreamed(5,
+        new ::grpc::internal::StreamedUnaryHandler< ::CMSG_DesfireChangeKey, ::SMSG_DesfireChangeKey>(std::bind(&WithStreamedUnaryMethod_DESFireChangeKey<BaseClass>::StreamedDESFireChangeKey, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_DESFireChangeKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status DESFireChangeKey(::grpc::ServerContext* context, const ::CMSG_DesfireChangeKey* request, ::SMSG_DesfireChangeKey* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedDESFireChangeKey(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::CMSG_DesfireChangeKey,::SMSG_DesfireChangeKey>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_GenRandom<WithStreamedUnaryMethod_AESEncrypt<WithStreamedUnaryMethod_AESDecrypt<WithStreamedUnaryMethod_DESFireAuth1<WithStreamedUnaryMethod_DESFireAuth2<WithStreamedUnaryMethod_DESFireChangeKey<Service > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_GenRandom<WithStreamedUnaryMethod_AESEncrypt<WithStreamedUnaryMethod_AESDecrypt<WithStreamedUnaryMethod_DESFireAuth1<WithStreamedUnaryMethod_DESFireAuth2<Service > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_GenRandom<WithStreamedUnaryMethod_AESEncrypt<WithStreamedUnaryMethod_AESDecrypt<WithStreamedUnaryMethod_DESFireAuth1<WithStreamedUnaryMethod_DESFireAuth2<WithStreamedUnaryMethod_DESFireChangeKey<Service > > > > > > StreamedService;
 };
 
 

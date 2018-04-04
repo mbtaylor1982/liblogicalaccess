@@ -479,6 +479,7 @@ ByteVector DESFireStorageCardService::readData(std::shared_ptr<Location> locatio
     auto ret = getDESFireChip()->getDESFireCommands()->readData(
         dfLocation->file, dfLocation->byte_, (int)(dataLength), encMode);
     last_read_signature_ = getDESFireChip()->getDESFireCommands()->IKS_getLastReadSignature();
+    std::cout << "AT THIS POINT: " << BufferHelper::getHex(last_read_signature_) << std::endl;
 
     return ret;
 }

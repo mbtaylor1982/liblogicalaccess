@@ -28,6 +28,7 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 
@@ -36,12 +37,20 @@ namespace protobuf_iks_2eproto {
 struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[8];
+  static const ::google::protobuf::internal::ParseTable schema[12];
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
 };
 void AddDescriptors();
+void InitDefaultsKeyDiversificationInfoImpl();
+void InitDefaultsKeyDiversificationInfo();
+void InitDefaultsSignatureDescriptionImpl();
+void InitDefaultsSignatureDescription();
+void InitDefaultsCMSG_DesfireChangeKeyImpl();
+void InitDefaultsCMSG_DesfireChangeKey();
+void InitDefaultsSMSG_DesfireChangeKeyImpl();
+void InitDefaultsSMSG_DesfireChangeKey();
 void InitDefaultsCMSG_GenRandomImpl();
 void InitDefaultsCMSG_GenRandom();
 void InitDefaultsSMSG_GenRandomImpl();
@@ -59,6 +68,10 @@ void InitDefaultsCMSG_DesfireAuth_Step2();
 void InitDefaultsSMSG_DesfireAuth_Step2Impl();
 void InitDefaultsSMSG_DesfireAuth_Step2();
 inline void InitDefaults() {
+  InitDefaultsKeyDiversificationInfo();
+  InitDefaultsSignatureDescription();
+  InitDefaultsCMSG_DesfireChangeKey();
+  InitDefaultsSMSG_DesfireChangeKey();
   InitDefaultsCMSG_GenRandom();
   InitDefaultsSMSG_GenRandom();
   InitDefaultsCMSG_AESOperation();
@@ -78,9 +91,15 @@ extern CMSG_DesfireAuth_Step1DefaultTypeInternal _CMSG_DesfireAuth_Step1_default
 class CMSG_DesfireAuth_Step2;
 class CMSG_DesfireAuth_Step2DefaultTypeInternal;
 extern CMSG_DesfireAuth_Step2DefaultTypeInternal _CMSG_DesfireAuth_Step2_default_instance_;
+class CMSG_DesfireChangeKey;
+class CMSG_DesfireChangeKeyDefaultTypeInternal;
+extern CMSG_DesfireChangeKeyDefaultTypeInternal _CMSG_DesfireChangeKey_default_instance_;
 class CMSG_GenRandom;
 class CMSG_GenRandomDefaultTypeInternal;
 extern CMSG_GenRandomDefaultTypeInternal _CMSG_GenRandom_default_instance_;
+class KeyDiversificationInfo;
+class KeyDiversificationInfoDefaultTypeInternal;
+extern KeyDiversificationInfoDefaultTypeInternal _KeyDiversificationInfo_default_instance_;
 class SMSG_AESResult;
 class SMSG_AESResultDefaultTypeInternal;
 extern SMSG_AESResultDefaultTypeInternal _SMSG_AESResult_default_instance_;
@@ -90,11 +109,640 @@ extern SMSG_DesfireAuth_Step1DefaultTypeInternal _SMSG_DesfireAuth_Step1_default
 class SMSG_DesfireAuth_Step2;
 class SMSG_DesfireAuth_Step2DefaultTypeInternal;
 extern SMSG_DesfireAuth_Step2DefaultTypeInternal _SMSG_DesfireAuth_Step2_default_instance_;
+class SMSG_DesfireChangeKey;
+class SMSG_DesfireChangeKeyDefaultTypeInternal;
+extern SMSG_DesfireChangeKeyDefaultTypeInternal _SMSG_DesfireChangeKey_default_instance_;
 class SMSG_GenRandom;
 class SMSG_GenRandomDefaultTypeInternal;
 extern SMSG_GenRandomDefaultTypeInternal _SMSG_GenRandom_default_instance_;
+class SignatureDescription;
+class SignatureDescriptionDefaultTypeInternal;
+extern SignatureDescriptionDefaultTypeInternal _SignatureDescription_default_instance_;
 
+enum KeyDiversificationInfo_Type {
+  KeyDiversificationInfo_Type_NONE = 0,
+  KeyDiversificationInfo_Type_AV1 = 1,
+  KeyDiversificationInfo_Type_AV2 = 2,
+  KeyDiversificationInfo_Type_KeyDiversificationInfo_Type_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
+  KeyDiversificationInfo_Type_KeyDiversificationInfo_Type_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
+};
+bool KeyDiversificationInfo_Type_IsValid(int value);
+const KeyDiversificationInfo_Type KeyDiversificationInfo_Type_Type_MIN = KeyDiversificationInfo_Type_NONE;
+const KeyDiversificationInfo_Type KeyDiversificationInfo_Type_Type_MAX = KeyDiversificationInfo_Type_AV2;
+const int KeyDiversificationInfo_Type_Type_ARRAYSIZE = KeyDiversificationInfo_Type_Type_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* KeyDiversificationInfo_Type_descriptor();
+inline const ::std::string& KeyDiversificationInfo_Type_Name(KeyDiversificationInfo_Type value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    KeyDiversificationInfo_Type_descriptor(), value);
+}
+inline bool KeyDiversificationInfo_Type_Parse(
+    const ::std::string& name, KeyDiversificationInfo_Type* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<KeyDiversificationInfo_Type>(
+    KeyDiversificationInfo_Type_descriptor(), name, value);
+}
 // ===================================================================
+
+class KeyDiversificationInfo : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:KeyDiversificationInfo) */ {
+ public:
+  KeyDiversificationInfo();
+  virtual ~KeyDiversificationInfo();
+
+  KeyDiversificationInfo(const KeyDiversificationInfo& from);
+
+  inline KeyDiversificationInfo& operator=(const KeyDiversificationInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  KeyDiversificationInfo(KeyDiversificationInfo&& from) noexcept
+    : KeyDiversificationInfo() {
+    *this = ::std::move(from);
+  }
+
+  inline KeyDiversificationInfo& operator=(KeyDiversificationInfo&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const KeyDiversificationInfo& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const KeyDiversificationInfo* internal_default_instance() {
+    return reinterpret_cast<const KeyDiversificationInfo*>(
+               &_KeyDiversificationInfo_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    0;
+
+  void Swap(KeyDiversificationInfo* other);
+  friend void swap(KeyDiversificationInfo& a, KeyDiversificationInfo& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline KeyDiversificationInfo* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  KeyDiversificationInfo* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const KeyDiversificationInfo& from);
+  void MergeFrom(const KeyDiversificationInfo& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(KeyDiversificationInfo* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  typedef KeyDiversificationInfo_Type Type;
+  static const Type NONE =
+    KeyDiversificationInfo_Type_NONE;
+  static const Type AV1 =
+    KeyDiversificationInfo_Type_AV1;
+  static const Type AV2 =
+    KeyDiversificationInfo_Type_AV2;
+  static inline bool Type_IsValid(int value) {
+    return KeyDiversificationInfo_Type_IsValid(value);
+  }
+  static const Type Type_MIN =
+    KeyDiversificationInfo_Type_Type_MIN;
+  static const Type Type_MAX =
+    KeyDiversificationInfo_Type_Type_MAX;
+  static const int Type_ARRAYSIZE =
+    KeyDiversificationInfo_Type_Type_ARRAYSIZE;
+  static inline const ::google::protobuf::EnumDescriptor*
+  Type_descriptor() {
+    return KeyDiversificationInfo_Type_descriptor();
+  }
+  static inline const ::std::string& Type_Name(Type value) {
+    return KeyDiversificationInfo_Type_Name(value);
+  }
+  static inline bool Type_Parse(const ::std::string& name,
+      Type* value) {
+    return KeyDiversificationInfo_Type_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  // bytes div_input = 2;
+  void clear_div_input();
+  static const int kDivInputFieldNumber = 2;
+  const ::std::string& div_input() const;
+  void set_div_input(const ::std::string& value);
+  #if LANG_CXX11
+  void set_div_input(::std::string&& value);
+  #endif
+  void set_div_input(const char* value);
+  void set_div_input(const void* value, size_t size);
+  ::std::string* mutable_div_input();
+  ::std::string* release_div_input();
+  void set_allocated_div_input(::std::string* div_input);
+
+  // .KeyDiversificationInfo.Type div_type = 1;
+  void clear_div_type();
+  static const int kDivTypeFieldNumber = 1;
+  ::KeyDiversificationInfo_Type div_type() const;
+  void set_div_type(::KeyDiversificationInfo_Type value);
+
+  // @@protoc_insertion_point(class_scope:KeyDiversificationInfo)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr div_input_;
+  int div_type_;
+  mutable int _cached_size_;
+  friend struct ::protobuf_iks_2eproto::TableStruct;
+  friend void ::protobuf_iks_2eproto::InitDefaultsKeyDiversificationInfoImpl();
+};
+// -------------------------------------------------------------------
+
+class SignatureDescription : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:SignatureDescription) */ {
+ public:
+  SignatureDescription();
+  virtual ~SignatureDescription();
+
+  SignatureDescription(const SignatureDescription& from);
+
+  inline SignatureDescription& operator=(const SignatureDescription& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  SignatureDescription(SignatureDescription&& from) noexcept
+    : SignatureDescription() {
+    *this = ::std::move(from);
+  }
+
+  inline SignatureDescription& operator=(SignatureDescription&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const SignatureDescription& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const SignatureDescription* internal_default_instance() {
+    return reinterpret_cast<const SignatureDescription*>(
+               &_SignatureDescription_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    1;
+
+  void Swap(SignatureDescription* other);
+  friend void swap(SignatureDescription& a, SignatureDescription& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SignatureDescription* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  SignatureDescription* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const SignatureDescription& from);
+  void MergeFrom(const SignatureDescription& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(SignatureDescription* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // bytes payload = 1;
+  void clear_payload();
+  static const int kPayloadFieldNumber = 1;
+  const ::std::string& payload() const;
+  void set_payload(const ::std::string& value);
+  #if LANG_CXX11
+  void set_payload(::std::string&& value);
+  #endif
+  void set_payload(const char* value);
+  void set_payload(const void* value, size_t size);
+  ::std::string* mutable_payload();
+  ::std::string* release_payload();
+  void set_allocated_payload(::std::string* payload);
+
+  // bytes uuid = 3;
+  void clear_uuid();
+  static const int kUuidFieldNumber = 3;
+  const ::std::string& uuid() const;
+  void set_uuid(const ::std::string& value);
+  #if LANG_CXX11
+  void set_uuid(::std::string&& value);
+  #endif
+  void set_uuid(const char* value);
+  void set_uuid(const void* value, size_t size);
+  ::std::string* mutable_uuid();
+  ::std::string* release_uuid();
+  void set_allocated_uuid(::std::string* uuid);
+
+  // uint64 nonce = 2;
+  void clear_nonce();
+  static const int kNonceFieldNumber = 2;
+  ::google::protobuf::uint64 nonce() const;
+  void set_nonce(::google::protobuf::uint64 value);
+
+  // uint64 timestamp = 4;
+  void clear_timestamp();
+  static const int kTimestampFieldNumber = 4;
+  ::google::protobuf::uint64 timestamp() const;
+  void set_timestamp(::google::protobuf::uint64 value);
+
+  // @@protoc_insertion_point(class_scope:SignatureDescription)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr payload_;
+  ::google::protobuf::internal::ArenaStringPtr uuid_;
+  ::google::protobuf::uint64 nonce_;
+  ::google::protobuf::uint64 timestamp_;
+  mutable int _cached_size_;
+  friend struct ::protobuf_iks_2eproto::TableStruct;
+  friend void ::protobuf_iks_2eproto::InitDefaultsSignatureDescriptionImpl();
+};
+// -------------------------------------------------------------------
+
+class CMSG_DesfireChangeKey : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:CMSG_DesfireChangeKey) */ {
+ public:
+  CMSG_DesfireChangeKey();
+  virtual ~CMSG_DesfireChangeKey();
+
+  CMSG_DesfireChangeKey(const CMSG_DesfireChangeKey& from);
+
+  inline CMSG_DesfireChangeKey& operator=(const CMSG_DesfireChangeKey& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  CMSG_DesfireChangeKey(CMSG_DesfireChangeKey&& from) noexcept
+    : CMSG_DesfireChangeKey() {
+    *this = ::std::move(from);
+  }
+
+  inline CMSG_DesfireChangeKey& operator=(CMSG_DesfireChangeKey&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CMSG_DesfireChangeKey& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const CMSG_DesfireChangeKey* internal_default_instance() {
+    return reinterpret_cast<const CMSG_DesfireChangeKey*>(
+               &_CMSG_DesfireChangeKey_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    2;
+
+  void Swap(CMSG_DesfireChangeKey* other);
+  friend void swap(CMSG_DesfireChangeKey& a, CMSG_DesfireChangeKey& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline CMSG_DesfireChangeKey* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  CMSG_DesfireChangeKey* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const CMSG_DesfireChangeKey& from);
+  void MergeFrom(const CMSG_DesfireChangeKey& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(CMSG_DesfireChangeKey* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string old_key_uuid = 1;
+  void clear_old_key_uuid();
+  static const int kOldKeyUuidFieldNumber = 1;
+  const ::std::string& old_key_uuid() const;
+  void set_old_key_uuid(const ::std::string& value);
+  #if LANG_CXX11
+  void set_old_key_uuid(::std::string&& value);
+  #endif
+  void set_old_key_uuid(const char* value);
+  void set_old_key_uuid(const char* value, size_t size);
+  ::std::string* mutable_old_key_uuid();
+  ::std::string* release_old_key_uuid();
+  void set_allocated_old_key_uuid(::std::string* old_key_uuid);
+
+  // bytes old_key_bytes = 2;
+  void clear_old_key_bytes();
+  static const int kOldKeyBytesFieldNumber = 2;
+  const ::std::string& old_key_bytes() const;
+  void set_old_key_bytes(const ::std::string& value);
+  #if LANG_CXX11
+  void set_old_key_bytes(::std::string&& value);
+  #endif
+  void set_old_key_bytes(const char* value);
+  void set_old_key_bytes(const void* value, size_t size);
+  ::std::string* mutable_old_key_bytes();
+  ::std::string* release_old_key_bytes();
+  void set_allocated_old_key_bytes(::std::string* old_key_bytes);
+
+  // string new_key_uuid = 3;
+  void clear_new_key_uuid();
+  static const int kNewKeyUuidFieldNumber = 3;
+  const ::std::string& new_key_uuid() const;
+  void set_new_key_uuid(const ::std::string& value);
+  #if LANG_CXX11
+  void set_new_key_uuid(::std::string&& value);
+  #endif
+  void set_new_key_uuid(const char* value);
+  void set_new_key_uuid(const char* value, size_t size);
+  ::std::string* mutable_new_key_uuid();
+  ::std::string* release_new_key_uuid();
+  void set_allocated_new_key_uuid(::std::string* new_key_uuid);
+
+  // bytes new_key_bytes = 4;
+  void clear_new_key_bytes();
+  static const int kNewKeyBytesFieldNumber = 4;
+  const ::std::string& new_key_bytes() const;
+  void set_new_key_bytes(const ::std::string& value);
+  #if LANG_CXX11
+  void set_new_key_bytes(::std::string&& value);
+  #endif
+  void set_new_key_bytes(const char* value);
+  void set_new_key_bytes(const void* value, size_t size);
+  ::std::string* mutable_new_key_bytes();
+  ::std::string* release_new_key_bytes();
+  void set_allocated_new_key_bytes(::std::string* new_key_bytes);
+
+  // string session_key_uuid = 6;
+  void clear_session_key_uuid();
+  static const int kSessionKeyUuidFieldNumber = 6;
+  const ::std::string& session_key_uuid() const;
+  void set_session_key_uuid(const ::std::string& value);
+  #if LANG_CXX11
+  void set_session_key_uuid(::std::string&& value);
+  #endif
+  void set_session_key_uuid(const char* value);
+  void set_session_key_uuid(const char* value, size_t size);
+  ::std::string* mutable_session_key_uuid();
+  ::std::string* release_session_key_uuid();
+  void set_allocated_session_key_uuid(::std::string* session_key_uuid);
+
+  // bytes session_key = 7;
+  void clear_session_key();
+  static const int kSessionKeyFieldNumber = 7;
+  const ::std::string& session_key() const;
+  void set_session_key(const ::std::string& value);
+  #if LANG_CXX11
+  void set_session_key(::std::string&& value);
+  #endif
+  void set_session_key(const char* value);
+  void set_session_key(const void* value, size_t size);
+  ::std::string* mutable_session_key();
+  ::std::string* release_session_key();
+  void set_allocated_session_key(::std::string* session_key);
+
+  // .KeyDiversificationInfo old_key_div = 8;
+  bool has_old_key_div() const;
+  void clear_old_key_div();
+  static const int kOldKeyDivFieldNumber = 8;
+  const ::KeyDiversificationInfo& old_key_div() const;
+  ::KeyDiversificationInfo* release_old_key_div();
+  ::KeyDiversificationInfo* mutable_old_key_div();
+  void set_allocated_old_key_div(::KeyDiversificationInfo* old_key_div);
+
+  // .KeyDiversificationInfo new_key_div = 9;
+  bool has_new_key_div() const;
+  void clear_new_key_div();
+  static const int kNewKeyDivFieldNumber = 9;
+  const ::KeyDiversificationInfo& new_key_div() const;
+  ::KeyDiversificationInfo* release_new_key_div();
+  ::KeyDiversificationInfo* mutable_new_key_div();
+  void set_allocated_new_key_div(::KeyDiversificationInfo* new_key_div);
+
+  // bool change_same_key = 5;
+  void clear_change_same_key();
+  static const int kChangeSameKeyFieldNumber = 5;
+  bool change_same_key() const;
+  void set_change_same_key(bool value);
+
+  // int32 key_number = 10;
+  void clear_key_number();
+  static const int kKeyNumberFieldNumber = 10;
+  ::google::protobuf::int32 key_number() const;
+  void set_key_number(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:CMSG_DesfireChangeKey)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr old_key_uuid_;
+  ::google::protobuf::internal::ArenaStringPtr old_key_bytes_;
+  ::google::protobuf::internal::ArenaStringPtr new_key_uuid_;
+  ::google::protobuf::internal::ArenaStringPtr new_key_bytes_;
+  ::google::protobuf::internal::ArenaStringPtr session_key_uuid_;
+  ::google::protobuf::internal::ArenaStringPtr session_key_;
+  ::KeyDiversificationInfo* old_key_div_;
+  ::KeyDiversificationInfo* new_key_div_;
+  bool change_same_key_;
+  ::google::protobuf::int32 key_number_;
+  mutable int _cached_size_;
+  friend struct ::protobuf_iks_2eproto::TableStruct;
+  friend void ::protobuf_iks_2eproto::InitDefaultsCMSG_DesfireChangeKeyImpl();
+};
+// -------------------------------------------------------------------
+
+class SMSG_DesfireChangeKey : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:SMSG_DesfireChangeKey) */ {
+ public:
+  SMSG_DesfireChangeKey();
+  virtual ~SMSG_DesfireChangeKey();
+
+  SMSG_DesfireChangeKey(const SMSG_DesfireChangeKey& from);
+
+  inline SMSG_DesfireChangeKey& operator=(const SMSG_DesfireChangeKey& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  SMSG_DesfireChangeKey(SMSG_DesfireChangeKey&& from) noexcept
+    : SMSG_DesfireChangeKey() {
+    *this = ::std::move(from);
+  }
+
+  inline SMSG_DesfireChangeKey& operator=(SMSG_DesfireChangeKey&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const SMSG_DesfireChangeKey& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const SMSG_DesfireChangeKey* internal_default_instance() {
+    return reinterpret_cast<const SMSG_DesfireChangeKey*>(
+               &_SMSG_DesfireChangeKey_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    3;
+
+  void Swap(SMSG_DesfireChangeKey* other);
+  friend void swap(SMSG_DesfireChangeKey& a, SMSG_DesfireChangeKey& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SMSG_DesfireChangeKey* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  SMSG_DesfireChangeKey* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const SMSG_DesfireChangeKey& from);
+  void MergeFrom(const SMSG_DesfireChangeKey& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(SMSG_DesfireChangeKey* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // bytes cryptogram = 1;
+  void clear_cryptogram();
+  static const int kCryptogramFieldNumber = 1;
+  const ::std::string& cryptogram() const;
+  void set_cryptogram(const ::std::string& value);
+  #if LANG_CXX11
+  void set_cryptogram(::std::string&& value);
+  #endif
+  void set_cryptogram(const char* value);
+  void set_cryptogram(const void* value, size_t size);
+  ::std::string* mutable_cryptogram();
+  ::std::string* release_cryptogram();
+  void set_allocated_cryptogram(::std::string* cryptogram);
+
+  // @@protoc_insertion_point(class_scope:SMSG_DesfireChangeKey)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr cryptogram_;
+  mutable int _cached_size_;
+  friend struct ::protobuf_iks_2eproto::TableStruct;
+  friend void ::protobuf_iks_2eproto::InitDefaultsSMSG_DesfireChangeKeyImpl();
+};
+// -------------------------------------------------------------------
 
 class CMSG_GenRandom : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:CMSG_GenRandom) */ {
  public:
@@ -131,7 +779,7 @@ class CMSG_GenRandom : public ::google::protobuf::Message /* @@protoc_insertion_
                &_CMSG_GenRandom_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    0;
+    4;
 
   void Swap(CMSG_GenRandom* other);
   friend void swap(CMSG_GenRandom& a, CMSG_GenRandom& b) {
@@ -230,7 +878,7 @@ class SMSG_GenRandom : public ::google::protobuf::Message /* @@protoc_insertion_
                &_SMSG_GenRandom_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    1;
+    5;
 
   void Swap(SMSG_GenRandom* other);
   friend void swap(SMSG_GenRandom& a, SMSG_GenRandom& b) {
@@ -337,7 +985,7 @@ class CMSG_AESOperation : public ::google::protobuf::Message /* @@protoc_inserti
                &_CMSG_AESOperation_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    2;
+    6;
 
   void Swap(CMSG_AESOperation* other);
   friend void swap(CMSG_AESOperation& a, CMSG_AESOperation& b) {
@@ -481,7 +1129,7 @@ class SMSG_AESResult : public ::google::protobuf::Message /* @@protoc_insertion_
                &_SMSG_AESResult_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    3;
+    7;
 
   void Swap(SMSG_AESResult* other);
   friend void swap(SMSG_AESResult& a, SMSG_AESResult& b) {
@@ -542,9 +1190,9 @@ class SMSG_AESResult : public ::google::protobuf::Message /* @@protoc_insertion_
   ::std::string* release_payload();
   void set_allocated_payload(::std::string* payload);
 
-  // bytes signature = 2;
+  // bytes signature = 3;
   void clear_signature();
-  static const int kSignatureFieldNumber = 2;
+  static const int kSignatureFieldNumber = 3;
   const ::std::string& signature() const;
   void set_signature(const ::std::string& value);
   #if LANG_CXX11
@@ -556,12 +1204,22 @@ class SMSG_AESResult : public ::google::protobuf::Message /* @@protoc_insertion_
   ::std::string* release_signature();
   void set_allocated_signature(::std::string* signature);
 
+  // .SignatureDescription signatureDescription = 2;
+  bool has_signaturedescription() const;
+  void clear_signaturedescription();
+  static const int kSignatureDescriptionFieldNumber = 2;
+  const ::SignatureDescription& signaturedescription() const;
+  ::SignatureDescription* release_signaturedescription();
+  ::SignatureDescription* mutable_signaturedescription();
+  void set_allocated_signaturedescription(::SignatureDescription* signaturedescription);
+
   // @@protoc_insertion_point(class_scope:SMSG_AESResult)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr payload_;
   ::google::protobuf::internal::ArenaStringPtr signature_;
+  ::SignatureDescription* signaturedescription_;
   mutable int _cached_size_;
   friend struct ::protobuf_iks_2eproto::TableStruct;
   friend void ::protobuf_iks_2eproto::InitDefaultsSMSG_AESResultImpl();
@@ -603,7 +1261,7 @@ class CMSG_DesfireAuth_Step1 : public ::google::protobuf::Message /* @@protoc_in
                &_CMSG_DesfireAuth_Step1_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    4;
+    8;
 
   void Swap(CMSG_DesfireAuth_Step1* other);
   friend void swap(CMSG_DesfireAuth_Step1& a, CMSG_DesfireAuth_Step1& b) {
@@ -725,7 +1383,7 @@ class SMSG_DesfireAuth_Step1 : public ::google::protobuf::Message /* @@protoc_in
                &_SMSG_DesfireAuth_Step1_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    5;
+    9;
 
   void Swap(SMSG_DesfireAuth_Step1* other);
   friend void swap(SMSG_DesfireAuth_Step1& a, SMSG_DesfireAuth_Step1& b) {
@@ -869,7 +1527,7 @@ class CMSG_DesfireAuth_Step2 : public ::google::protobuf::Message /* @@protoc_in
                &_CMSG_DesfireAuth_Step2_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    6;
+    10;
 
   void Swap(CMSG_DesfireAuth_Step2* other);
   friend void swap(CMSG_DesfireAuth_Step2& a, CMSG_DesfireAuth_Step2& b) {
@@ -1006,7 +1664,7 @@ class SMSG_DesfireAuth_Step2 : public ::google::protobuf::Message /* @@protoc_in
                &_SMSG_DesfireAuth_Step2_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    7;
+    11;
 
   void Swap(SMSG_DesfireAuth_Step2* other);
   friend void swap(SMSG_DesfireAuth_Step2& a, SMSG_DesfireAuth_Step2& b) {
@@ -1107,6 +1765,722 @@ class SMSG_DesfireAuth_Step2 : public ::google::protobuf::Message /* @@protoc_in
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// KeyDiversificationInfo
+
+// .KeyDiversificationInfo.Type div_type = 1;
+inline void KeyDiversificationInfo::clear_div_type() {
+  div_type_ = 0;
+}
+inline ::KeyDiversificationInfo_Type KeyDiversificationInfo::div_type() const {
+  // @@protoc_insertion_point(field_get:KeyDiversificationInfo.div_type)
+  return static_cast< ::KeyDiversificationInfo_Type >(div_type_);
+}
+inline void KeyDiversificationInfo::set_div_type(::KeyDiversificationInfo_Type value) {
+  
+  div_type_ = value;
+  // @@protoc_insertion_point(field_set:KeyDiversificationInfo.div_type)
+}
+
+// bytes div_input = 2;
+inline void KeyDiversificationInfo::clear_div_input() {
+  div_input_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& KeyDiversificationInfo::div_input() const {
+  // @@protoc_insertion_point(field_get:KeyDiversificationInfo.div_input)
+  return div_input_.GetNoArena();
+}
+inline void KeyDiversificationInfo::set_div_input(const ::std::string& value) {
+  
+  div_input_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:KeyDiversificationInfo.div_input)
+}
+#if LANG_CXX11
+inline void KeyDiversificationInfo::set_div_input(::std::string&& value) {
+  
+  div_input_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:KeyDiversificationInfo.div_input)
+}
+#endif
+inline void KeyDiversificationInfo::set_div_input(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  div_input_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:KeyDiversificationInfo.div_input)
+}
+inline void KeyDiversificationInfo::set_div_input(const void* value, size_t size) {
+  
+  div_input_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:KeyDiversificationInfo.div_input)
+}
+inline ::std::string* KeyDiversificationInfo::mutable_div_input() {
+  
+  // @@protoc_insertion_point(field_mutable:KeyDiversificationInfo.div_input)
+  return div_input_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* KeyDiversificationInfo::release_div_input() {
+  // @@protoc_insertion_point(field_release:KeyDiversificationInfo.div_input)
+  
+  return div_input_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void KeyDiversificationInfo::set_allocated_div_input(::std::string* div_input) {
+  if (div_input != NULL) {
+    
+  } else {
+    
+  }
+  div_input_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), div_input);
+  // @@protoc_insertion_point(field_set_allocated:KeyDiversificationInfo.div_input)
+}
+
+// -------------------------------------------------------------------
+
+// SignatureDescription
+
+// bytes payload = 1;
+inline void SignatureDescription::clear_payload() {
+  payload_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& SignatureDescription::payload() const {
+  // @@protoc_insertion_point(field_get:SignatureDescription.payload)
+  return payload_.GetNoArena();
+}
+inline void SignatureDescription::set_payload(const ::std::string& value) {
+  
+  payload_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:SignatureDescription.payload)
+}
+#if LANG_CXX11
+inline void SignatureDescription::set_payload(::std::string&& value) {
+  
+  payload_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:SignatureDescription.payload)
+}
+#endif
+inline void SignatureDescription::set_payload(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  payload_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:SignatureDescription.payload)
+}
+inline void SignatureDescription::set_payload(const void* value, size_t size) {
+  
+  payload_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:SignatureDescription.payload)
+}
+inline ::std::string* SignatureDescription::mutable_payload() {
+  
+  // @@protoc_insertion_point(field_mutable:SignatureDescription.payload)
+  return payload_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* SignatureDescription::release_payload() {
+  // @@protoc_insertion_point(field_release:SignatureDescription.payload)
+  
+  return payload_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void SignatureDescription::set_allocated_payload(::std::string* payload) {
+  if (payload != NULL) {
+    
+  } else {
+    
+  }
+  payload_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), payload);
+  // @@protoc_insertion_point(field_set_allocated:SignatureDescription.payload)
+}
+
+// uint64 nonce = 2;
+inline void SignatureDescription::clear_nonce() {
+  nonce_ = GOOGLE_ULONGLONG(0);
+}
+inline ::google::protobuf::uint64 SignatureDescription::nonce() const {
+  // @@protoc_insertion_point(field_get:SignatureDescription.nonce)
+  return nonce_;
+}
+inline void SignatureDescription::set_nonce(::google::protobuf::uint64 value) {
+  
+  nonce_ = value;
+  // @@protoc_insertion_point(field_set:SignatureDescription.nonce)
+}
+
+// bytes uuid = 3;
+inline void SignatureDescription::clear_uuid() {
+  uuid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& SignatureDescription::uuid() const {
+  // @@protoc_insertion_point(field_get:SignatureDescription.uuid)
+  return uuid_.GetNoArena();
+}
+inline void SignatureDescription::set_uuid(const ::std::string& value) {
+  
+  uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:SignatureDescription.uuid)
+}
+#if LANG_CXX11
+inline void SignatureDescription::set_uuid(::std::string&& value) {
+  
+  uuid_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:SignatureDescription.uuid)
+}
+#endif
+inline void SignatureDescription::set_uuid(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:SignatureDescription.uuid)
+}
+inline void SignatureDescription::set_uuid(const void* value, size_t size) {
+  
+  uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:SignatureDescription.uuid)
+}
+inline ::std::string* SignatureDescription::mutable_uuid() {
+  
+  // @@protoc_insertion_point(field_mutable:SignatureDescription.uuid)
+  return uuid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* SignatureDescription::release_uuid() {
+  // @@protoc_insertion_point(field_release:SignatureDescription.uuid)
+  
+  return uuid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void SignatureDescription::set_allocated_uuid(::std::string* uuid) {
+  if (uuid != NULL) {
+    
+  } else {
+    
+  }
+  uuid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), uuid);
+  // @@protoc_insertion_point(field_set_allocated:SignatureDescription.uuid)
+}
+
+// uint64 timestamp = 4;
+inline void SignatureDescription::clear_timestamp() {
+  timestamp_ = GOOGLE_ULONGLONG(0);
+}
+inline ::google::protobuf::uint64 SignatureDescription::timestamp() const {
+  // @@protoc_insertion_point(field_get:SignatureDescription.timestamp)
+  return timestamp_;
+}
+inline void SignatureDescription::set_timestamp(::google::protobuf::uint64 value) {
+  
+  timestamp_ = value;
+  // @@protoc_insertion_point(field_set:SignatureDescription.timestamp)
+}
+
+// -------------------------------------------------------------------
+
+// CMSG_DesfireChangeKey
+
+// string old_key_uuid = 1;
+inline void CMSG_DesfireChangeKey::clear_old_key_uuid() {
+  old_key_uuid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& CMSG_DesfireChangeKey::old_key_uuid() const {
+  // @@protoc_insertion_point(field_get:CMSG_DesfireChangeKey.old_key_uuid)
+  return old_key_uuid_.GetNoArena();
+}
+inline void CMSG_DesfireChangeKey::set_old_key_uuid(const ::std::string& value) {
+  
+  old_key_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:CMSG_DesfireChangeKey.old_key_uuid)
+}
+#if LANG_CXX11
+inline void CMSG_DesfireChangeKey::set_old_key_uuid(::std::string&& value) {
+  
+  old_key_uuid_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:CMSG_DesfireChangeKey.old_key_uuid)
+}
+#endif
+inline void CMSG_DesfireChangeKey::set_old_key_uuid(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  old_key_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:CMSG_DesfireChangeKey.old_key_uuid)
+}
+inline void CMSG_DesfireChangeKey::set_old_key_uuid(const char* value, size_t size) {
+  
+  old_key_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:CMSG_DesfireChangeKey.old_key_uuid)
+}
+inline ::std::string* CMSG_DesfireChangeKey::mutable_old_key_uuid() {
+  
+  // @@protoc_insertion_point(field_mutable:CMSG_DesfireChangeKey.old_key_uuid)
+  return old_key_uuid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* CMSG_DesfireChangeKey::release_old_key_uuid() {
+  // @@protoc_insertion_point(field_release:CMSG_DesfireChangeKey.old_key_uuid)
+  
+  return old_key_uuid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void CMSG_DesfireChangeKey::set_allocated_old_key_uuid(::std::string* old_key_uuid) {
+  if (old_key_uuid != NULL) {
+    
+  } else {
+    
+  }
+  old_key_uuid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), old_key_uuid);
+  // @@protoc_insertion_point(field_set_allocated:CMSG_DesfireChangeKey.old_key_uuid)
+}
+
+// bytes old_key_bytes = 2;
+inline void CMSG_DesfireChangeKey::clear_old_key_bytes() {
+  old_key_bytes_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& CMSG_DesfireChangeKey::old_key_bytes() const {
+  // @@protoc_insertion_point(field_get:CMSG_DesfireChangeKey.old_key_bytes)
+  return old_key_bytes_.GetNoArena();
+}
+inline void CMSG_DesfireChangeKey::set_old_key_bytes(const ::std::string& value) {
+  
+  old_key_bytes_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:CMSG_DesfireChangeKey.old_key_bytes)
+}
+#if LANG_CXX11
+inline void CMSG_DesfireChangeKey::set_old_key_bytes(::std::string&& value) {
+  
+  old_key_bytes_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:CMSG_DesfireChangeKey.old_key_bytes)
+}
+#endif
+inline void CMSG_DesfireChangeKey::set_old_key_bytes(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  old_key_bytes_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:CMSG_DesfireChangeKey.old_key_bytes)
+}
+inline void CMSG_DesfireChangeKey::set_old_key_bytes(const void* value, size_t size) {
+  
+  old_key_bytes_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:CMSG_DesfireChangeKey.old_key_bytes)
+}
+inline ::std::string* CMSG_DesfireChangeKey::mutable_old_key_bytes() {
+  
+  // @@protoc_insertion_point(field_mutable:CMSG_DesfireChangeKey.old_key_bytes)
+  return old_key_bytes_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* CMSG_DesfireChangeKey::release_old_key_bytes() {
+  // @@protoc_insertion_point(field_release:CMSG_DesfireChangeKey.old_key_bytes)
+  
+  return old_key_bytes_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void CMSG_DesfireChangeKey::set_allocated_old_key_bytes(::std::string* old_key_bytes) {
+  if (old_key_bytes != NULL) {
+    
+  } else {
+    
+  }
+  old_key_bytes_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), old_key_bytes);
+  // @@protoc_insertion_point(field_set_allocated:CMSG_DesfireChangeKey.old_key_bytes)
+}
+
+// string new_key_uuid = 3;
+inline void CMSG_DesfireChangeKey::clear_new_key_uuid() {
+  new_key_uuid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& CMSG_DesfireChangeKey::new_key_uuid() const {
+  // @@protoc_insertion_point(field_get:CMSG_DesfireChangeKey.new_key_uuid)
+  return new_key_uuid_.GetNoArena();
+}
+inline void CMSG_DesfireChangeKey::set_new_key_uuid(const ::std::string& value) {
+  
+  new_key_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:CMSG_DesfireChangeKey.new_key_uuid)
+}
+#if LANG_CXX11
+inline void CMSG_DesfireChangeKey::set_new_key_uuid(::std::string&& value) {
+  
+  new_key_uuid_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:CMSG_DesfireChangeKey.new_key_uuid)
+}
+#endif
+inline void CMSG_DesfireChangeKey::set_new_key_uuid(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  new_key_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:CMSG_DesfireChangeKey.new_key_uuid)
+}
+inline void CMSG_DesfireChangeKey::set_new_key_uuid(const char* value, size_t size) {
+  
+  new_key_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:CMSG_DesfireChangeKey.new_key_uuid)
+}
+inline ::std::string* CMSG_DesfireChangeKey::mutable_new_key_uuid() {
+  
+  // @@protoc_insertion_point(field_mutable:CMSG_DesfireChangeKey.new_key_uuid)
+  return new_key_uuid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* CMSG_DesfireChangeKey::release_new_key_uuid() {
+  // @@protoc_insertion_point(field_release:CMSG_DesfireChangeKey.new_key_uuid)
+  
+  return new_key_uuid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void CMSG_DesfireChangeKey::set_allocated_new_key_uuid(::std::string* new_key_uuid) {
+  if (new_key_uuid != NULL) {
+    
+  } else {
+    
+  }
+  new_key_uuid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), new_key_uuid);
+  // @@protoc_insertion_point(field_set_allocated:CMSG_DesfireChangeKey.new_key_uuid)
+}
+
+// bytes new_key_bytes = 4;
+inline void CMSG_DesfireChangeKey::clear_new_key_bytes() {
+  new_key_bytes_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& CMSG_DesfireChangeKey::new_key_bytes() const {
+  // @@protoc_insertion_point(field_get:CMSG_DesfireChangeKey.new_key_bytes)
+  return new_key_bytes_.GetNoArena();
+}
+inline void CMSG_DesfireChangeKey::set_new_key_bytes(const ::std::string& value) {
+  
+  new_key_bytes_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:CMSG_DesfireChangeKey.new_key_bytes)
+}
+#if LANG_CXX11
+inline void CMSG_DesfireChangeKey::set_new_key_bytes(::std::string&& value) {
+  
+  new_key_bytes_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:CMSG_DesfireChangeKey.new_key_bytes)
+}
+#endif
+inline void CMSG_DesfireChangeKey::set_new_key_bytes(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  new_key_bytes_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:CMSG_DesfireChangeKey.new_key_bytes)
+}
+inline void CMSG_DesfireChangeKey::set_new_key_bytes(const void* value, size_t size) {
+  
+  new_key_bytes_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:CMSG_DesfireChangeKey.new_key_bytes)
+}
+inline ::std::string* CMSG_DesfireChangeKey::mutable_new_key_bytes() {
+  
+  // @@protoc_insertion_point(field_mutable:CMSG_DesfireChangeKey.new_key_bytes)
+  return new_key_bytes_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* CMSG_DesfireChangeKey::release_new_key_bytes() {
+  // @@protoc_insertion_point(field_release:CMSG_DesfireChangeKey.new_key_bytes)
+  
+  return new_key_bytes_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void CMSG_DesfireChangeKey::set_allocated_new_key_bytes(::std::string* new_key_bytes) {
+  if (new_key_bytes != NULL) {
+    
+  } else {
+    
+  }
+  new_key_bytes_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), new_key_bytes);
+  // @@protoc_insertion_point(field_set_allocated:CMSG_DesfireChangeKey.new_key_bytes)
+}
+
+// bool change_same_key = 5;
+inline void CMSG_DesfireChangeKey::clear_change_same_key() {
+  change_same_key_ = false;
+}
+inline bool CMSG_DesfireChangeKey::change_same_key() const {
+  // @@protoc_insertion_point(field_get:CMSG_DesfireChangeKey.change_same_key)
+  return change_same_key_;
+}
+inline void CMSG_DesfireChangeKey::set_change_same_key(bool value) {
+  
+  change_same_key_ = value;
+  // @@protoc_insertion_point(field_set:CMSG_DesfireChangeKey.change_same_key)
+}
+
+// string session_key_uuid = 6;
+inline void CMSG_DesfireChangeKey::clear_session_key_uuid() {
+  session_key_uuid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& CMSG_DesfireChangeKey::session_key_uuid() const {
+  // @@protoc_insertion_point(field_get:CMSG_DesfireChangeKey.session_key_uuid)
+  return session_key_uuid_.GetNoArena();
+}
+inline void CMSG_DesfireChangeKey::set_session_key_uuid(const ::std::string& value) {
+  
+  session_key_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:CMSG_DesfireChangeKey.session_key_uuid)
+}
+#if LANG_CXX11
+inline void CMSG_DesfireChangeKey::set_session_key_uuid(::std::string&& value) {
+  
+  session_key_uuid_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:CMSG_DesfireChangeKey.session_key_uuid)
+}
+#endif
+inline void CMSG_DesfireChangeKey::set_session_key_uuid(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  session_key_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:CMSG_DesfireChangeKey.session_key_uuid)
+}
+inline void CMSG_DesfireChangeKey::set_session_key_uuid(const char* value, size_t size) {
+  
+  session_key_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:CMSG_DesfireChangeKey.session_key_uuid)
+}
+inline ::std::string* CMSG_DesfireChangeKey::mutable_session_key_uuid() {
+  
+  // @@protoc_insertion_point(field_mutable:CMSG_DesfireChangeKey.session_key_uuid)
+  return session_key_uuid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* CMSG_DesfireChangeKey::release_session_key_uuid() {
+  // @@protoc_insertion_point(field_release:CMSG_DesfireChangeKey.session_key_uuid)
+  
+  return session_key_uuid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void CMSG_DesfireChangeKey::set_allocated_session_key_uuid(::std::string* session_key_uuid) {
+  if (session_key_uuid != NULL) {
+    
+  } else {
+    
+  }
+  session_key_uuid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), session_key_uuid);
+  // @@protoc_insertion_point(field_set_allocated:CMSG_DesfireChangeKey.session_key_uuid)
+}
+
+// bytes session_key = 7;
+inline void CMSG_DesfireChangeKey::clear_session_key() {
+  session_key_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& CMSG_DesfireChangeKey::session_key() const {
+  // @@protoc_insertion_point(field_get:CMSG_DesfireChangeKey.session_key)
+  return session_key_.GetNoArena();
+}
+inline void CMSG_DesfireChangeKey::set_session_key(const ::std::string& value) {
+  
+  session_key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:CMSG_DesfireChangeKey.session_key)
+}
+#if LANG_CXX11
+inline void CMSG_DesfireChangeKey::set_session_key(::std::string&& value) {
+  
+  session_key_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:CMSG_DesfireChangeKey.session_key)
+}
+#endif
+inline void CMSG_DesfireChangeKey::set_session_key(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  session_key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:CMSG_DesfireChangeKey.session_key)
+}
+inline void CMSG_DesfireChangeKey::set_session_key(const void* value, size_t size) {
+  
+  session_key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:CMSG_DesfireChangeKey.session_key)
+}
+inline ::std::string* CMSG_DesfireChangeKey::mutable_session_key() {
+  
+  // @@protoc_insertion_point(field_mutable:CMSG_DesfireChangeKey.session_key)
+  return session_key_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* CMSG_DesfireChangeKey::release_session_key() {
+  // @@protoc_insertion_point(field_release:CMSG_DesfireChangeKey.session_key)
+  
+  return session_key_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void CMSG_DesfireChangeKey::set_allocated_session_key(::std::string* session_key) {
+  if (session_key != NULL) {
+    
+  } else {
+    
+  }
+  session_key_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), session_key);
+  // @@protoc_insertion_point(field_set_allocated:CMSG_DesfireChangeKey.session_key)
+}
+
+// .KeyDiversificationInfo old_key_div = 8;
+inline bool CMSG_DesfireChangeKey::has_old_key_div() const {
+  return this != internal_default_instance() && old_key_div_ != NULL;
+}
+inline void CMSG_DesfireChangeKey::clear_old_key_div() {
+  if (GetArenaNoVirtual() == NULL && old_key_div_ != NULL) {
+    delete old_key_div_;
+  }
+  old_key_div_ = NULL;
+}
+inline const ::KeyDiversificationInfo& CMSG_DesfireChangeKey::old_key_div() const {
+  const ::KeyDiversificationInfo* p = old_key_div_;
+  // @@protoc_insertion_point(field_get:CMSG_DesfireChangeKey.old_key_div)
+  return p != NULL ? *p : *reinterpret_cast<const ::KeyDiversificationInfo*>(
+      &::_KeyDiversificationInfo_default_instance_);
+}
+inline ::KeyDiversificationInfo* CMSG_DesfireChangeKey::release_old_key_div() {
+  // @@protoc_insertion_point(field_release:CMSG_DesfireChangeKey.old_key_div)
+  
+  ::KeyDiversificationInfo* temp = old_key_div_;
+  old_key_div_ = NULL;
+  return temp;
+}
+inline ::KeyDiversificationInfo* CMSG_DesfireChangeKey::mutable_old_key_div() {
+  
+  if (old_key_div_ == NULL) {
+    old_key_div_ = new ::KeyDiversificationInfo;
+  }
+  // @@protoc_insertion_point(field_mutable:CMSG_DesfireChangeKey.old_key_div)
+  return old_key_div_;
+}
+inline void CMSG_DesfireChangeKey::set_allocated_old_key_div(::KeyDiversificationInfo* old_key_div) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete old_key_div_;
+  }
+  if (old_key_div) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      old_key_div = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, old_key_div, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  old_key_div_ = old_key_div;
+  // @@protoc_insertion_point(field_set_allocated:CMSG_DesfireChangeKey.old_key_div)
+}
+
+// .KeyDiversificationInfo new_key_div = 9;
+inline bool CMSG_DesfireChangeKey::has_new_key_div() const {
+  return this != internal_default_instance() && new_key_div_ != NULL;
+}
+inline void CMSG_DesfireChangeKey::clear_new_key_div() {
+  if (GetArenaNoVirtual() == NULL && new_key_div_ != NULL) {
+    delete new_key_div_;
+  }
+  new_key_div_ = NULL;
+}
+inline const ::KeyDiversificationInfo& CMSG_DesfireChangeKey::new_key_div() const {
+  const ::KeyDiversificationInfo* p = new_key_div_;
+  // @@protoc_insertion_point(field_get:CMSG_DesfireChangeKey.new_key_div)
+  return p != NULL ? *p : *reinterpret_cast<const ::KeyDiversificationInfo*>(
+      &::_KeyDiversificationInfo_default_instance_);
+}
+inline ::KeyDiversificationInfo* CMSG_DesfireChangeKey::release_new_key_div() {
+  // @@protoc_insertion_point(field_release:CMSG_DesfireChangeKey.new_key_div)
+  
+  ::KeyDiversificationInfo* temp = new_key_div_;
+  new_key_div_ = NULL;
+  return temp;
+}
+inline ::KeyDiversificationInfo* CMSG_DesfireChangeKey::mutable_new_key_div() {
+  
+  if (new_key_div_ == NULL) {
+    new_key_div_ = new ::KeyDiversificationInfo;
+  }
+  // @@protoc_insertion_point(field_mutable:CMSG_DesfireChangeKey.new_key_div)
+  return new_key_div_;
+}
+inline void CMSG_DesfireChangeKey::set_allocated_new_key_div(::KeyDiversificationInfo* new_key_div) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete new_key_div_;
+  }
+  if (new_key_div) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      new_key_div = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, new_key_div, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  new_key_div_ = new_key_div;
+  // @@protoc_insertion_point(field_set_allocated:CMSG_DesfireChangeKey.new_key_div)
+}
+
+// int32 key_number = 10;
+inline void CMSG_DesfireChangeKey::clear_key_number() {
+  key_number_ = 0;
+}
+inline ::google::protobuf::int32 CMSG_DesfireChangeKey::key_number() const {
+  // @@protoc_insertion_point(field_get:CMSG_DesfireChangeKey.key_number)
+  return key_number_;
+}
+inline void CMSG_DesfireChangeKey::set_key_number(::google::protobuf::int32 value) {
+  
+  key_number_ = value;
+  // @@protoc_insertion_point(field_set:CMSG_DesfireChangeKey.key_number)
+}
+
+// -------------------------------------------------------------------
+
+// SMSG_DesfireChangeKey
+
+// bytes cryptogram = 1;
+inline void SMSG_DesfireChangeKey::clear_cryptogram() {
+  cryptogram_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& SMSG_DesfireChangeKey::cryptogram() const {
+  // @@protoc_insertion_point(field_get:SMSG_DesfireChangeKey.cryptogram)
+  return cryptogram_.GetNoArena();
+}
+inline void SMSG_DesfireChangeKey::set_cryptogram(const ::std::string& value) {
+  
+  cryptogram_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:SMSG_DesfireChangeKey.cryptogram)
+}
+#if LANG_CXX11
+inline void SMSG_DesfireChangeKey::set_cryptogram(::std::string&& value) {
+  
+  cryptogram_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:SMSG_DesfireChangeKey.cryptogram)
+}
+#endif
+inline void SMSG_DesfireChangeKey::set_cryptogram(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  cryptogram_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:SMSG_DesfireChangeKey.cryptogram)
+}
+inline void SMSG_DesfireChangeKey::set_cryptogram(const void* value, size_t size) {
+  
+  cryptogram_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:SMSG_DesfireChangeKey.cryptogram)
+}
+inline ::std::string* SMSG_DesfireChangeKey::mutable_cryptogram() {
+  
+  // @@protoc_insertion_point(field_mutable:SMSG_DesfireChangeKey.cryptogram)
+  return cryptogram_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* SMSG_DesfireChangeKey::release_cryptogram() {
+  // @@protoc_insertion_point(field_release:SMSG_DesfireChangeKey.cryptogram)
+  
+  return cryptogram_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void SMSG_DesfireChangeKey::set_allocated_cryptogram(::std::string* cryptogram) {
+  if (cryptogram != NULL) {
+    
+  } else {
+    
+  }
+  cryptogram_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), cryptogram);
+  // @@protoc_insertion_point(field_set_allocated:SMSG_DesfireChangeKey.cryptogram)
+}
+
+// -------------------------------------------------------------------
+
 // CMSG_GenRandom
 
 // int32 size = 1;
@@ -1414,7 +2788,57 @@ inline void SMSG_AESResult::set_allocated_payload(::std::string* payload) {
   // @@protoc_insertion_point(field_set_allocated:SMSG_AESResult.payload)
 }
 
-// bytes signature = 2;
+// .SignatureDescription signatureDescription = 2;
+inline bool SMSG_AESResult::has_signaturedescription() const {
+  return this != internal_default_instance() && signaturedescription_ != NULL;
+}
+inline void SMSG_AESResult::clear_signaturedescription() {
+  if (GetArenaNoVirtual() == NULL && signaturedescription_ != NULL) {
+    delete signaturedescription_;
+  }
+  signaturedescription_ = NULL;
+}
+inline const ::SignatureDescription& SMSG_AESResult::signaturedescription() const {
+  const ::SignatureDescription* p = signaturedescription_;
+  // @@protoc_insertion_point(field_get:SMSG_AESResult.signatureDescription)
+  return p != NULL ? *p : *reinterpret_cast<const ::SignatureDescription*>(
+      &::_SignatureDescription_default_instance_);
+}
+inline ::SignatureDescription* SMSG_AESResult::release_signaturedescription() {
+  // @@protoc_insertion_point(field_release:SMSG_AESResult.signatureDescription)
+  
+  ::SignatureDescription* temp = signaturedescription_;
+  signaturedescription_ = NULL;
+  return temp;
+}
+inline ::SignatureDescription* SMSG_AESResult::mutable_signaturedescription() {
+  
+  if (signaturedescription_ == NULL) {
+    signaturedescription_ = new ::SignatureDescription;
+  }
+  // @@protoc_insertion_point(field_mutable:SMSG_AESResult.signatureDescription)
+  return signaturedescription_;
+}
+inline void SMSG_AESResult::set_allocated_signaturedescription(::SignatureDescription* signaturedescription) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete signaturedescription_;
+  }
+  if (signaturedescription) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      signaturedescription = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, signaturedescription, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  signaturedescription_ = signaturedescription;
+  // @@protoc_insertion_point(field_set_allocated:SMSG_AESResult.signatureDescription)
+}
+
+// bytes signature = 3;
 inline void SMSG_AESResult::clear_signature() {
   signature_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2058,9 +3482,29 @@ inline void SMSG_DesfireAuth_Step2::set_allocated_session_key_ref(::std::string*
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
+
+namespace google {
+namespace protobuf {
+
+template <> struct is_proto_enum< ::KeyDiversificationInfo_Type> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::KeyDiversificationInfo_Type>() {
+  return ::KeyDiversificationInfo_Type_descriptor();
+}
+
+}  // namespace protobuf
+}  // namespace google
 
 // @@protoc_insertion_point(global_scope)
 
