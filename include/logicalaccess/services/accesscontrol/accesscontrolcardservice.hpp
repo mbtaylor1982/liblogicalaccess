@@ -11,6 +11,7 @@
 #include <logicalaccess/services/accesscontrol/formats/format.hpp>
 #include <logicalaccess/cards/location.hpp>
 #include <logicalaccess/cards/accessinfo.hpp>
+#include <logicalaccess/iks/signature.hpp>
 
 namespace logicalaccess
 {
@@ -60,7 +61,7 @@ class LIBLOGICALACCESS_API AccessControlCardService : public CardService
      * This is when IKS sign decrypted packet as a proof that they
      * were read using a DESFire Session Key stored on IKS.
      */
-    std::string IKS_getPayloadSignature() const
+    iks::SignatureResult IKS_getPayloadSignature() const
     {
         return last_signature_;
     }
@@ -91,7 +92,7 @@ class LIBLOGICALACCESS_API AccessControlCardService : public CardService
     FormatList getHIDWiegandFormatList() const;
 
   protected:
-    std::string last_signature_;
+    iks::SignatureResult last_signature_;
 };
 }
 

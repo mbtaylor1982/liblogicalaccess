@@ -390,7 +390,7 @@ class LIBLOGICALACCESS_API DESFireEV1ISO7816Commands : public DESFireISO7816Comm
      * therefore signature can only be retrieve for by block passed
      * to handleReadData().
      */
-    std::string IKS_getLastReadSignature() const override;
+    iks::SignatureResult IKS_getLastReadSignature() const override;
 
   protected:
     /**
@@ -486,7 +486,7 @@ class LIBLOGICALACCESS_API DESFireEV1ISO7816Commands : public DESFireISO7816Comm
     }
 
   protected:
-    std::string handle_read_data_last_sig_;
+    iks::SignatureResult handle_read_data_last_sig_;
 };
 }
 

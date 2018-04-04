@@ -1692,7 +1692,7 @@ void DESFireEV1ISO7816Commands::onAuthenticated()
     }
 }
 
-std::string DESFireEV1ISO7816Commands::IKS_getLastReadSignature() const
+iks::SignatureResult DESFireEV1ISO7816Commands::IKS_getLastReadSignature() const
 {
     return handle_read_data_last_sig_;
 }
