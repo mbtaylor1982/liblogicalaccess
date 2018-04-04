@@ -90,10 +90,15 @@ int main(int ac, char **av) {
         }
 
         std::cout << "Read data: " << fmt_result->getLinearData() << std::endl;
-        auto sig_str = acs->IKS_getPayloadSignature();
-        std::cout << "HAHAHAH: " << BufferHelper::getHex(sig_str) << std::endl;
-        ByteVector signature(sig_str.begin(), sig_str.end());
-        std::cout << "Signature: " << signature << std::endl;
+        auto sig_res = acs->IKS_getPayloadSignature();
+        std::cout << "Signature: " << BufferHelper::getHex(sig_res.signature_) << std::endl;
+        std::cout << "Signature Description: \n"
+                  << "\tNonce: " << sig_res.signature_description_.nonce() <<std::endl
+                  << "\tTimestamp: " << sig_res.signature_description_.timestamp() << std::endl
+                  << "\tPayload: " << BufferHelper::getHex(sig_res.signature_description_.payload()) << std::endl
+                  << "\tRun UUID: "<< BufferHelper::getHex(sig_res.signature_description_.uuid()) << std::endl;
+
+        std::cout << "DescriptionBlob: " << BufferHelper::getHex(sig_res.signature_description_.SerializeAsString()) << std::endl;
     }
     catch (const iks::RPCException &e) {
         std::cerr << "Something went wrong: " << e.what() << std::endl;

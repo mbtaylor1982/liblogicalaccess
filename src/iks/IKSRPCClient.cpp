@@ -1,7 +1,8 @@
-#include <logicalaccess/iks/RPCException.hpp>
+#include "logicalaccess/iks/RPCException.hpp"
 #include "logicalaccess/iks/IKSRPCClient.hpp"
 #include <chrono>
-#include <logicalaccess/bufferhelper.hpp>
+#include "logicalaccess/bufferhelper.hpp"
+#include "logicalaccess/iks/signature.hpp"
 
 namespace logicalaccess
 {
@@ -60,7 +61,7 @@ ByteVector IKSRPCClient::aes_encrypt(const ByteVector &in, const std::string &ke
 }
 
 ByteVector IKSRPCClient::aes_decrypt(const ByteVector &in, const std::string &key_name,
-                                     const ByteVector &iv, std::string *out_signature)
+                                     const ByteVector &iv, SignatureResult *out_signature)
 {
     grpc::ClientContext context;
     CMSG_AESOperation req;
@@ -75,11 +76,10 @@ ByteVector IKSRPCClient::aes_decrypt(const ByteVector &in, const std::string &ke
     {
         if (out_signature)
         {
-            // copy signature.
-            *out_signature = rep.signature();
-            SignatureDescription sig_desc = rep.signaturedescription();
-            std::cout << "Signed with nonce: " << sig_desc.nonce() << ", uuid: " << BufferHelper::getHex(sig_desc.uuid()) << std::endl;
-            std::cout << "SIG: " << BufferHelper::getHex(rep.signature()) << std::endl;
+            // copy signature and its description.
+            auto sig_str = rep.signature();
+            out_signature->signature_ = ByteVector(sig_str.begin(), sig_str.end());
+            out_signature->signature_description_ = rep.signaturedescription();
         }
         return ByteVector(rep.payload().begin(), rep.payload().end());
     }

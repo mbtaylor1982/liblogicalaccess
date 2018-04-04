@@ -11,6 +11,7 @@
 #include <logicalaccess/plugins/cards/desfire/desfirelocation.hpp>
 #include <logicalaccess/cards/commands.hpp>
 #include <vector>
+#include <logicalaccess/iks/signature.hpp>
 
 namespace logicalaccess
 {
@@ -534,13 +535,13 @@ class LIBLOGICALACCESS_API DESFireCommands : public Commands
     /**
      * Get the IKS signature corresponding to the last readData() call.
      *
-     * This will return the empty string by default, and will only work if both:
+     * This will return the empty SignatureResult and will only work if both:
      *    1) DESFireEV1ISO7816 is used.
-     *    2) An IKS backed is used.
+     *    2) An IKS backend is used.
      */
-    virtual std::string IKS_getLastReadSignature() const
+    virtual iks::SignatureResult IKS_getLastReadSignature() const
     {
-        return "";
+        return iks::SignatureResult{};
     }
 
   protected:

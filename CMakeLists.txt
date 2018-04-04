@@ -150,7 +150,7 @@ file(GLOB include_storage ${NATIVE_INCLUDE}/logicalaccess/services/storage/*.hpp
 file(GLOB include_uidchanger ${NATIVE_INCLUDE}/logicalaccess/services/uidchanger/*.hpp)
 file(GLOB include_license_checker ${NATIVE_INCLUDE}/logicalaccess/services/licensechecker/*.hpp)
 file(GLOB include_iks ${NATIVE_INCLUDE}/logicalaccess/iks/*.hpp)
-file(GLOB include_iks_packet ${NATIVE_INCLUDE}/logicalaccess/iks/packet/*.hpp)
+file(GLOB include_iks_packet "${NATIVE_INCLUDE}/logicalaccess/iks/packet/*.hpp" "${NATIVE_INCLUDE}/logicalaccess/iks/packet/*.h")
 file(GLOB include_service_identity ${NATIVE_INCLUDE}/logicalaccess/services/identity/*.hpp)
 
 INCLUDE_DIRECTORIES(${NATIVE_INCLUDE} ${CMAKE_CURRENT_SOURCE_DIR}/plugins/)
@@ -250,7 +250,7 @@ set(include ${include_root} ${include_cards} ${include_readerproviders}
         ${include_license_checker}
         ${include_dynlibrary} ${include_storage} ${include_vc}
         ${include_iks} ${include_iks_packet} ${include_service_identity}
-        include/logicalaccess/iks/IKSRPCClient.hpp src/iks/IKSRPCClient.cpp include/logicalaccess/iks/RPCException.hpp)
+        include/logicalaccess/iks/IKSRPCClient.hpp include/logicalaccess/iks/RPCException.hpp)
 
 
 add_library(
