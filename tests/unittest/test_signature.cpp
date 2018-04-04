@@ -28,11 +28,11 @@ TEST(test_signature, verify1)
         "34588178F4F922AC2DB354D067A7331C89ECC1F3189E689314DFD6302DA37D5803D2ACF9A0D54D70"
         "36BBC3E055B6687B95349F1DFE2C2C859FD32AC2DF33CBD2B812DAA668EA43E4F9B103E0E9A0D54A"
         "D78F1EB682F83C6744F021FD0907B19F"));
-    ASSERT_TRUE(SignatureHelper::verify(blob, signature, pubkey));
+    ASSERT_TRUE(SignatureHelper::verify_sha512(blob, signature, pubkey));
 
     auto invalid_signature  = signature;
     invalid_signature.at(0) = '3';
-    ASSERT_FALSE(SignatureHelper::verify(blob, invalid_signature, pubkey));
+    ASSERT_FALSE(SignatureHelper::verify_sha512(blob, invalid_signature, pubkey));
 }
 
 TEST(test_signature, verify_iks)

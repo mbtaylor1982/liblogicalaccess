@@ -29,8 +29,8 @@ class SignatureHelper
      * @param pem_pubkey
      * @return true if signature is valid, false otherwise.
      */
-    static bool verify(const std::string &data, const std::string &signature,
-                       const std::string &pem_pubkey);
+    static bool verify_sha512(const std::string &data, const std::string &signature,
+                              const std::string &pem_pubkey);
 };
 }
 

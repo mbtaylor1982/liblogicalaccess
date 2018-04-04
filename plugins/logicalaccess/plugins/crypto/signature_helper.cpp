@@ -57,8 +57,8 @@ struct VerificationHelper
 };
 }
 
-bool SignatureHelper::verify(const std::string &data, const std::string &signature,
-                             const std::string &pem_pubkey)
+bool SignatureHelper::verify_sha512(const std::string &data, const std::string &signature,
+                                    const std::string &pem_pubkey)
 {
     VerificationHelper helper(pem_pubkey);
 
@@ -74,8 +74,8 @@ bool SignatureHelper::verify(const std::string &data, const std::string &signatu
         throw std::runtime_error("EVP_DigestVerifyUpdate");
     }
 
-    return 1 == EVP_DigestVerifyFinal(
-             helper.ctx, reinterpret_cast<const unsigned char *>(signature.c_str()),
-             signature.size());
+    return 1 == EVP_DigestVerifyFinal(helper.ctx, reinterpret_cast<const unsigned char *>(
+                                                      signature.c_str()),
+                                      signature.size());
 }
 }
