@@ -22,15 +22,12 @@ namespace
 struct VerificationHelper
 {
     explicit VerificationHelper(const std::string &pem_public_key)
-        : ctx(nullptr)
-        , bio(nullptr)
+        : bio(nullptr)
         , pkey(nullptr)
     {
 
 #if OPENSSL_VERSION_NUMBER < 0x10100000L
-        ctx = EVP_MD_CTX_create();
-        if (ctx == nullptr)
-            fail("Cannot create EVP context");
+        EVP_MD_CTX_init(&ctx);
 
         bio = BIO_new_mem_buf(pem_public_key.c_str(), pem_public_key.size());
         if (bio == nullptr)
@@ -48,10 +45,10 @@ struct VerificationHelper
     {
         EVP_PKEY_free(pkey);
         BIO_free_all(bio);
-        EVP_MD_CTX_cleanup(ctx);
+        EVP_MD_CTX_cleanup(&ctx);
     }
 
-    EVP_MD_CTX *ctx;
+    EVP_MD_CTX ctx;
     BIO *bio;
     EVP_PKEY *pkey;
 };
@@ -62,17 +59,17 @@ bool SignatureHelper::verify_sha512(const std::string &data, const std::string &
 {
     VerificationHelper helper(pem_pubkey);
 
-    if (1 != EVP_DigestVerifyInit(helper.ctx, NULL, EVP_sha512(), NULL, helper.pkey))
+    if (1 != EVP_DigestVerifyInit(&helper.ctx, NULL, EVP_sha512(), NULL, helper.pkey))
     {
         throw std::runtime_error("EVP_DigestVerifyInit");
     }
 
-    if (1 != EVP_DigestVerifyUpdate(helper.ctx, data.c_str(), data.size()))
+    if (1 != EVP_DigestVerifyUpdate(&helper.ctx, data.c_str(), data.size()))
     {
         throw std::runtime_error("EVP_DigestVerifyUpdate");
     }
 
-    return 1 == EVP_DigestVerifyFinal(helper.ctx, reinterpret_cast<const unsigned char *>(
+    return 1 == EVP_DigestVerifyFinal(&helper.ctx, reinterpret_cast<const unsigned char *>(
                                                       signature.c_str()),
                                       signature.size());
 }
