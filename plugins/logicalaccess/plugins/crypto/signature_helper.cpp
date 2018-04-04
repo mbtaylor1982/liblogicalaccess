@@ -62,8 +62,6 @@ bool SignatureHelper::verify_sha512(const std::string &data, const std::string &
 {
     VerificationHelper helper(pem_pubkey);
 
-    assert(helper.ctx);
-    assert(helper.pkey);
     if (1 != EVP_DigestVerifyInit(helper.ctx, NULL, EVP_sha512(), NULL, helper.pkey))
     {
         throw std::runtime_error("EVP_DigestVerifyInit");
