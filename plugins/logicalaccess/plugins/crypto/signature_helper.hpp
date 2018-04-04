@@ -8,26 +8,30 @@
 
 #include <string>
 
-namespace logicalaccess {
+namespace logicalaccess
+{
 
+/**
+ * Some static pubkey based signature utils.
+ */
+class SignatureHelper
+{
+  public:
     /**
-     * Some static pubkey based signature utils.
+     * Verify that the signature of `data` matches `signature`.
+     *
+     * pem_pubkey is a text PEM encoded public to use for signature verification.
+     *
+     * RSA / SHA512 is used.
+     *
+     * @param data
+     * @param signature
+     * @param pem_pubkey
+     * @return true if signature is valid, false otherwise.
      */
-    class SignatureHelper {
-    public:
-        /**
-         * Verify that the signature of `data` matches `signature`.
-         *
-         * pem_pubkey is a text PEM encoded public to use for signature verification.
-         *
-         * @param data
-         * @param signature
-         * @param pem_pubkey
-         * @return true if signature is valid, false otherwise.
-         */
-        static bool verify(const std::string &data, const std::string &signature, const std::string &pem_pubkey);
-    };
-
+    static bool verify(const std::string &data, const std::string &signature,
+                       const std::string &pem_pubkey);
+};
 }
 
-#endif //LIBLOGICALACCESS_SIGNATURE_HELPER_HPP
+#endif // LIBLOGICALACCESS_SIGNATURE_HELPER_HPP

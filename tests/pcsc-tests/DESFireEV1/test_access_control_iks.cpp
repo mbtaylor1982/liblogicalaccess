@@ -23,7 +23,8 @@
 #include <logicalaccess/services/accesscontrol/formats/customformat/customformat.hpp>
 #include <logicalaccess/iks/RPCException.hpp>
 
-void introduction() {
+void introduction()
+{
     PRINT_TIME("This test target DESFireEV1 cards. It tests that we are "
                "can read data from a card w/o knowing the session key");
 
@@ -31,12 +32,14 @@ void introduction() {
     PRINT_TIME("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 }
 
-ByteVector vector_from_string(const std::string &s) {
+ByteVector vector_from_string(const std::string &s)
+{
     ByteVector ret(s.begin(), s.end());
     return ret;
 }
 
-int main(int ac, char **av) {
+int main(int ac, char **av)
+{
     using namespace logicalaccess;
     prologue(ac, av);
     introduction();
@@ -45,62 +48,73 @@ int main(int ac, char **av) {
     ChipPtr chip;
     tie(provider, readerUnit, chip) = lla_test_init();
 
-    iks::IslogKeyServer::configureGlobalInstance("iksf",
-                                                 6565,
-                                                 "/home/xaqq/Documents/iks/crypto/arnaud.pem",
-                                                 "/home/xaqq/Documents/iks/crypto/arnaud.key",
-                                                 "/home/xaqq/Documents/iks/crypto/MyRootCA.pem");
+    iks::IslogKeyServer::configureGlobalInstance(
+        "iksf", 6565, "/home/xaqq/Documents/iks/crypto/arnaud.pem",
+        "/home/xaqq/Documents/iks/crypto/arnaud.key",
+        "/home/xaqq/Documents/iks/crypto/MyRootCA.pem");
 
     PRINT_TIME("Chip identifier: "
-                       << logicalaccess::BufferHelper::getHex(chip->getChipIdentifier()));
+               << logicalaccess::BufferHelper::getHex(chip->getChipIdentifier()));
 
     LLA_ASSERT(chip->getCardType() == "DESFireEV1",
                "Chip is not an DESFireEV1, but is " + chip->getCardType() + " instead.");
 
     auto storage =
-            std::dynamic_pointer_cast<StorageCardService>(chip->getService(CST_STORAGE));
+        std::dynamic_pointer_cast<StorageCardService>(chip->getService(CST_STORAGE));
     std::shared_ptr<AccessControlCardService> acs =
-            std::dynamic_pointer_cast<AccessControlCardService>(
-                    chip->getService(CST_ACCESS_CONTROL));
+        std::dynamic_pointer_cast<AccessControlCardService>(
+            chip->getService(CST_ACCESS_CONTROL));
 
     auto fmt = std::make_shared<RawFormat>();
     // Yeah we need this hack to specify the size we need.
     fmt->setRawData(ByteVector(4, 0));
-    auto loc = std::make_shared<DESFireLocation>();
-    loc->aid = 0x000521;
-    loc->file = 1;
+    auto loc   = std::make_shared<DESFireLocation>();
+    loc->aid   = 0x000521;
+    loc->file  = 1;
     loc->byte_ = 0;
 
     std::shared_ptr<DESFireKey> key(new DESFireKey());
     key->setKeyType(DF_KEY_AES);
-    //key->fromString("00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00");
-    //key->setKeyStorage(std::make_shared<IKSStorage>("d852a915-7435-464d-9fbf-680d056c827b"));
-    //key->setKeyStorage(std::make_shared<IKSStorage>("df30845a-3ca4-40ab-91f4-f45cb2e37b67"));
+    // key->fromString("00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00");
+    // key->setKeyStorage(std::make_shared<IKSStorage>("d852a915-7435-464d-9fbf-680d056c827b"));
+    // key->setKeyStorage(std::make_shared<IKSStorage>("df30845a-3ca4-40ab-91f4-f45cb2e37b67"));
     auto kst = std::make_shared<IKSStorage>("36ff2fbc-dcf5-413b-a274-b9531fdbd92c");
     key->setKeyStorage(kst);
-    auto ai = std::make_shared<DESFireAccessInfo>();
+    auto ai     = std::make_shared<DESFireAccessInfo>();
     ai->readKey = key;
 
-    try {
+    try
+    {
         auto fmt_result = acs->readFormat(fmt, loc, ai);
 
-        if (!fmt_result) {
+        if (!fmt_result)
+        {
             std::cout << "Failed to read access information." << std::endl;
             return -1;
         }
 
         std::cout << "Read data: " << fmt_result->getLinearData() << std::endl;
         auto sig_res = acs->IKS_getPayloadSignature();
-        std::cout << "Signature: " << BufferHelper::getHex(sig_res.signature_) << std::endl;
+        std::cout << "Signature: " << BufferHelper::getHex(sig_res.signature_)
+                  << std::endl;
         std::cout << "Signature Description: \n"
-                  << "\tNonce: " << sig_res.signature_description_.nonce() <<std::endl
-                  << "\tTimestamp: " << sig_res.signature_description_.timestamp() << std::endl
-                  << "\tPayload: " << BufferHelper::getHex(sig_res.signature_description_.payload()) << std::endl
-                  << "\tRun UUID: "<< BufferHelper::getHex(sig_res.signature_description_.uuid()) << std::endl;
+                  << "\tNonce: " << sig_res.signature_description_.nonce() << std::endl
+                  << "\tTimestamp: " << sig_res.signature_description_.timestamp()
+                  << std::endl
+                  << "\tPayload: "
+                  << BufferHelper::getHex(sig_res.signature_description_.payload())
+                  << std::endl
+                  << "\tRun UUID: "
+                  << BufferHelper::getHex(sig_res.signature_description_.uuid())
+                  << std::endl;
 
-        std::cout << "DescriptionBlob: " << BufferHelper::getHex(sig_res.signature_description_.SerializeAsString()) << std::endl;
+        std::cout << "DescriptionBlob: "
+                  << BufferHelper::getHex(
+                         sig_res.signature_description_.SerializeAsString())
+                  << std::endl;
     }
-    catch (const iks::RPCException &e) {
+    catch (const iks::RPCException &e)
+    {
         std::cerr << "Something went wrong: " << e.what() << std::endl;
     }
 

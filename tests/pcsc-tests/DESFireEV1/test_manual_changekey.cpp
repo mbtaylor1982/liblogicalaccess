@@ -56,7 +56,7 @@ void create_app_and_file(std::shared_ptr<logicalaccess::DESFireISO7816Commands> 
     cmd->authenticate(0, key);
 
     std::shared_ptr<DESFireChip> dchip =
-            std::dynamic_pointer_cast<DESFireChip>(cmd->getChip());
+        std::dynamic_pointer_cast<DESFireChip>(cmd->getChip());
     dchip->getCrypto()->setKey(0x535, 0, 0, key);
 
     cmd->changeKey(0, new_key);
@@ -73,13 +73,13 @@ int main(int ac, char **av)
     tie(provider, readerUnit, chip) = lla_test_init("DESFireEV1");
 
     PRINT_TIME("CHip identifier: "
-                       << logicalaccess::BufferHelper::getHex(chip->getChipIdentifier()));
+               << logicalaccess::BufferHelper::getHex(chip->getChipIdentifier()));
 
     LLA_ASSERT(chip->getCardType() == "DESFireEV1",
                "Chip is not an DESFireEV1, but is " + chip->getCardType() + " instead.");
 
     std::shared_ptr<DESFireEV1Chip> desfirechip =
-            std::dynamic_pointer_cast<DESFireEV1Chip>(chip);
+        std::dynamic_pointer_cast<DESFireEV1Chip>(chip);
     assert(desfirechip);
     PRINT_TIME("Has Real UID: " << desfirechip->hasRealUID());
 
@@ -87,7 +87,7 @@ int main(int ac, char **av)
 
     auto cmd = std::dynamic_pointer_cast<DESFireISO7816Commands>(chip->getCommands());
     auto cmdev1 =
-            std::dynamic_pointer_cast<DESFireEV1ISO7816Commands>(chip->getCommands());
+        std::dynamic_pointer_cast<DESFireEV1ISO7816Commands>(chip->getCommands());
     LLA_ASSERT(cmd && cmdev1, "Cannot get correct command object from chip.");
 
 
@@ -114,17 +114,17 @@ int main(int ac, char **av)
     cmd->selectApplication(0x521);
     cmd->authenticate(0, newkey);
     LLA_SUBTEST_PASSED("Authenticate");
-/*
-    DESFireAccessRights ar;
-    ar.readAccess         = AR_KEY2;
-    ar.writeAccess        = AR_KEY1;
-    ar.readAndWriteAccess = AR_KEY1;
-    ar.changeAccess       = AR_KEY1;
-    cmdev1->createStdDataFile(0x00, CM_ENCRYPT, ar, 4, 0);*/
+    /*
+        DESFireAccessRights ar;
+        ar.readAccess         = AR_KEY2;
+        ar.writeAccess        = AR_KEY1;
+        ar.readAndWriteAccess = AR_KEY1;
+        ar.changeAccess       = AR_KEY1;
+        cmdev1->createStdDataFile(0x00, CM_ENCRYPT, ar, 4, 0);*/
 
     cmd->authenticate(0x00, newkey);
     cmd->changeKey(0x01, key);
-  //  LLA_SUBTEST_PASSED("ChangeKey");
+    //  LLA_SUBTEST_PASSED("ChangeKey");
 
     pcsc_test_shutdown(readerUnit);
     return EXIT_SUCCESS;

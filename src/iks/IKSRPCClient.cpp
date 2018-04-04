@@ -77,7 +77,7 @@ ByteVector IKSRPCClient::aes_decrypt(const ByteVector &in, const std::string &ke
         if (out_signature)
         {
             // copy signature and its description.
-            auto sig_str = rep.signature();
+            auto sig_str              = rep.signature();
             out_signature->signature_ = ByteVector(sig_str.begin(), sig_str.end());
             out_signature->signature_description_ = rep.signaturedescription();
         }

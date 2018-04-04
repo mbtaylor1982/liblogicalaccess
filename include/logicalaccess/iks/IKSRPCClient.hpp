@@ -12,7 +12,7 @@ namespace logicalaccess
 {
 namespace iks
 {
-    struct SignatureResult;
+struct SignatureResult;
 
 /**
  * Wraps a RPC client to IKS.
@@ -28,7 +28,8 @@ class IKSRPCClient
                            const ByteVector &iv);
 
     ByteVector aes_decrypt(const ByteVector &in, const std::string &key_name,
-                           const ByteVector &iv, SignatureResult *out_signature = nullptr);
+                           const ByteVector &iv,
+                           SignatureResult *out_signature = nullptr);
 
     SMSG_DesfireAuth_Step1 desfire_auth_step1(CMSG_DesfireAuth_Step1 req);
     SMSG_DesfireAuth_Step2 desfire_auth_step2(CMSG_DesfireAuth_Step2 req);
