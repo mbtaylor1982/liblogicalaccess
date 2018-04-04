@@ -1,5 +1,6 @@
 #pragma once
 
+#include "logicalaccess/iks/packet/iks.grpc.pb.h"
 #include "logicalaccess/lla_fwd.hpp"
 
 namespace logicalaccess
@@ -14,12 +15,10 @@ namespace logicalaccess
          */
         struct SignatureResult {
 
-            bool verify(ByteVector server_pubkey);
+            bool verify(const std::string &pem_pubkey);
 
-            ByteVector payload_;
-            uint64_t nonce_;
-            uint64_t timestamp_;
-            ByteVector run_uuid_;
+            ByteVector signature_;
+            SignatureDescription signature_description_;
         };
     }
 }
