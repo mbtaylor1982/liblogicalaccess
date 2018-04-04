@@ -29,7 +29,9 @@ struct VerificationHelper
 #if OPENSSL_VERSION_NUMBER < 0x10100000L
         EVP_MD_CTX_init(&ctx);
 
-        bio = BIO_new_mem_buf(pem_public_key.c_str(), pem_public_key.size());
+        // We cast away constness for older openssl version.
+        bio = BIO_new_mem_buf(const_cast<char *>(pem_public_key.c_str()),
+                              pem_public_key.size());
         if (bio == nullptr)
             fail("Cannot wrap public key in BIO object");
 
@@ -69,8 +71,9 @@ bool SignatureHelper::verify_sha512(const std::string &data, const std::string &
         throw std::runtime_error("EVP_DigestVerifyUpdate");
     }
 
-    return 1 == EVP_DigestVerifyFinal(&helper.ctx, reinterpret_cast<const unsigned char *>(
-                                                      signature.c_str()),
+    return 1 == EVP_DigestVerifyFinal(&helper.ctx,
+                                      reinterpret_cast<unsigned char *>(
+                                          const_cast<char *>(signature.c_str())),
                                       signature.size());
 }
 }
