@@ -56,8 +56,9 @@ int main(int ac, char **av)
     PRINT_TIME("Chip identifier: "
                << logicalaccess::BufferHelper::getHex(chip->getChipIdentifier()));
 
-    LLA_ASSERT(chip->getCardType() == "DESFireEV1",
-               "Chip is not an DESFireEV1, but is " + chip->getCardType() + " instead.");
+    LLA_ASSERT(chip->getCardType() == "DESFireEV1" || chip->getCardType() == "DESFireEV2",
+               "Chip is not an DESFireEV{1,2}, but is " + chip->getCardType() +
+                   " instead.");
 
     auto storage =
         std::dynamic_pointer_cast<StorageCardService>(chip->getService(CST_STORAGE));
@@ -70,7 +71,7 @@ int main(int ac, char **av)
     fmt->setRawData(ByteVector(4, 0));
     auto loc   = std::make_shared<DESFireLocation>();
     loc->aid   = 0x000521;
-    loc->file  = 1;
+    loc->file  = 0;
     loc->byte_ = 0;
 
     std::shared_ptr<DESFireKey> key(new DESFireKey());
@@ -78,10 +79,15 @@ int main(int ac, char **av)
     // key->fromString("00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00");
     // key->setKeyStorage(std::make_shared<IKSStorage>("d852a915-7435-464d-9fbf-680d056c827b"));
     // key->setKeyStorage(std::make_shared<IKSStorage>("df30845a-3ca4-40ab-91f4-f45cb2e37b67"));
-    auto kst = std::make_shared<IKSStorage>("36ff2fbc-dcf5-413b-a274-b9531fdbd92c");
+    // auto kst = std::make_shared<IKSStorage>("36ff2fbc-dcf5-413b-a274-b9531fdbd92c");
+    // auto kst = std::make_shared<IKSStorage>("12c856a2-969a-4bad-a9c0-37b09ca69304");
+    auto kst = std::make_shared<IKSStorage>("41fafacf-030d-42dc-a4bd-e6d9c9e437f8");
+
+    // key->fromString("4a 9b 22 a6 b0 01 d2 9f 4e c8 a0 02 66 e0 06 b2");
     key->setKeyStorage(kst);
-    auto ai     = std::make_shared<DESFireAccessInfo>();
-    ai->readKey = key;
+    auto ai       = std::make_shared<DESFireAccessInfo>();
+    ai->readKey   = key;
+    ai->readKeyno = 1;
 
     try
     {

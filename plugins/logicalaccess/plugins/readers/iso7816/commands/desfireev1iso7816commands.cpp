@@ -890,15 +890,87 @@ void DESFireEV1ISO7816Commands::authenticateISO(unsigned char keyno,
     crypto->iso_authenticate_PICC2(keyno, encRndA1, random_len);
 }
 
+
+void DESFireEV1ISO7816Commands::iks_authenticateAES(std::shared_ptr<DESFireKey> key,
+                                                    uint8_t keyno)
+{
+    std::shared_ptr<DESFireCrypto> crypto = getDESFireChip()->getCrypto();
+    auto kst = std::dynamic_pointer_cast<IKSStorage>(key->getKeyStorage());
+    assert(kst);
+
+    iks::IKSRPCClient rpc_client(iks::IslogKeyServer::get_global_config());
+
+    ByteVector data;
+    data.push_back(keyno);
+    auto diversify = getKeyInformations(key, keyno);
+
+    // Get cryptogram from card.
+    ByteVector encRndB = transmit_plain(DFEV1_INS_AUTHENTICATE_AES, data);
+    unsigned char err  = encRndB.back();
+    encRndB.resize(encRndB.size() - 2);
+    EXCEPTION_ASSERT_WITH_LOG(err == DF_INS_ADDITIONAL_FRAME, LibLogicalAccessException,
+                              "No additional frame for ISO authentication.");
+
+    auto rndB = rpc_client.aes_decrypt(encRndB, kst->getKeyIdentity(), ByteVector(16, 0));
+    auto iv = ByteVector(encRndB.end() - 16, encRndB.end());
+
+    ByteVector rndB1;
+    rndB1.insert(rndB1.end(), rndB.begin() + 1, rndB.begin() + 1 + 15);
+    rndB1.push_back(rndB[0]);
+
+    auto rndA = rpc_client.gen_random(16);
+    ByteVector rndAB;
+    rndAB.insert(rndAB.end(), rndA.begin(), rndA.end());
+    rndAB.insert(rndAB.end(), rndB1.begin(), rndB1.end());
+
+    auto cryptogram = rpc_client.aes_encrypt(rndAB, kst->getKeyIdentity(), iv);
+    iv =  ByteVector(cryptogram.end() - 16, cryptogram.end());
+    ByteVector encRndA1 = transmit_plain(DF_INS_ADDITIONAL_FRAME, cryptogram);
+    encRndA1.resize(encRndA1.size() - 2);
+
+    ByteVector checkRndA;
+    auto clear_rnda_picc = rpc_client.aes_decrypt(encRndA1, kst->getKeyIdentity(), iv);
+    checkRndA.push_back(clear_rnda_picc[15]);
+    checkRndA.insert(checkRndA.end(), clear_rnda_picc.begin(), clear_rnda_picc.begin() + 15);
+
+    std::cout << "RNDA: " << rndA << std::endl;
+    std::cout << "CHEC: " << checkRndA << std::endl;
+
+    if (checkRndA == rndA)
+    {
+        crypto->d_sessionKey.insert(crypto->d_sessionKey.end(), rndA.begin(), rndA.begin() + 4);
+        crypto->d_sessionKey.insert(crypto->d_sessionKey.end(), rndB.begin(), rndB.begin() + 4);
+        crypto->d_sessionKey.insert(crypto->d_sessionKey.end(), rndA.begin() + 12, rndA.begin() + 16);
+        crypto->d_sessionKey.insert(crypto->d_sessionKey.end(), rndB.begin() + 12, rndB.begin() + 16);
+
+        crypto->d_currentKeyNo = keyno;
+    }
+    else
+        THROW_EXCEPTION_WITH_LOG(LibLogicalAccessException,
+                                 "AES Authenticate PICC 2 Failed!");
+
+    crypto->d_cipher.reset(new openssl::AESCipher());
+    crypto->d_auth_method = CM_ISO;
+    crypto->d_block_size  = 16;
+    crypto->d_mac_size    = 8;
+    crypto->d_lastIV.clear();
+    crypto->d_lastIV.resize(crypto->d_block_size, 0x00);
+}
+
 void DESFireEV1ISO7816Commands::authenticateAES(unsigned char keyno)
 {
     std::shared_ptr<DESFireCrypto> crypto = getDESFireChip()->getCrypto();
     crypto->d_auth_method                 = CM_LEGACY; // To prevent CMAC checking
 
+    std::shared_ptr<DESFireKey> key = crypto->getKey(0, keyno);
+    if (key && key->getKeyStorage()->getType() == KST_SERVER)
+    {
+        iks_authenticateAES(key, keyno);
+        return;
+    }
+
     ByteVector data;
     data.push_back(keyno);
-
-    std::shared_ptr<DESFireKey> key = crypto->getKey(0, keyno);
 
     auto diversify = getKeyInformations(key, keyno);
 

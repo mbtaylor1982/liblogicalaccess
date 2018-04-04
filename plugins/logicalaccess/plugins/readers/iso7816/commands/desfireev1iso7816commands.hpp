@@ -247,6 +247,7 @@ class LIBLOGICALACCESS_API DESFireEV1ISO7816Commands : public DESFireISO7816Comm
      * \param keyno The key number.
      */
     void authenticateAES(unsigned char keyno) override;
+    void iks_authenticateAES(std::shared_ptr<DESFireKey> key, uint8_t keyno);
 
     /**
      * \brief Read data from a specific file.
