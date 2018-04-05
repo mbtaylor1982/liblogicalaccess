@@ -48,7 +48,7 @@ TEST(test_signature, verify_iks)
         "2558536D09599DED45833F4C5C36781E");
     sigres.signature_description_.set_payload(BufferHelper::getStdString(
         BufferHelper::fromHexString("000010920A438C660000000000000000")));
-    sigres.signature_description_.set_uuid(BufferHelper::getStdString(
+    sigres.signature_description_.set_run_uuid(BufferHelper::getStdString(
         BufferHelper::fromHexString("D43DEBC7D61B4127A01EC5B1EA3923C8")));
     sigres.signature_description_.set_nonce(3);
     sigres.signature_description_.set_timestamp(1522842692598);
@@ -69,7 +69,7 @@ TEST(test_signature, verify_iks_fails)
         "2558536D09599DED45833F4C5C36781E");
     sigres.signature_description_.set_payload(BufferHelper::getStdString(
         BufferHelper::fromHexString("000010920A438C660000000000000000")));
-    sigres.signature_description_.set_uuid(BufferHelper::getStdString(
+    sigres.signature_description_.set_run_uuid(BufferHelper::getStdString(
         BufferHelper::fromHexString("D43DEBC7D61B4127A01EC5B1EA3923C8")));
     sigres.signature_description_.set_nonce(3);
 

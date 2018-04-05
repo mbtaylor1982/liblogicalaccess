@@ -19,7 +19,7 @@ struct SignatureResult
     bool verify(const std::string &pem_pubkey);
 
     ByteVector signature_;
-    SignatureDescription signature_description_;
+    ::SignatureDescription signature_description_;
 };
 }
 }

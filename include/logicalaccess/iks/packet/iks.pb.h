@@ -37,7 +37,7 @@ namespace protobuf_iks_2eproto {
 struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[12];
+  static const ::google::protobuf::internal::ParseTable schema[14];
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
@@ -59,10 +59,14 @@ void InitDefaultsCMSG_AESOperationImpl();
 void InitDefaultsCMSG_AESOperation();
 void InitDefaultsSMSG_AESResultImpl();
 void InitDefaultsSMSG_AESResult();
-void InitDefaultsCMSG_DesfireAuth_Step1Impl();
-void InitDefaultsCMSG_DesfireAuth_Step1();
-void InitDefaultsSMSG_DesfireAuth_Step1Impl();
-void InitDefaultsSMSG_DesfireAuth_Step1();
+void InitDefaultsCMSG_DesfireAESAuth_Step1Impl();
+void InitDefaultsCMSG_DesfireAESAuth_Step1();
+void InitDefaultsSMSG_DesfireAESAuth_Step1Impl();
+void InitDefaultsSMSG_DesfireAESAuth_Step1();
+void InitDefaultsCMSG_DesfireISOAuth_Step1Impl();
+void InitDefaultsCMSG_DesfireISOAuth_Step1();
+void InitDefaultsSMSG_DesfireISOAuth_Step1Impl();
+void InitDefaultsSMSG_DesfireISOAuth_Step1();
 void InitDefaultsCMSG_DesfireAuth_Step2Impl();
 void InitDefaultsCMSG_DesfireAuth_Step2();
 void InitDefaultsSMSG_DesfireAuth_Step2Impl();
@@ -76,8 +80,10 @@ inline void InitDefaults() {
   InitDefaultsSMSG_GenRandom();
   InitDefaultsCMSG_AESOperation();
   InitDefaultsSMSG_AESResult();
-  InitDefaultsCMSG_DesfireAuth_Step1();
-  InitDefaultsSMSG_DesfireAuth_Step1();
+  InitDefaultsCMSG_DesfireAESAuth_Step1();
+  InitDefaultsSMSG_DesfireAESAuth_Step1();
+  InitDefaultsCMSG_DesfireISOAuth_Step1();
+  InitDefaultsSMSG_DesfireISOAuth_Step1();
   InitDefaultsCMSG_DesfireAuth_Step2();
   InitDefaultsSMSG_DesfireAuth_Step2();
 }
@@ -85,15 +91,18 @@ inline void InitDefaults() {
 class CMSG_AESOperation;
 class CMSG_AESOperationDefaultTypeInternal;
 extern CMSG_AESOperationDefaultTypeInternal _CMSG_AESOperation_default_instance_;
-class CMSG_DesfireAuth_Step1;
-class CMSG_DesfireAuth_Step1DefaultTypeInternal;
-extern CMSG_DesfireAuth_Step1DefaultTypeInternal _CMSG_DesfireAuth_Step1_default_instance_;
+class CMSG_DesfireAESAuth_Step1;
+class CMSG_DesfireAESAuth_Step1DefaultTypeInternal;
+extern CMSG_DesfireAESAuth_Step1DefaultTypeInternal _CMSG_DesfireAESAuth_Step1_default_instance_;
 class CMSG_DesfireAuth_Step2;
 class CMSG_DesfireAuth_Step2DefaultTypeInternal;
 extern CMSG_DesfireAuth_Step2DefaultTypeInternal _CMSG_DesfireAuth_Step2_default_instance_;
 class CMSG_DesfireChangeKey;
 class CMSG_DesfireChangeKeyDefaultTypeInternal;
 extern CMSG_DesfireChangeKeyDefaultTypeInternal _CMSG_DesfireChangeKey_default_instance_;
+class CMSG_DesfireISOAuth_Step1;
+class CMSG_DesfireISOAuth_Step1DefaultTypeInternal;
+extern CMSG_DesfireISOAuth_Step1DefaultTypeInternal _CMSG_DesfireISOAuth_Step1_default_instance_;
 class CMSG_GenRandom;
 class CMSG_GenRandomDefaultTypeInternal;
 extern CMSG_GenRandomDefaultTypeInternal _CMSG_GenRandom_default_instance_;
@@ -103,15 +112,18 @@ extern KeyDiversificationInfoDefaultTypeInternal _KeyDiversificationInfo_default
 class SMSG_AESResult;
 class SMSG_AESResultDefaultTypeInternal;
 extern SMSG_AESResultDefaultTypeInternal _SMSG_AESResult_default_instance_;
-class SMSG_DesfireAuth_Step1;
-class SMSG_DesfireAuth_Step1DefaultTypeInternal;
-extern SMSG_DesfireAuth_Step1DefaultTypeInternal _SMSG_DesfireAuth_Step1_default_instance_;
+class SMSG_DesfireAESAuth_Step1;
+class SMSG_DesfireAESAuth_Step1DefaultTypeInternal;
+extern SMSG_DesfireAESAuth_Step1DefaultTypeInternal _SMSG_DesfireAESAuth_Step1_default_instance_;
 class SMSG_DesfireAuth_Step2;
 class SMSG_DesfireAuth_Step2DefaultTypeInternal;
 extern SMSG_DesfireAuth_Step2DefaultTypeInternal _SMSG_DesfireAuth_Step2_default_instance_;
 class SMSG_DesfireChangeKey;
 class SMSG_DesfireChangeKeyDefaultTypeInternal;
 extern SMSG_DesfireChangeKeyDefaultTypeInternal _SMSG_DesfireChangeKey_default_instance_;
+class SMSG_DesfireISOAuth_Step1;
+class SMSG_DesfireISOAuth_Step1DefaultTypeInternal;
+extern SMSG_DesfireISOAuth_Step1DefaultTypeInternal _SMSG_DesfireISOAuth_Step1_default_instance_;
 class SMSG_GenRandom;
 class SMSG_GenRandomDefaultTypeInternal;
 extern SMSG_GenRandomDefaultTypeInternal _SMSG_GenRandom_default_instance_;
@@ -381,19 +393,19 @@ class SignatureDescription : public ::google::protobuf::Message /* @@protoc_inse
   ::std::string* release_payload();
   void set_allocated_payload(::std::string* payload);
 
-  // bytes uuid = 3;
-  void clear_uuid();
-  static const int kUuidFieldNumber = 3;
-  const ::std::string& uuid() const;
-  void set_uuid(const ::std::string& value);
+  // bytes run_uuid = 3;
+  void clear_run_uuid();
+  static const int kRunUuidFieldNumber = 3;
+  const ::std::string& run_uuid() const;
+  void set_run_uuid(const ::std::string& value);
   #if LANG_CXX11
-  void set_uuid(::std::string&& value);
+  void set_run_uuid(::std::string&& value);
   #endif
-  void set_uuid(const char* value);
-  void set_uuid(const void* value, size_t size);
-  ::std::string* mutable_uuid();
-  ::std::string* release_uuid();
-  void set_allocated_uuid(::std::string* uuid);
+  void set_run_uuid(const char* value);
+  void set_run_uuid(const void* value, size_t size);
+  ::std::string* mutable_run_uuid();
+  ::std::string* release_run_uuid();
+  void set_allocated_run_uuid(::std::string* run_uuid);
 
   // uint64 nonce = 2;
   void clear_nonce();
@@ -412,7 +424,7 @@ class SignatureDescription : public ::google::protobuf::Message /* @@protoc_inse
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr payload_;
-  ::google::protobuf::internal::ArenaStringPtr uuid_;
+  ::google::protobuf::internal::ArenaStringPtr run_uuid_;
   ::google::protobuf::uint64 nonce_;
   ::google::protobuf::uint64 timestamp_;
   mutable int _cached_size_;
@@ -1226,24 +1238,24 @@ class SMSG_AESResult : public ::google::protobuf::Message /* @@protoc_insertion_
 };
 // -------------------------------------------------------------------
 
-class CMSG_DesfireAuth_Step1 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:CMSG_DesfireAuth_Step1) */ {
+class CMSG_DesfireAESAuth_Step1 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:CMSG_DesfireAESAuth_Step1) */ {
  public:
-  CMSG_DesfireAuth_Step1();
-  virtual ~CMSG_DesfireAuth_Step1();
+  CMSG_DesfireAESAuth_Step1();
+  virtual ~CMSG_DesfireAESAuth_Step1();
 
-  CMSG_DesfireAuth_Step1(const CMSG_DesfireAuth_Step1& from);
+  CMSG_DesfireAESAuth_Step1(const CMSG_DesfireAESAuth_Step1& from);
 
-  inline CMSG_DesfireAuth_Step1& operator=(const CMSG_DesfireAuth_Step1& from) {
+  inline CMSG_DesfireAESAuth_Step1& operator=(const CMSG_DesfireAESAuth_Step1& from) {
     CopyFrom(from);
     return *this;
   }
   #if LANG_CXX11
-  CMSG_DesfireAuth_Step1(CMSG_DesfireAuth_Step1&& from) noexcept
-    : CMSG_DesfireAuth_Step1() {
+  CMSG_DesfireAESAuth_Step1(CMSG_DesfireAESAuth_Step1&& from) noexcept
+    : CMSG_DesfireAESAuth_Step1() {
     *this = ::std::move(from);
   }
 
-  inline CMSG_DesfireAuth_Step1& operator=(CMSG_DesfireAuth_Step1&& from) noexcept {
+  inline CMSG_DesfireAESAuth_Step1& operator=(CMSG_DesfireAESAuth_Step1&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -1253,30 +1265,30 @@ class CMSG_DesfireAuth_Step1 : public ::google::protobuf::Message /* @@protoc_in
   }
   #endif
   static const ::google::protobuf::Descriptor* descriptor();
-  static const CMSG_DesfireAuth_Step1& default_instance();
+  static const CMSG_DesfireAESAuth_Step1& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const CMSG_DesfireAuth_Step1* internal_default_instance() {
-    return reinterpret_cast<const CMSG_DesfireAuth_Step1*>(
-               &_CMSG_DesfireAuth_Step1_default_instance_);
+  static inline const CMSG_DesfireAESAuth_Step1* internal_default_instance() {
+    return reinterpret_cast<const CMSG_DesfireAESAuth_Step1*>(
+               &_CMSG_DesfireAESAuth_Step1_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
     8;
 
-  void Swap(CMSG_DesfireAuth_Step1* other);
-  friend void swap(CMSG_DesfireAuth_Step1& a, CMSG_DesfireAuth_Step1& b) {
+  void Swap(CMSG_DesfireAESAuth_Step1* other);
+  friend void swap(CMSG_DesfireAESAuth_Step1& a, CMSG_DesfireAESAuth_Step1& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline CMSG_DesfireAuth_Step1* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline CMSG_DesfireAESAuth_Step1* New() const PROTOBUF_FINAL { return New(NULL); }
 
-  CMSG_DesfireAuth_Step1* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  CMSG_DesfireAESAuth_Step1* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
   void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
   void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
-  void CopyFrom(const CMSG_DesfireAuth_Step1& from);
-  void MergeFrom(const CMSG_DesfireAuth_Step1& from);
+  void CopyFrom(const CMSG_DesfireAESAuth_Step1& from);
+  void MergeFrom(const CMSG_DesfireAESAuth_Step1& from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
@@ -1292,7 +1304,7 @@ class CMSG_DesfireAuth_Step1 : public ::google::protobuf::Message /* @@protoc_in
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const PROTOBUF_FINAL;
-  void InternalSwap(CMSG_DesfireAuth_Step1* other);
+  void InternalSwap(CMSG_DesfireAESAuth_Step1* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return NULL;
@@ -1322,50 +1334,50 @@ class CMSG_DesfireAuth_Step1 : public ::google::protobuf::Message /* @@protoc_in
   ::std::string* release_key_uuid();
   void set_allocated_key_uuid(::std::string* key_uuid);
 
-  // bytes random_picc = 3;
-  void clear_random_picc();
-  static const int kRandomPiccFieldNumber = 3;
-  const ::std::string& random_picc() const;
-  void set_random_picc(const ::std::string& value);
+  // bytes encrypted_random_picc = 2;
+  void clear_encrypted_random_picc();
+  static const int kEncryptedRandomPiccFieldNumber = 2;
+  const ::std::string& encrypted_random_picc() const;
+  void set_encrypted_random_picc(const ::std::string& value);
   #if LANG_CXX11
-  void set_random_picc(::std::string&& value);
+  void set_encrypted_random_picc(::std::string&& value);
   #endif
-  void set_random_picc(const char* value);
-  void set_random_picc(const void* value, size_t size);
-  ::std::string* mutable_random_picc();
-  ::std::string* release_random_picc();
-  void set_allocated_random_picc(::std::string* random_picc);
+  void set_encrypted_random_picc(const char* value);
+  void set_encrypted_random_picc(const void* value, size_t size);
+  ::std::string* mutable_encrypted_random_picc();
+  ::std::string* release_encrypted_random_picc();
+  void set_allocated_encrypted_random_picc(::std::string* encrypted_random_picc);
 
-  // @@protoc_insertion_point(class_scope:CMSG_DesfireAuth_Step1)
+  // @@protoc_insertion_point(class_scope:CMSG_DesfireAESAuth_Step1)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr key_uuid_;
-  ::google::protobuf::internal::ArenaStringPtr random_picc_;
+  ::google::protobuf::internal::ArenaStringPtr encrypted_random_picc_;
   mutable int _cached_size_;
   friend struct ::protobuf_iks_2eproto::TableStruct;
-  friend void ::protobuf_iks_2eproto::InitDefaultsCMSG_DesfireAuth_Step1Impl();
+  friend void ::protobuf_iks_2eproto::InitDefaultsCMSG_DesfireAESAuth_Step1Impl();
 };
 // -------------------------------------------------------------------
 
-class SMSG_DesfireAuth_Step1 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:SMSG_DesfireAuth_Step1) */ {
+class SMSG_DesfireAESAuth_Step1 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:SMSG_DesfireAESAuth_Step1) */ {
  public:
-  SMSG_DesfireAuth_Step1();
-  virtual ~SMSG_DesfireAuth_Step1();
+  SMSG_DesfireAESAuth_Step1();
+  virtual ~SMSG_DesfireAESAuth_Step1();
 
-  SMSG_DesfireAuth_Step1(const SMSG_DesfireAuth_Step1& from);
+  SMSG_DesfireAESAuth_Step1(const SMSG_DesfireAESAuth_Step1& from);
 
-  inline SMSG_DesfireAuth_Step1& operator=(const SMSG_DesfireAuth_Step1& from) {
+  inline SMSG_DesfireAESAuth_Step1& operator=(const SMSG_DesfireAESAuth_Step1& from) {
     CopyFrom(from);
     return *this;
   }
   #if LANG_CXX11
-  SMSG_DesfireAuth_Step1(SMSG_DesfireAuth_Step1&& from) noexcept
-    : SMSG_DesfireAuth_Step1() {
+  SMSG_DesfireAESAuth_Step1(SMSG_DesfireAESAuth_Step1&& from) noexcept
+    : SMSG_DesfireAESAuth_Step1() {
     *this = ::std::move(from);
   }
 
-  inline SMSG_DesfireAuth_Step1& operator=(SMSG_DesfireAuth_Step1&& from) noexcept {
+  inline SMSG_DesfireAESAuth_Step1& operator=(SMSG_DesfireAESAuth_Step1&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -1375,30 +1387,30 @@ class SMSG_DesfireAuth_Step1 : public ::google::protobuf::Message /* @@protoc_in
   }
   #endif
   static const ::google::protobuf::Descriptor* descriptor();
-  static const SMSG_DesfireAuth_Step1& default_instance();
+  static const SMSG_DesfireAESAuth_Step1& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const SMSG_DesfireAuth_Step1* internal_default_instance() {
-    return reinterpret_cast<const SMSG_DesfireAuth_Step1*>(
-               &_SMSG_DesfireAuth_Step1_default_instance_);
+  static inline const SMSG_DesfireAESAuth_Step1* internal_default_instance() {
+    return reinterpret_cast<const SMSG_DesfireAESAuth_Step1*>(
+               &_SMSG_DesfireAESAuth_Step1_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
     9;
 
-  void Swap(SMSG_DesfireAuth_Step1* other);
-  friend void swap(SMSG_DesfireAuth_Step1& a, SMSG_DesfireAuth_Step1& b) {
+  void Swap(SMSG_DesfireAESAuth_Step1* other);
+  friend void swap(SMSG_DesfireAESAuth_Step1& a, SMSG_DesfireAESAuth_Step1& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline SMSG_DesfireAuth_Step1* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline SMSG_DesfireAESAuth_Step1* New() const PROTOBUF_FINAL { return New(NULL); }
 
-  SMSG_DesfireAuth_Step1* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  SMSG_DesfireAESAuth_Step1* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
   void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
   void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
-  void CopyFrom(const SMSG_DesfireAuth_Step1& from);
-  void MergeFrom(const SMSG_DesfireAuth_Step1& from);
+  void CopyFrom(const SMSG_DesfireAESAuth_Step1& from);
+  void MergeFrom(const SMSG_DesfireAESAuth_Step1& from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
@@ -1414,7 +1426,258 @@ class SMSG_DesfireAuth_Step1 : public ::google::protobuf::Message /* @@protoc_in
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const PROTOBUF_FINAL;
-  void InternalSwap(SMSG_DesfireAuth_Step1* other);
+  void InternalSwap(SMSG_DesfireAESAuth_Step1* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // bytes encrypted_cryptogram = 3;
+  void clear_encrypted_cryptogram();
+  static const int kEncryptedCryptogramFieldNumber = 3;
+  const ::std::string& encrypted_cryptogram() const;
+  void set_encrypted_cryptogram(const ::std::string& value);
+  #if LANG_CXX11
+  void set_encrypted_cryptogram(::std::string&& value);
+  #endif
+  void set_encrypted_cryptogram(const char* value);
+  void set_encrypted_cryptogram(const void* value, size_t size);
+  ::std::string* mutable_encrypted_cryptogram();
+  ::std::string* release_encrypted_cryptogram();
+  void set_allocated_encrypted_cryptogram(::std::string* encrypted_cryptogram);
+
+  // bytes auth_context_id = 4;
+  void clear_auth_context_id();
+  static const int kAuthContextIdFieldNumber = 4;
+  const ::std::string& auth_context_id() const;
+  void set_auth_context_id(const ::std::string& value);
+  #if LANG_CXX11
+  void set_auth_context_id(::std::string&& value);
+  #endif
+  void set_auth_context_id(const char* value);
+  void set_auth_context_id(const void* value, size_t size);
+  ::std::string* mutable_auth_context_id();
+  ::std::string* release_auth_context_id();
+  void set_allocated_auth_context_id(::std::string* auth_context_id);
+
+  // bool success = 1;
+  void clear_success();
+  static const int kSuccessFieldNumber = 1;
+  bool success() const;
+  void set_success(bool value);
+
+  // @@protoc_insertion_point(class_scope:SMSG_DesfireAESAuth_Step1)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr encrypted_cryptogram_;
+  ::google::protobuf::internal::ArenaStringPtr auth_context_id_;
+  bool success_;
+  mutable int _cached_size_;
+  friend struct ::protobuf_iks_2eproto::TableStruct;
+  friend void ::protobuf_iks_2eproto::InitDefaultsSMSG_DesfireAESAuth_Step1Impl();
+};
+// -------------------------------------------------------------------
+
+class CMSG_DesfireISOAuth_Step1 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:CMSG_DesfireISOAuth_Step1) */ {
+ public:
+  CMSG_DesfireISOAuth_Step1();
+  virtual ~CMSG_DesfireISOAuth_Step1();
+
+  CMSG_DesfireISOAuth_Step1(const CMSG_DesfireISOAuth_Step1& from);
+
+  inline CMSG_DesfireISOAuth_Step1& operator=(const CMSG_DesfireISOAuth_Step1& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  CMSG_DesfireISOAuth_Step1(CMSG_DesfireISOAuth_Step1&& from) noexcept
+    : CMSG_DesfireISOAuth_Step1() {
+    *this = ::std::move(from);
+  }
+
+  inline CMSG_DesfireISOAuth_Step1& operator=(CMSG_DesfireISOAuth_Step1&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CMSG_DesfireISOAuth_Step1& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const CMSG_DesfireISOAuth_Step1* internal_default_instance() {
+    return reinterpret_cast<const CMSG_DesfireISOAuth_Step1*>(
+               &_CMSG_DesfireISOAuth_Step1_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    10;
+
+  void Swap(CMSG_DesfireISOAuth_Step1* other);
+  friend void swap(CMSG_DesfireISOAuth_Step1& a, CMSG_DesfireISOAuth_Step1& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline CMSG_DesfireISOAuth_Step1* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  CMSG_DesfireISOAuth_Step1* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const CMSG_DesfireISOAuth_Step1& from);
+  void MergeFrom(const CMSG_DesfireISOAuth_Step1& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(CMSG_DesfireISOAuth_Step1* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string key_uuid = 1;
+  void clear_key_uuid();
+  static const int kKeyUuidFieldNumber = 1;
+  const ::std::string& key_uuid() const;
+  void set_key_uuid(const ::std::string& value);
+  #if LANG_CXX11
+  void set_key_uuid(::std::string&& value);
+  #endif
+  void set_key_uuid(const char* value);
+  void set_key_uuid(const char* value, size_t size);
+  ::std::string* mutable_key_uuid();
+  ::std::string* release_key_uuid();
+  void set_allocated_key_uuid(::std::string* key_uuid);
+
+  // bytes random_picc = 2;
+  void clear_random_picc();
+  static const int kRandomPiccFieldNumber = 2;
+  const ::std::string& random_picc() const;
+  void set_random_picc(const ::std::string& value);
+  #if LANG_CXX11
+  void set_random_picc(::std::string&& value);
+  #endif
+  void set_random_picc(const char* value);
+  void set_random_picc(const void* value, size_t size);
+  ::std::string* mutable_random_picc();
+  ::std::string* release_random_picc();
+  void set_allocated_random_picc(::std::string* random_picc);
+
+  // @@protoc_insertion_point(class_scope:CMSG_DesfireISOAuth_Step1)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr key_uuid_;
+  ::google::protobuf::internal::ArenaStringPtr random_picc_;
+  mutable int _cached_size_;
+  friend struct ::protobuf_iks_2eproto::TableStruct;
+  friend void ::protobuf_iks_2eproto::InitDefaultsCMSG_DesfireISOAuth_Step1Impl();
+};
+// -------------------------------------------------------------------
+
+class SMSG_DesfireISOAuth_Step1 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:SMSG_DesfireISOAuth_Step1) */ {
+ public:
+  SMSG_DesfireISOAuth_Step1();
+  virtual ~SMSG_DesfireISOAuth_Step1();
+
+  SMSG_DesfireISOAuth_Step1(const SMSG_DesfireISOAuth_Step1& from);
+
+  inline SMSG_DesfireISOAuth_Step1& operator=(const SMSG_DesfireISOAuth_Step1& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  SMSG_DesfireISOAuth_Step1(SMSG_DesfireISOAuth_Step1&& from) noexcept
+    : SMSG_DesfireISOAuth_Step1() {
+    *this = ::std::move(from);
+  }
+
+  inline SMSG_DesfireISOAuth_Step1& operator=(SMSG_DesfireISOAuth_Step1&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const SMSG_DesfireISOAuth_Step1& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const SMSG_DesfireISOAuth_Step1* internal_default_instance() {
+    return reinterpret_cast<const SMSG_DesfireISOAuth_Step1*>(
+               &_SMSG_DesfireISOAuth_Step1_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    11;
+
+  void Swap(SMSG_DesfireISOAuth_Step1* other);
+  friend void swap(SMSG_DesfireISOAuth_Step1& a, SMSG_DesfireISOAuth_Step1& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SMSG_DesfireISOAuth_Step1* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  SMSG_DesfireISOAuth_Step1* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const SMSG_DesfireISOAuth_Step1& from);
+  void MergeFrom(const SMSG_DesfireISOAuth_Step1& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(SMSG_DesfireISOAuth_Step1* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return NULL;
@@ -1478,7 +1741,7 @@ class SMSG_DesfireAuth_Step1 : public ::google::protobuf::Message /* @@protoc_in
   bool success() const;
   void set_success(bool value);
 
-  // @@protoc_insertion_point(class_scope:SMSG_DesfireAuth_Step1)
+  // @@protoc_insertion_point(class_scope:SMSG_DesfireISOAuth_Step1)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -1488,7 +1751,7 @@ class SMSG_DesfireAuth_Step1 : public ::google::protobuf::Message /* @@protoc_in
   bool success_;
   mutable int _cached_size_;
   friend struct ::protobuf_iks_2eproto::TableStruct;
-  friend void ::protobuf_iks_2eproto::InitDefaultsSMSG_DesfireAuth_Step1Impl();
+  friend void ::protobuf_iks_2eproto::InitDefaultsSMSG_DesfireISOAuth_Step1Impl();
 };
 // -------------------------------------------------------------------
 
@@ -1527,7 +1790,7 @@ class CMSG_DesfireAuth_Step2 : public ::google::protobuf::Message /* @@protoc_in
                &_CMSG_DesfireAuth_Step2_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    10;
+    12;
 
   void Swap(CMSG_DesfireAuth_Step2* other);
   friend void swap(CMSG_DesfireAuth_Step2& a, CMSG_DesfireAuth_Step2& b) {
@@ -1664,7 +1927,7 @@ class SMSG_DesfireAuth_Step2 : public ::google::protobuf::Message /* @@protoc_in
                &_SMSG_DesfireAuth_Step2_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    11;
+    13;
 
   void Swap(SMSG_DesfireAuth_Step2* other);
   friend void swap(SMSG_DesfireAuth_Step2& a, SMSG_DesfireAuth_Step2& b) {
@@ -1905,57 +2168,57 @@ inline void SignatureDescription::set_nonce(::google::protobuf::uint64 value) {
   // @@protoc_insertion_point(field_set:SignatureDescription.nonce)
 }
 
-// bytes uuid = 3;
-inline void SignatureDescription::clear_uuid() {
-  uuid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// bytes run_uuid = 3;
+inline void SignatureDescription::clear_run_uuid() {
+  run_uuid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& SignatureDescription::uuid() const {
-  // @@protoc_insertion_point(field_get:SignatureDescription.uuid)
-  return uuid_.GetNoArena();
+inline const ::std::string& SignatureDescription::run_uuid() const {
+  // @@protoc_insertion_point(field_get:SignatureDescription.run_uuid)
+  return run_uuid_.GetNoArena();
 }
-inline void SignatureDescription::set_uuid(const ::std::string& value) {
+inline void SignatureDescription::set_run_uuid(const ::std::string& value) {
   
-  uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:SignatureDescription.uuid)
+  run_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:SignatureDescription.run_uuid)
 }
 #if LANG_CXX11
-inline void SignatureDescription::set_uuid(::std::string&& value) {
+inline void SignatureDescription::set_run_uuid(::std::string&& value) {
   
-  uuid_.SetNoArena(
+  run_uuid_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:SignatureDescription.uuid)
+  // @@protoc_insertion_point(field_set_rvalue:SignatureDescription.run_uuid)
 }
 #endif
-inline void SignatureDescription::set_uuid(const char* value) {
+inline void SignatureDescription::set_run_uuid(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   
-  uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:SignatureDescription.uuid)
+  run_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:SignatureDescription.run_uuid)
 }
-inline void SignatureDescription::set_uuid(const void* value, size_t size) {
+inline void SignatureDescription::set_run_uuid(const void* value, size_t size) {
   
-  uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  run_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:SignatureDescription.uuid)
+  // @@protoc_insertion_point(field_set_pointer:SignatureDescription.run_uuid)
 }
-inline ::std::string* SignatureDescription::mutable_uuid() {
+inline ::std::string* SignatureDescription::mutable_run_uuid() {
   
-  // @@protoc_insertion_point(field_mutable:SignatureDescription.uuid)
-  return uuid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:SignatureDescription.run_uuid)
+  return run_uuid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* SignatureDescription::release_uuid() {
-  // @@protoc_insertion_point(field_release:SignatureDescription.uuid)
+inline ::std::string* SignatureDescription::release_run_uuid() {
+  // @@protoc_insertion_point(field_release:SignatureDescription.run_uuid)
   
-  return uuid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return run_uuid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void SignatureDescription::set_allocated_uuid(::std::string* uuid) {
-  if (uuid != NULL) {
+inline void SignatureDescription::set_allocated_run_uuid(::std::string* run_uuid) {
+  if (run_uuid != NULL) {
     
   } else {
     
   }
-  uuid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), uuid);
-  // @@protoc_insertion_point(field_set_allocated:SignatureDescription.uuid)
+  run_uuid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), run_uuid);
+  // @@protoc_insertion_point(field_set_allocated:SignatureDescription.run_uuid)
 }
 
 // uint64 timestamp = 4;
@@ -2893,289 +3156,523 @@ inline void SMSG_AESResult::set_allocated_signature(::std::string* signature) {
 
 // -------------------------------------------------------------------
 
-// CMSG_DesfireAuth_Step1
+// CMSG_DesfireAESAuth_Step1
 
 // string key_uuid = 1;
-inline void CMSG_DesfireAuth_Step1::clear_key_uuid() {
+inline void CMSG_DesfireAESAuth_Step1::clear_key_uuid() {
   key_uuid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& CMSG_DesfireAuth_Step1::key_uuid() const {
-  // @@protoc_insertion_point(field_get:CMSG_DesfireAuth_Step1.key_uuid)
+inline const ::std::string& CMSG_DesfireAESAuth_Step1::key_uuid() const {
+  // @@protoc_insertion_point(field_get:CMSG_DesfireAESAuth_Step1.key_uuid)
   return key_uuid_.GetNoArena();
 }
-inline void CMSG_DesfireAuth_Step1::set_key_uuid(const ::std::string& value) {
+inline void CMSG_DesfireAESAuth_Step1::set_key_uuid(const ::std::string& value) {
   
   key_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:CMSG_DesfireAuth_Step1.key_uuid)
+  // @@protoc_insertion_point(field_set:CMSG_DesfireAESAuth_Step1.key_uuid)
 }
 #if LANG_CXX11
-inline void CMSG_DesfireAuth_Step1::set_key_uuid(::std::string&& value) {
+inline void CMSG_DesfireAESAuth_Step1::set_key_uuid(::std::string&& value) {
   
   key_uuid_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:CMSG_DesfireAuth_Step1.key_uuid)
+  // @@protoc_insertion_point(field_set_rvalue:CMSG_DesfireAESAuth_Step1.key_uuid)
 }
 #endif
-inline void CMSG_DesfireAuth_Step1::set_key_uuid(const char* value) {
+inline void CMSG_DesfireAESAuth_Step1::set_key_uuid(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   
   key_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:CMSG_DesfireAuth_Step1.key_uuid)
+  // @@protoc_insertion_point(field_set_char:CMSG_DesfireAESAuth_Step1.key_uuid)
 }
-inline void CMSG_DesfireAuth_Step1::set_key_uuid(const char* value, size_t size) {
+inline void CMSG_DesfireAESAuth_Step1::set_key_uuid(const char* value, size_t size) {
   
   key_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:CMSG_DesfireAuth_Step1.key_uuid)
+  // @@protoc_insertion_point(field_set_pointer:CMSG_DesfireAESAuth_Step1.key_uuid)
 }
-inline ::std::string* CMSG_DesfireAuth_Step1::mutable_key_uuid() {
+inline ::std::string* CMSG_DesfireAESAuth_Step1::mutable_key_uuid() {
   
-  // @@protoc_insertion_point(field_mutable:CMSG_DesfireAuth_Step1.key_uuid)
+  // @@protoc_insertion_point(field_mutable:CMSG_DesfireAESAuth_Step1.key_uuid)
   return key_uuid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* CMSG_DesfireAuth_Step1::release_key_uuid() {
-  // @@protoc_insertion_point(field_release:CMSG_DesfireAuth_Step1.key_uuid)
+inline ::std::string* CMSG_DesfireAESAuth_Step1::release_key_uuid() {
+  // @@protoc_insertion_point(field_release:CMSG_DesfireAESAuth_Step1.key_uuid)
   
   return key_uuid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void CMSG_DesfireAuth_Step1::set_allocated_key_uuid(::std::string* key_uuid) {
+inline void CMSG_DesfireAESAuth_Step1::set_allocated_key_uuid(::std::string* key_uuid) {
   if (key_uuid != NULL) {
     
   } else {
     
   }
   key_uuid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), key_uuid);
-  // @@protoc_insertion_point(field_set_allocated:CMSG_DesfireAuth_Step1.key_uuid)
+  // @@protoc_insertion_point(field_set_allocated:CMSG_DesfireAESAuth_Step1.key_uuid)
 }
 
-// bytes random_picc = 3;
-inline void CMSG_DesfireAuth_Step1::clear_random_picc() {
-  random_picc_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// bytes encrypted_random_picc = 2;
+inline void CMSG_DesfireAESAuth_Step1::clear_encrypted_random_picc() {
+  encrypted_random_picc_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& CMSG_DesfireAuth_Step1::random_picc() const {
-  // @@protoc_insertion_point(field_get:CMSG_DesfireAuth_Step1.random_picc)
-  return random_picc_.GetNoArena();
+inline const ::std::string& CMSG_DesfireAESAuth_Step1::encrypted_random_picc() const {
+  // @@protoc_insertion_point(field_get:CMSG_DesfireAESAuth_Step1.encrypted_random_picc)
+  return encrypted_random_picc_.GetNoArena();
 }
-inline void CMSG_DesfireAuth_Step1::set_random_picc(const ::std::string& value) {
+inline void CMSG_DesfireAESAuth_Step1::set_encrypted_random_picc(const ::std::string& value) {
   
-  random_picc_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:CMSG_DesfireAuth_Step1.random_picc)
+  encrypted_random_picc_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:CMSG_DesfireAESAuth_Step1.encrypted_random_picc)
 }
 #if LANG_CXX11
-inline void CMSG_DesfireAuth_Step1::set_random_picc(::std::string&& value) {
+inline void CMSG_DesfireAESAuth_Step1::set_encrypted_random_picc(::std::string&& value) {
   
-  random_picc_.SetNoArena(
+  encrypted_random_picc_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:CMSG_DesfireAuth_Step1.random_picc)
+  // @@protoc_insertion_point(field_set_rvalue:CMSG_DesfireAESAuth_Step1.encrypted_random_picc)
 }
 #endif
-inline void CMSG_DesfireAuth_Step1::set_random_picc(const char* value) {
+inline void CMSG_DesfireAESAuth_Step1::set_encrypted_random_picc(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   
-  random_picc_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:CMSG_DesfireAuth_Step1.random_picc)
+  encrypted_random_picc_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:CMSG_DesfireAESAuth_Step1.encrypted_random_picc)
 }
-inline void CMSG_DesfireAuth_Step1::set_random_picc(const void* value, size_t size) {
+inline void CMSG_DesfireAESAuth_Step1::set_encrypted_random_picc(const void* value, size_t size) {
   
-  random_picc_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  encrypted_random_picc_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:CMSG_DesfireAuth_Step1.random_picc)
+  // @@protoc_insertion_point(field_set_pointer:CMSG_DesfireAESAuth_Step1.encrypted_random_picc)
 }
-inline ::std::string* CMSG_DesfireAuth_Step1::mutable_random_picc() {
+inline ::std::string* CMSG_DesfireAESAuth_Step1::mutable_encrypted_random_picc() {
   
-  // @@protoc_insertion_point(field_mutable:CMSG_DesfireAuth_Step1.random_picc)
-  return random_picc_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:CMSG_DesfireAESAuth_Step1.encrypted_random_picc)
+  return encrypted_random_picc_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* CMSG_DesfireAuth_Step1::release_random_picc() {
-  // @@protoc_insertion_point(field_release:CMSG_DesfireAuth_Step1.random_picc)
+inline ::std::string* CMSG_DesfireAESAuth_Step1::release_encrypted_random_picc() {
+  // @@protoc_insertion_point(field_release:CMSG_DesfireAESAuth_Step1.encrypted_random_picc)
   
-  return random_picc_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return encrypted_random_picc_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void CMSG_DesfireAuth_Step1::set_allocated_random_picc(::std::string* random_picc) {
-  if (random_picc != NULL) {
+inline void CMSG_DesfireAESAuth_Step1::set_allocated_encrypted_random_picc(::std::string* encrypted_random_picc) {
+  if (encrypted_random_picc != NULL) {
     
   } else {
     
   }
-  random_picc_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), random_picc);
-  // @@protoc_insertion_point(field_set_allocated:CMSG_DesfireAuth_Step1.random_picc)
+  encrypted_random_picc_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), encrypted_random_picc);
+  // @@protoc_insertion_point(field_set_allocated:CMSG_DesfireAESAuth_Step1.encrypted_random_picc)
 }
 
 // -------------------------------------------------------------------
 
-// SMSG_DesfireAuth_Step1
+// SMSG_DesfireAESAuth_Step1
 
 // bool success = 1;
-inline void SMSG_DesfireAuth_Step1::clear_success() {
+inline void SMSG_DesfireAESAuth_Step1::clear_success() {
   success_ = false;
 }
-inline bool SMSG_DesfireAuth_Step1::success() const {
-  // @@protoc_insertion_point(field_get:SMSG_DesfireAuth_Step1.success)
+inline bool SMSG_DesfireAESAuth_Step1::success() const {
+  // @@protoc_insertion_point(field_get:SMSG_DesfireAESAuth_Step1.success)
   return success_;
 }
-inline void SMSG_DesfireAuth_Step1::set_success(bool value) {
+inline void SMSG_DesfireAESAuth_Step1::set_success(bool value) {
   
   success_ = value;
-  // @@protoc_insertion_point(field_set:SMSG_DesfireAuth_Step1.success)
-}
-
-// bytes random2 = 2;
-inline void SMSG_DesfireAuth_Step1::clear_random2() {
-  random2_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& SMSG_DesfireAuth_Step1::random2() const {
-  // @@protoc_insertion_point(field_get:SMSG_DesfireAuth_Step1.random2)
-  return random2_.GetNoArena();
-}
-inline void SMSG_DesfireAuth_Step1::set_random2(const ::std::string& value) {
-  
-  random2_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:SMSG_DesfireAuth_Step1.random2)
-}
-#if LANG_CXX11
-inline void SMSG_DesfireAuth_Step1::set_random2(::std::string&& value) {
-  
-  random2_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:SMSG_DesfireAuth_Step1.random2)
-}
-#endif
-inline void SMSG_DesfireAuth_Step1::set_random2(const char* value) {
-  GOOGLE_DCHECK(value != NULL);
-  
-  random2_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:SMSG_DesfireAuth_Step1.random2)
-}
-inline void SMSG_DesfireAuth_Step1::set_random2(const void* value, size_t size) {
-  
-  random2_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:SMSG_DesfireAuth_Step1.random2)
-}
-inline ::std::string* SMSG_DesfireAuth_Step1::mutable_random2() {
-  
-  // @@protoc_insertion_point(field_mutable:SMSG_DesfireAuth_Step1.random2)
-  return random2_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* SMSG_DesfireAuth_Step1::release_random2() {
-  // @@protoc_insertion_point(field_release:SMSG_DesfireAuth_Step1.random2)
-  
-  return random2_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void SMSG_DesfireAuth_Step1::set_allocated_random2(::std::string* random2) {
-  if (random2 != NULL) {
-    
-  } else {
-    
-  }
-  random2_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), random2);
-  // @@protoc_insertion_point(field_set_allocated:SMSG_DesfireAuth_Step1.random2)
+  // @@protoc_insertion_point(field_set:SMSG_DesfireAESAuth_Step1.success)
 }
 
 // bytes encrypted_cryptogram = 3;
-inline void SMSG_DesfireAuth_Step1::clear_encrypted_cryptogram() {
+inline void SMSG_DesfireAESAuth_Step1::clear_encrypted_cryptogram() {
   encrypted_cryptogram_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& SMSG_DesfireAuth_Step1::encrypted_cryptogram() const {
-  // @@protoc_insertion_point(field_get:SMSG_DesfireAuth_Step1.encrypted_cryptogram)
+inline const ::std::string& SMSG_DesfireAESAuth_Step1::encrypted_cryptogram() const {
+  // @@protoc_insertion_point(field_get:SMSG_DesfireAESAuth_Step1.encrypted_cryptogram)
   return encrypted_cryptogram_.GetNoArena();
 }
-inline void SMSG_DesfireAuth_Step1::set_encrypted_cryptogram(const ::std::string& value) {
+inline void SMSG_DesfireAESAuth_Step1::set_encrypted_cryptogram(const ::std::string& value) {
   
   encrypted_cryptogram_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:SMSG_DesfireAuth_Step1.encrypted_cryptogram)
+  // @@protoc_insertion_point(field_set:SMSG_DesfireAESAuth_Step1.encrypted_cryptogram)
 }
 #if LANG_CXX11
-inline void SMSG_DesfireAuth_Step1::set_encrypted_cryptogram(::std::string&& value) {
+inline void SMSG_DesfireAESAuth_Step1::set_encrypted_cryptogram(::std::string&& value) {
   
   encrypted_cryptogram_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:SMSG_DesfireAuth_Step1.encrypted_cryptogram)
+  // @@protoc_insertion_point(field_set_rvalue:SMSG_DesfireAESAuth_Step1.encrypted_cryptogram)
 }
 #endif
-inline void SMSG_DesfireAuth_Step1::set_encrypted_cryptogram(const char* value) {
+inline void SMSG_DesfireAESAuth_Step1::set_encrypted_cryptogram(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   
   encrypted_cryptogram_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:SMSG_DesfireAuth_Step1.encrypted_cryptogram)
+  // @@protoc_insertion_point(field_set_char:SMSG_DesfireAESAuth_Step1.encrypted_cryptogram)
 }
-inline void SMSG_DesfireAuth_Step1::set_encrypted_cryptogram(const void* value, size_t size) {
+inline void SMSG_DesfireAESAuth_Step1::set_encrypted_cryptogram(const void* value, size_t size) {
   
   encrypted_cryptogram_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:SMSG_DesfireAuth_Step1.encrypted_cryptogram)
+  // @@protoc_insertion_point(field_set_pointer:SMSG_DesfireAESAuth_Step1.encrypted_cryptogram)
 }
-inline ::std::string* SMSG_DesfireAuth_Step1::mutable_encrypted_cryptogram() {
+inline ::std::string* SMSG_DesfireAESAuth_Step1::mutable_encrypted_cryptogram() {
   
-  // @@protoc_insertion_point(field_mutable:SMSG_DesfireAuth_Step1.encrypted_cryptogram)
+  // @@protoc_insertion_point(field_mutable:SMSG_DesfireAESAuth_Step1.encrypted_cryptogram)
   return encrypted_cryptogram_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* SMSG_DesfireAuth_Step1::release_encrypted_cryptogram() {
-  // @@protoc_insertion_point(field_release:SMSG_DesfireAuth_Step1.encrypted_cryptogram)
+inline ::std::string* SMSG_DesfireAESAuth_Step1::release_encrypted_cryptogram() {
+  // @@protoc_insertion_point(field_release:SMSG_DesfireAESAuth_Step1.encrypted_cryptogram)
   
   return encrypted_cryptogram_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void SMSG_DesfireAuth_Step1::set_allocated_encrypted_cryptogram(::std::string* encrypted_cryptogram) {
+inline void SMSG_DesfireAESAuth_Step1::set_allocated_encrypted_cryptogram(::std::string* encrypted_cryptogram) {
   if (encrypted_cryptogram != NULL) {
     
   } else {
     
   }
   encrypted_cryptogram_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), encrypted_cryptogram);
-  // @@protoc_insertion_point(field_set_allocated:SMSG_DesfireAuth_Step1.encrypted_cryptogram)
+  // @@protoc_insertion_point(field_set_allocated:SMSG_DesfireAESAuth_Step1.encrypted_cryptogram)
 }
 
 // bytes auth_context_id = 4;
-inline void SMSG_DesfireAuth_Step1::clear_auth_context_id() {
+inline void SMSG_DesfireAESAuth_Step1::clear_auth_context_id() {
   auth_context_id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& SMSG_DesfireAuth_Step1::auth_context_id() const {
-  // @@protoc_insertion_point(field_get:SMSG_DesfireAuth_Step1.auth_context_id)
+inline const ::std::string& SMSG_DesfireAESAuth_Step1::auth_context_id() const {
+  // @@protoc_insertion_point(field_get:SMSG_DesfireAESAuth_Step1.auth_context_id)
   return auth_context_id_.GetNoArena();
 }
-inline void SMSG_DesfireAuth_Step1::set_auth_context_id(const ::std::string& value) {
+inline void SMSG_DesfireAESAuth_Step1::set_auth_context_id(const ::std::string& value) {
   
   auth_context_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:SMSG_DesfireAuth_Step1.auth_context_id)
+  // @@protoc_insertion_point(field_set:SMSG_DesfireAESAuth_Step1.auth_context_id)
 }
 #if LANG_CXX11
-inline void SMSG_DesfireAuth_Step1::set_auth_context_id(::std::string&& value) {
+inline void SMSG_DesfireAESAuth_Step1::set_auth_context_id(::std::string&& value) {
   
   auth_context_id_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:SMSG_DesfireAuth_Step1.auth_context_id)
+  // @@protoc_insertion_point(field_set_rvalue:SMSG_DesfireAESAuth_Step1.auth_context_id)
 }
 #endif
-inline void SMSG_DesfireAuth_Step1::set_auth_context_id(const char* value) {
+inline void SMSG_DesfireAESAuth_Step1::set_auth_context_id(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   
   auth_context_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:SMSG_DesfireAuth_Step1.auth_context_id)
+  // @@protoc_insertion_point(field_set_char:SMSG_DesfireAESAuth_Step1.auth_context_id)
 }
-inline void SMSG_DesfireAuth_Step1::set_auth_context_id(const void* value, size_t size) {
+inline void SMSG_DesfireAESAuth_Step1::set_auth_context_id(const void* value, size_t size) {
   
   auth_context_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:SMSG_DesfireAuth_Step1.auth_context_id)
+  // @@protoc_insertion_point(field_set_pointer:SMSG_DesfireAESAuth_Step1.auth_context_id)
 }
-inline ::std::string* SMSG_DesfireAuth_Step1::mutable_auth_context_id() {
+inline ::std::string* SMSG_DesfireAESAuth_Step1::mutable_auth_context_id() {
   
-  // @@protoc_insertion_point(field_mutable:SMSG_DesfireAuth_Step1.auth_context_id)
+  // @@protoc_insertion_point(field_mutable:SMSG_DesfireAESAuth_Step1.auth_context_id)
   return auth_context_id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* SMSG_DesfireAuth_Step1::release_auth_context_id() {
-  // @@protoc_insertion_point(field_release:SMSG_DesfireAuth_Step1.auth_context_id)
+inline ::std::string* SMSG_DesfireAESAuth_Step1::release_auth_context_id() {
+  // @@protoc_insertion_point(field_release:SMSG_DesfireAESAuth_Step1.auth_context_id)
   
   return auth_context_id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void SMSG_DesfireAuth_Step1::set_allocated_auth_context_id(::std::string* auth_context_id) {
+inline void SMSG_DesfireAESAuth_Step1::set_allocated_auth_context_id(::std::string* auth_context_id) {
   if (auth_context_id != NULL) {
     
   } else {
     
   }
   auth_context_id_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), auth_context_id);
-  // @@protoc_insertion_point(field_set_allocated:SMSG_DesfireAuth_Step1.auth_context_id)
+  // @@protoc_insertion_point(field_set_allocated:SMSG_DesfireAESAuth_Step1.auth_context_id)
+}
+
+// -------------------------------------------------------------------
+
+// CMSG_DesfireISOAuth_Step1
+
+// string key_uuid = 1;
+inline void CMSG_DesfireISOAuth_Step1::clear_key_uuid() {
+  key_uuid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& CMSG_DesfireISOAuth_Step1::key_uuid() const {
+  // @@protoc_insertion_point(field_get:CMSG_DesfireISOAuth_Step1.key_uuid)
+  return key_uuid_.GetNoArena();
+}
+inline void CMSG_DesfireISOAuth_Step1::set_key_uuid(const ::std::string& value) {
+  
+  key_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:CMSG_DesfireISOAuth_Step1.key_uuid)
+}
+#if LANG_CXX11
+inline void CMSG_DesfireISOAuth_Step1::set_key_uuid(::std::string&& value) {
+  
+  key_uuid_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:CMSG_DesfireISOAuth_Step1.key_uuid)
+}
+#endif
+inline void CMSG_DesfireISOAuth_Step1::set_key_uuid(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  key_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:CMSG_DesfireISOAuth_Step1.key_uuid)
+}
+inline void CMSG_DesfireISOAuth_Step1::set_key_uuid(const char* value, size_t size) {
+  
+  key_uuid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:CMSG_DesfireISOAuth_Step1.key_uuid)
+}
+inline ::std::string* CMSG_DesfireISOAuth_Step1::mutable_key_uuid() {
+  
+  // @@protoc_insertion_point(field_mutable:CMSG_DesfireISOAuth_Step1.key_uuid)
+  return key_uuid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* CMSG_DesfireISOAuth_Step1::release_key_uuid() {
+  // @@protoc_insertion_point(field_release:CMSG_DesfireISOAuth_Step1.key_uuid)
+  
+  return key_uuid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void CMSG_DesfireISOAuth_Step1::set_allocated_key_uuid(::std::string* key_uuid) {
+  if (key_uuid != NULL) {
+    
+  } else {
+    
+  }
+  key_uuid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), key_uuid);
+  // @@protoc_insertion_point(field_set_allocated:CMSG_DesfireISOAuth_Step1.key_uuid)
+}
+
+// bytes random_picc = 2;
+inline void CMSG_DesfireISOAuth_Step1::clear_random_picc() {
+  random_picc_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& CMSG_DesfireISOAuth_Step1::random_picc() const {
+  // @@protoc_insertion_point(field_get:CMSG_DesfireISOAuth_Step1.random_picc)
+  return random_picc_.GetNoArena();
+}
+inline void CMSG_DesfireISOAuth_Step1::set_random_picc(const ::std::string& value) {
+  
+  random_picc_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:CMSG_DesfireISOAuth_Step1.random_picc)
+}
+#if LANG_CXX11
+inline void CMSG_DesfireISOAuth_Step1::set_random_picc(::std::string&& value) {
+  
+  random_picc_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:CMSG_DesfireISOAuth_Step1.random_picc)
+}
+#endif
+inline void CMSG_DesfireISOAuth_Step1::set_random_picc(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  random_picc_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:CMSG_DesfireISOAuth_Step1.random_picc)
+}
+inline void CMSG_DesfireISOAuth_Step1::set_random_picc(const void* value, size_t size) {
+  
+  random_picc_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:CMSG_DesfireISOAuth_Step1.random_picc)
+}
+inline ::std::string* CMSG_DesfireISOAuth_Step1::mutable_random_picc() {
+  
+  // @@protoc_insertion_point(field_mutable:CMSG_DesfireISOAuth_Step1.random_picc)
+  return random_picc_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* CMSG_DesfireISOAuth_Step1::release_random_picc() {
+  // @@protoc_insertion_point(field_release:CMSG_DesfireISOAuth_Step1.random_picc)
+  
+  return random_picc_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void CMSG_DesfireISOAuth_Step1::set_allocated_random_picc(::std::string* random_picc) {
+  if (random_picc != NULL) {
+    
+  } else {
+    
+  }
+  random_picc_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), random_picc);
+  // @@protoc_insertion_point(field_set_allocated:CMSG_DesfireISOAuth_Step1.random_picc)
+}
+
+// -------------------------------------------------------------------
+
+// SMSG_DesfireISOAuth_Step1
+
+// bool success = 1;
+inline void SMSG_DesfireISOAuth_Step1::clear_success() {
+  success_ = false;
+}
+inline bool SMSG_DesfireISOAuth_Step1::success() const {
+  // @@protoc_insertion_point(field_get:SMSG_DesfireISOAuth_Step1.success)
+  return success_;
+}
+inline void SMSG_DesfireISOAuth_Step1::set_success(bool value) {
+  
+  success_ = value;
+  // @@protoc_insertion_point(field_set:SMSG_DesfireISOAuth_Step1.success)
+}
+
+// bytes random2 = 2;
+inline void SMSG_DesfireISOAuth_Step1::clear_random2() {
+  random2_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& SMSG_DesfireISOAuth_Step1::random2() const {
+  // @@protoc_insertion_point(field_get:SMSG_DesfireISOAuth_Step1.random2)
+  return random2_.GetNoArena();
+}
+inline void SMSG_DesfireISOAuth_Step1::set_random2(const ::std::string& value) {
+  
+  random2_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:SMSG_DesfireISOAuth_Step1.random2)
+}
+#if LANG_CXX11
+inline void SMSG_DesfireISOAuth_Step1::set_random2(::std::string&& value) {
+  
+  random2_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:SMSG_DesfireISOAuth_Step1.random2)
+}
+#endif
+inline void SMSG_DesfireISOAuth_Step1::set_random2(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  random2_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:SMSG_DesfireISOAuth_Step1.random2)
+}
+inline void SMSG_DesfireISOAuth_Step1::set_random2(const void* value, size_t size) {
+  
+  random2_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:SMSG_DesfireISOAuth_Step1.random2)
+}
+inline ::std::string* SMSG_DesfireISOAuth_Step1::mutable_random2() {
+  
+  // @@protoc_insertion_point(field_mutable:SMSG_DesfireISOAuth_Step1.random2)
+  return random2_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* SMSG_DesfireISOAuth_Step1::release_random2() {
+  // @@protoc_insertion_point(field_release:SMSG_DesfireISOAuth_Step1.random2)
+  
+  return random2_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void SMSG_DesfireISOAuth_Step1::set_allocated_random2(::std::string* random2) {
+  if (random2 != NULL) {
+    
+  } else {
+    
+  }
+  random2_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), random2);
+  // @@protoc_insertion_point(field_set_allocated:SMSG_DesfireISOAuth_Step1.random2)
+}
+
+// bytes encrypted_cryptogram = 3;
+inline void SMSG_DesfireISOAuth_Step1::clear_encrypted_cryptogram() {
+  encrypted_cryptogram_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& SMSG_DesfireISOAuth_Step1::encrypted_cryptogram() const {
+  // @@protoc_insertion_point(field_get:SMSG_DesfireISOAuth_Step1.encrypted_cryptogram)
+  return encrypted_cryptogram_.GetNoArena();
+}
+inline void SMSG_DesfireISOAuth_Step1::set_encrypted_cryptogram(const ::std::string& value) {
+  
+  encrypted_cryptogram_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:SMSG_DesfireISOAuth_Step1.encrypted_cryptogram)
+}
+#if LANG_CXX11
+inline void SMSG_DesfireISOAuth_Step1::set_encrypted_cryptogram(::std::string&& value) {
+  
+  encrypted_cryptogram_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:SMSG_DesfireISOAuth_Step1.encrypted_cryptogram)
+}
+#endif
+inline void SMSG_DesfireISOAuth_Step1::set_encrypted_cryptogram(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  encrypted_cryptogram_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:SMSG_DesfireISOAuth_Step1.encrypted_cryptogram)
+}
+inline void SMSG_DesfireISOAuth_Step1::set_encrypted_cryptogram(const void* value, size_t size) {
+  
+  encrypted_cryptogram_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:SMSG_DesfireISOAuth_Step1.encrypted_cryptogram)
+}
+inline ::std::string* SMSG_DesfireISOAuth_Step1::mutable_encrypted_cryptogram() {
+  
+  // @@protoc_insertion_point(field_mutable:SMSG_DesfireISOAuth_Step1.encrypted_cryptogram)
+  return encrypted_cryptogram_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* SMSG_DesfireISOAuth_Step1::release_encrypted_cryptogram() {
+  // @@protoc_insertion_point(field_release:SMSG_DesfireISOAuth_Step1.encrypted_cryptogram)
+  
+  return encrypted_cryptogram_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void SMSG_DesfireISOAuth_Step1::set_allocated_encrypted_cryptogram(::std::string* encrypted_cryptogram) {
+  if (encrypted_cryptogram != NULL) {
+    
+  } else {
+    
+  }
+  encrypted_cryptogram_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), encrypted_cryptogram);
+  // @@protoc_insertion_point(field_set_allocated:SMSG_DesfireISOAuth_Step1.encrypted_cryptogram)
+}
+
+// bytes auth_context_id = 4;
+inline void SMSG_DesfireISOAuth_Step1::clear_auth_context_id() {
+  auth_context_id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& SMSG_DesfireISOAuth_Step1::auth_context_id() const {
+  // @@protoc_insertion_point(field_get:SMSG_DesfireISOAuth_Step1.auth_context_id)
+  return auth_context_id_.GetNoArena();
+}
+inline void SMSG_DesfireISOAuth_Step1::set_auth_context_id(const ::std::string& value) {
+  
+  auth_context_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:SMSG_DesfireISOAuth_Step1.auth_context_id)
+}
+#if LANG_CXX11
+inline void SMSG_DesfireISOAuth_Step1::set_auth_context_id(::std::string&& value) {
+  
+  auth_context_id_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:SMSG_DesfireISOAuth_Step1.auth_context_id)
+}
+#endif
+inline void SMSG_DesfireISOAuth_Step1::set_auth_context_id(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  auth_context_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:SMSG_DesfireISOAuth_Step1.auth_context_id)
+}
+inline void SMSG_DesfireISOAuth_Step1::set_auth_context_id(const void* value, size_t size) {
+  
+  auth_context_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:SMSG_DesfireISOAuth_Step1.auth_context_id)
+}
+inline ::std::string* SMSG_DesfireISOAuth_Step1::mutable_auth_context_id() {
+  
+  // @@protoc_insertion_point(field_mutable:SMSG_DesfireISOAuth_Step1.auth_context_id)
+  return auth_context_id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* SMSG_DesfireISOAuth_Step1::release_auth_context_id() {
+  // @@protoc_insertion_point(field_release:SMSG_DesfireISOAuth_Step1.auth_context_id)
+  
+  return auth_context_id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void SMSG_DesfireISOAuth_Step1::set_allocated_auth_context_id(::std::string* auth_context_id) {
+  if (auth_context_id != NULL) {
+    
+  } else {
+    
+  }
+  auth_context_id_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), auth_context_id);
+  // @@protoc_insertion_point(field_set_allocated:SMSG_DesfireISOAuth_Step1.auth_context_id)
 }
 
 // -------------------------------------------------------------------
@@ -3468,6 +3965,10 @@ inline void SMSG_DesfireAuth_Step2::set_allocated_session_key_ref(::std::string*
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

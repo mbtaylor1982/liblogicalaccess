@@ -60,21 +60,37 @@ class IKSService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_AESResult>> PrepareAsyncAESDecrypt(::grpc::ClientContext* context, const ::CMSG_AESOperation& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_AESResult>>(PrepareAsyncAESDecryptRaw(context, request, cq));
     }
-    // Desfire Authentication -- Step 1
-    virtual ::grpc::Status DESFireAuth1(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step1& request, ::SMSG_DesfireAuth_Step1* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step1>> AsyncDESFireAuth1(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step1& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step1>>(AsyncDESFireAuth1Raw(context, request, cq));
+    // Desfire ISO Authentication -- Step 1
+    virtual ::grpc::Status DESFireISOAuth1(::grpc::ClientContext* context, const ::CMSG_DesfireISOAuth_Step1& request, ::SMSG_DesfireISOAuth_Step1* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireISOAuth_Step1>> AsyncDESFireISOAuth1(::grpc::ClientContext* context, const ::CMSG_DesfireISOAuth_Step1& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireISOAuth_Step1>>(AsyncDESFireISOAuth1Raw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step1>> PrepareAsyncDESFireAuth1(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step1& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step1>>(PrepareAsyncDESFireAuth1Raw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireISOAuth_Step1>> PrepareAsyncDESFireISOAuth1(::grpc::ClientContext* context, const ::CMSG_DesfireISOAuth_Step1& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireISOAuth_Step1>>(PrepareAsyncDESFireISOAuth1Raw(context, request, cq));
     }
-    // Desfire Authentication -- Step 2
-    virtual ::grpc::Status DESFireAuth2(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::SMSG_DesfireAuth_Step2* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step2>> AsyncDESFireAuth2(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step2>>(AsyncDESFireAuth2Raw(context, request, cq));
+    // Desfire ISO Authentication -- Step 2
+    virtual ::grpc::Status DESFireISOAuth2(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::SMSG_DesfireAuth_Step2* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step2>> AsyncDESFireISOAuth2(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step2>>(AsyncDESFireISOAuth2Raw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step2>> PrepareAsyncDESFireAuth2(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step2>>(PrepareAsyncDESFireAuth2Raw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step2>> PrepareAsyncDESFireISOAuth2(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step2>>(PrepareAsyncDESFireISOAuth2Raw(context, request, cq));
+    }
+    // Desfire AES Authentication -- Step 1
+    virtual ::grpc::Status DESFireAESAuth1(::grpc::ClientContext* context, const ::CMSG_DesfireAESAuth_Step1& request, ::SMSG_DesfireAESAuth_Step1* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAESAuth_Step1>> AsyncDESFireAESAuth1(::grpc::ClientContext* context, const ::CMSG_DesfireAESAuth_Step1& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAESAuth_Step1>>(AsyncDESFireAESAuth1Raw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAESAuth_Step1>> PrepareAsyncDESFireAESAuth1(::grpc::ClientContext* context, const ::CMSG_DesfireAESAuth_Step1& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAESAuth_Step1>>(PrepareAsyncDESFireAESAuth1Raw(context, request, cq));
+    }
+    // Desfire AES Authentication -- Step 2
+    virtual ::grpc::Status DESFireAESAuth2(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::SMSG_DesfireAuth_Step2* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step2>> AsyncDESFireAESAuth2(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step2>>(AsyncDESFireAESAuth2Raw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step2>> PrepareAsyncDESFireAESAuth2(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step2>>(PrepareAsyncDESFireAESAuth2Raw(context, request, cq));
     }
     // Generate DESFire change-key cryptogram where both keys
     // are stored by IKS.
@@ -93,10 +109,14 @@ class IKSService final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_AESResult>* PrepareAsyncAESEncryptRaw(::grpc::ClientContext* context, const ::CMSG_AESOperation& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_AESResult>* AsyncAESDecryptRaw(::grpc::ClientContext* context, const ::CMSG_AESOperation& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_AESResult>* PrepareAsyncAESDecryptRaw(::grpc::ClientContext* context, const ::CMSG_AESOperation& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step1>* AsyncDESFireAuth1Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step1& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step1>* PrepareAsyncDESFireAuth1Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step1& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step2>* AsyncDESFireAuth2Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step2>* PrepareAsyncDESFireAuth2Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireISOAuth_Step1>* AsyncDESFireISOAuth1Raw(::grpc::ClientContext* context, const ::CMSG_DesfireISOAuth_Step1& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireISOAuth_Step1>* PrepareAsyncDESFireISOAuth1Raw(::grpc::ClientContext* context, const ::CMSG_DesfireISOAuth_Step1& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step2>* AsyncDESFireISOAuth2Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step2>* PrepareAsyncDESFireISOAuth2Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAESAuth_Step1>* AsyncDESFireAESAuth1Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAESAuth_Step1& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAESAuth_Step1>* PrepareAsyncDESFireAESAuth1Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAESAuth_Step1& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step2>* AsyncDESFireAESAuth2Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireAuth_Step2>* PrepareAsyncDESFireAESAuth2Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireChangeKey>* AsyncDESFireChangeKeyRaw(::grpc::ClientContext* context, const ::CMSG_DesfireChangeKey& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::SMSG_DesfireChangeKey>* PrepareAsyncDESFireChangeKeyRaw(::grpc::ClientContext* context, const ::CMSG_DesfireChangeKey& request, ::grpc::CompletionQueue* cq) = 0;
   };
@@ -124,19 +144,33 @@ class IKSService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_AESResult>> PrepareAsyncAESDecrypt(::grpc::ClientContext* context, const ::CMSG_AESOperation& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_AESResult>>(PrepareAsyncAESDecryptRaw(context, request, cq));
     }
-    ::grpc::Status DESFireAuth1(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step1& request, ::SMSG_DesfireAuth_Step1* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step1>> AsyncDESFireAuth1(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step1& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step1>>(AsyncDESFireAuth1Raw(context, request, cq));
+    ::grpc::Status DESFireISOAuth1(::grpc::ClientContext* context, const ::CMSG_DesfireISOAuth_Step1& request, ::SMSG_DesfireISOAuth_Step1* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireISOAuth_Step1>> AsyncDESFireISOAuth1(::grpc::ClientContext* context, const ::CMSG_DesfireISOAuth_Step1& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireISOAuth_Step1>>(AsyncDESFireISOAuth1Raw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step1>> PrepareAsyncDESFireAuth1(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step1& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step1>>(PrepareAsyncDESFireAuth1Raw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireISOAuth_Step1>> PrepareAsyncDESFireISOAuth1(::grpc::ClientContext* context, const ::CMSG_DesfireISOAuth_Step1& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireISOAuth_Step1>>(PrepareAsyncDESFireISOAuth1Raw(context, request, cq));
     }
-    ::grpc::Status DESFireAuth2(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::SMSG_DesfireAuth_Step2* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>> AsyncDESFireAuth2(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>>(AsyncDESFireAuth2Raw(context, request, cq));
+    ::grpc::Status DESFireISOAuth2(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::SMSG_DesfireAuth_Step2* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>> AsyncDESFireISOAuth2(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>>(AsyncDESFireISOAuth2Raw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>> PrepareAsyncDESFireAuth2(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>>(PrepareAsyncDESFireAuth2Raw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>> PrepareAsyncDESFireISOAuth2(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>>(PrepareAsyncDESFireISOAuth2Raw(context, request, cq));
+    }
+    ::grpc::Status DESFireAESAuth1(::grpc::ClientContext* context, const ::CMSG_DesfireAESAuth_Step1& request, ::SMSG_DesfireAESAuth_Step1* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAESAuth_Step1>> AsyncDESFireAESAuth1(::grpc::ClientContext* context, const ::CMSG_DesfireAESAuth_Step1& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAESAuth_Step1>>(AsyncDESFireAESAuth1Raw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAESAuth_Step1>> PrepareAsyncDESFireAESAuth1(::grpc::ClientContext* context, const ::CMSG_DesfireAESAuth_Step1& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAESAuth_Step1>>(PrepareAsyncDESFireAESAuth1Raw(context, request, cq));
+    }
+    ::grpc::Status DESFireAESAuth2(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::SMSG_DesfireAuth_Step2* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>> AsyncDESFireAESAuth2(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>>(AsyncDESFireAESAuth2Raw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>> PrepareAsyncDESFireAESAuth2(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>>(PrepareAsyncDESFireAESAuth2Raw(context, request, cq));
     }
     ::grpc::Status DESFireChangeKey(::grpc::ClientContext* context, const ::CMSG_DesfireChangeKey& request, ::SMSG_DesfireChangeKey* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireChangeKey>> AsyncDESFireChangeKey(::grpc::ClientContext* context, const ::CMSG_DesfireChangeKey& request, ::grpc::CompletionQueue* cq) {
@@ -154,17 +188,23 @@ class IKSService final {
     ::grpc::ClientAsyncResponseReader< ::SMSG_AESResult>* PrepareAsyncAESEncryptRaw(::grpc::ClientContext* context, const ::CMSG_AESOperation& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::SMSG_AESResult>* AsyncAESDecryptRaw(::grpc::ClientContext* context, const ::CMSG_AESOperation& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::SMSG_AESResult>* PrepareAsyncAESDecryptRaw(::grpc::ClientContext* context, const ::CMSG_AESOperation& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step1>* AsyncDESFireAuth1Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step1& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step1>* PrepareAsyncDESFireAuth1Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step1& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>* AsyncDESFireAuth2Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>* PrepareAsyncDESFireAuth2Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireISOAuth_Step1>* AsyncDESFireISOAuth1Raw(::grpc::ClientContext* context, const ::CMSG_DesfireISOAuth_Step1& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireISOAuth_Step1>* PrepareAsyncDESFireISOAuth1Raw(::grpc::ClientContext* context, const ::CMSG_DesfireISOAuth_Step1& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>* AsyncDESFireISOAuth2Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>* PrepareAsyncDESFireISOAuth2Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAESAuth_Step1>* AsyncDESFireAESAuth1Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAESAuth_Step1& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAESAuth_Step1>* PrepareAsyncDESFireAESAuth1Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAESAuth_Step1& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>* AsyncDESFireAESAuth2Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>* PrepareAsyncDESFireAESAuth2Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireChangeKey>* AsyncDESFireChangeKeyRaw(::grpc::ClientContext* context, const ::CMSG_DesfireChangeKey& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::SMSG_DesfireChangeKey>* PrepareAsyncDESFireChangeKeyRaw(::grpc::ClientContext* context, const ::CMSG_DesfireChangeKey& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_GenRandom_;
     const ::grpc::internal::RpcMethod rpcmethod_AESEncrypt_;
     const ::grpc::internal::RpcMethod rpcmethod_AESDecrypt_;
-    const ::grpc::internal::RpcMethod rpcmethod_DESFireAuth1_;
-    const ::grpc::internal::RpcMethod rpcmethod_DESFireAuth2_;
+    const ::grpc::internal::RpcMethod rpcmethod_DESFireISOAuth1_;
+    const ::grpc::internal::RpcMethod rpcmethod_DESFireISOAuth2_;
+    const ::grpc::internal::RpcMethod rpcmethod_DESFireAESAuth1_;
+    const ::grpc::internal::RpcMethod rpcmethod_DESFireAESAuth2_;
     const ::grpc::internal::RpcMethod rpcmethod_DESFireChangeKey_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
@@ -181,10 +221,14 @@ class IKSService final {
     // Generic AES Decryption routine.
     // No padding management.
     virtual ::grpc::Status AESDecrypt(::grpc::ServerContext* context, const ::CMSG_AESOperation* request, ::SMSG_AESResult* response);
-    // Desfire Authentication -- Step 1
-    virtual ::grpc::Status DESFireAuth1(::grpc::ServerContext* context, const ::CMSG_DesfireAuth_Step1* request, ::SMSG_DesfireAuth_Step1* response);
-    // Desfire Authentication -- Step 2
-    virtual ::grpc::Status DESFireAuth2(::grpc::ServerContext* context, const ::CMSG_DesfireAuth_Step2* request, ::SMSG_DesfireAuth_Step2* response);
+    // Desfire ISO Authentication -- Step 1
+    virtual ::grpc::Status DESFireISOAuth1(::grpc::ServerContext* context, const ::CMSG_DesfireISOAuth_Step1* request, ::SMSG_DesfireISOAuth_Step1* response);
+    // Desfire ISO Authentication -- Step 2
+    virtual ::grpc::Status DESFireISOAuth2(::grpc::ServerContext* context, const ::CMSG_DesfireAuth_Step2* request, ::SMSG_DesfireAuth_Step2* response);
+    // Desfire AES Authentication -- Step 1
+    virtual ::grpc::Status DESFireAESAuth1(::grpc::ServerContext* context, const ::CMSG_DesfireAESAuth_Step1* request, ::SMSG_DesfireAESAuth_Step1* response);
+    // Desfire AES Authentication -- Step 2
+    virtual ::grpc::Status DESFireAESAuth2(::grpc::ServerContext* context, const ::CMSG_DesfireAuth_Step2* request, ::SMSG_DesfireAuth_Step2* response);
     // Generate DESFire change-key cryptogram where both keys
     // are stored by IKS.
     // This call is forward to IKSD which perform the cryptogram generation.
@@ -251,43 +295,83 @@ class IKSService final {
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_DESFireAuth1 : public BaseClass {
+  class WithAsyncMethod_DESFireISOAuth1 : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
-    WithAsyncMethod_DESFireAuth1() {
+    WithAsyncMethod_DESFireISOAuth1() {
       ::grpc::Service::MarkMethodAsync(3);
     }
-    ~WithAsyncMethod_DESFireAuth1() override {
+    ~WithAsyncMethod_DESFireISOAuth1() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DESFireAuth1(::grpc::ServerContext* context, const ::CMSG_DesfireAuth_Step1* request, ::SMSG_DesfireAuth_Step1* response) final override {
+    ::grpc::Status DESFireISOAuth1(::grpc::ServerContext* context, const ::CMSG_DesfireISOAuth_Step1* request, ::SMSG_DesfireISOAuth_Step1* response) final override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestDESFireAuth1(::grpc::ServerContext* context, ::CMSG_DesfireAuth_Step1* request, ::grpc::ServerAsyncResponseWriter< ::SMSG_DesfireAuth_Step1>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestDESFireISOAuth1(::grpc::ServerContext* context, ::CMSG_DesfireISOAuth_Step1* request, ::grpc::ServerAsyncResponseWriter< ::SMSG_DesfireISOAuth_Step1>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_DESFireAuth2 : public BaseClass {
+  class WithAsyncMethod_DESFireISOAuth2 : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
-    WithAsyncMethod_DESFireAuth2() {
+    WithAsyncMethod_DESFireISOAuth2() {
       ::grpc::Service::MarkMethodAsync(4);
     }
-    ~WithAsyncMethod_DESFireAuth2() override {
+    ~WithAsyncMethod_DESFireISOAuth2() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DESFireAuth2(::grpc::ServerContext* context, const ::CMSG_DesfireAuth_Step2* request, ::SMSG_DesfireAuth_Step2* response) final override {
+    ::grpc::Status DESFireISOAuth2(::grpc::ServerContext* context, const ::CMSG_DesfireAuth_Step2* request, ::SMSG_DesfireAuth_Step2* response) final override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestDESFireAuth2(::grpc::ServerContext* context, ::CMSG_DesfireAuth_Step2* request, ::grpc::ServerAsyncResponseWriter< ::SMSG_DesfireAuth_Step2>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestDESFireISOAuth2(::grpc::ServerContext* context, ::CMSG_DesfireAuth_Step2* request, ::grpc::ServerAsyncResponseWriter< ::SMSG_DesfireAuth_Step2>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_DESFireAESAuth1 : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_DESFireAESAuth1() {
+      ::grpc::Service::MarkMethodAsync(5);
+    }
+    ~WithAsyncMethod_DESFireAESAuth1() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DESFireAESAuth1(::grpc::ServerContext* context, const ::CMSG_DesfireAESAuth_Step1* request, ::SMSG_DesfireAESAuth_Step1* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestDESFireAESAuth1(::grpc::ServerContext* context, ::CMSG_DesfireAESAuth_Step1* request, ::grpc::ServerAsyncResponseWriter< ::SMSG_DesfireAESAuth_Step1>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_DESFireAESAuth2 : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_DESFireAESAuth2() {
+      ::grpc::Service::MarkMethodAsync(6);
+    }
+    ~WithAsyncMethod_DESFireAESAuth2() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DESFireAESAuth2(::grpc::ServerContext* context, const ::CMSG_DesfireAuth_Step2* request, ::SMSG_DesfireAuth_Step2* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestDESFireAESAuth2(::grpc::ServerContext* context, ::CMSG_DesfireAuth_Step2* request, ::grpc::ServerAsyncResponseWriter< ::SMSG_DesfireAuth_Step2>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -296,7 +380,7 @@ class IKSService final {
     void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithAsyncMethod_DESFireChangeKey() {
-      ::grpc::Service::MarkMethodAsync(5);
+      ::grpc::Service::MarkMethodAsync(7);
     }
     ~WithAsyncMethod_DESFireChangeKey() override {
       BaseClassMustBeDerivedFromService(this);
@@ -307,10 +391,10 @@ class IKSService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestDESFireChangeKey(::grpc::ServerContext* context, ::CMSG_DesfireChangeKey* request, ::grpc::ServerAsyncResponseWriter< ::SMSG_DesfireChangeKey>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_GenRandom<WithAsyncMethod_AESEncrypt<WithAsyncMethod_AESDecrypt<WithAsyncMethod_DESFireAuth1<WithAsyncMethod_DESFireAuth2<WithAsyncMethod_DESFireChangeKey<Service > > > > > > AsyncService;
+  typedef WithAsyncMethod_GenRandom<WithAsyncMethod_AESEncrypt<WithAsyncMethod_AESDecrypt<WithAsyncMethod_DESFireISOAuth1<WithAsyncMethod_DESFireISOAuth2<WithAsyncMethod_DESFireAESAuth1<WithAsyncMethod_DESFireAESAuth2<WithAsyncMethod_DESFireChangeKey<Service > > > > > > > > AsyncService;
   template <class BaseClass>
   class WithGenericMethod_GenRandom : public BaseClass {
    private:
@@ -363,35 +447,69 @@ class IKSService final {
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_DESFireAuth1 : public BaseClass {
+  class WithGenericMethod_DESFireISOAuth1 : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
-    WithGenericMethod_DESFireAuth1() {
+    WithGenericMethod_DESFireISOAuth1() {
       ::grpc::Service::MarkMethodGeneric(3);
     }
-    ~WithGenericMethod_DESFireAuth1() override {
+    ~WithGenericMethod_DESFireISOAuth1() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DESFireAuth1(::grpc::ServerContext* context, const ::CMSG_DesfireAuth_Step1* request, ::SMSG_DesfireAuth_Step1* response) final override {
+    ::grpc::Status DESFireISOAuth1(::grpc::ServerContext* context, const ::CMSG_DesfireISOAuth_Step1* request, ::SMSG_DesfireISOAuth_Step1* response) final override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_DESFireAuth2 : public BaseClass {
+  class WithGenericMethod_DESFireISOAuth2 : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
-    WithGenericMethod_DESFireAuth2() {
+    WithGenericMethod_DESFireISOAuth2() {
       ::grpc::Service::MarkMethodGeneric(4);
     }
-    ~WithGenericMethod_DESFireAuth2() override {
+    ~WithGenericMethod_DESFireISOAuth2() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DESFireAuth2(::grpc::ServerContext* context, const ::CMSG_DesfireAuth_Step2* request, ::SMSG_DesfireAuth_Step2* response) final override {
+    ::grpc::Status DESFireISOAuth2(::grpc::ServerContext* context, const ::CMSG_DesfireAuth_Step2* request, ::SMSG_DesfireAuth_Step2* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_DESFireAESAuth1 : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_DESFireAESAuth1() {
+      ::grpc::Service::MarkMethodGeneric(5);
+    }
+    ~WithGenericMethod_DESFireAESAuth1() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DESFireAESAuth1(::grpc::ServerContext* context, const ::CMSG_DesfireAESAuth_Step1* request, ::SMSG_DesfireAESAuth_Step1* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_DESFireAESAuth2 : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_DESFireAESAuth2() {
+      ::grpc::Service::MarkMethodGeneric(6);
+    }
+    ~WithGenericMethod_DESFireAESAuth2() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DESFireAESAuth2(::grpc::ServerContext* context, const ::CMSG_DesfireAuth_Step2* request, ::SMSG_DesfireAuth_Step2* response) final override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -402,7 +520,7 @@ class IKSService final {
     void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithGenericMethod_DESFireChangeKey() {
-      ::grpc::Service::MarkMethodGeneric(5);
+      ::grpc::Service::MarkMethodGeneric(7);
     }
     ~WithGenericMethod_DESFireChangeKey() override {
       BaseClassMustBeDerivedFromService(this);
@@ -474,44 +592,84 @@ class IKSService final {
     virtual ::grpc::Status StreamedAESDecrypt(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::CMSG_AESOperation,::SMSG_AESResult>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_DESFireAuth1 : public BaseClass {
+  class WithStreamedUnaryMethod_DESFireISOAuth1 : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
-    WithStreamedUnaryMethod_DESFireAuth1() {
+    WithStreamedUnaryMethod_DESFireISOAuth1() {
       ::grpc::Service::MarkMethodStreamed(3,
-        new ::grpc::internal::StreamedUnaryHandler< ::CMSG_DesfireAuth_Step1, ::SMSG_DesfireAuth_Step1>(std::bind(&WithStreamedUnaryMethod_DESFireAuth1<BaseClass>::StreamedDESFireAuth1, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler< ::CMSG_DesfireISOAuth_Step1, ::SMSG_DesfireISOAuth_Step1>(std::bind(&WithStreamedUnaryMethod_DESFireISOAuth1<BaseClass>::StreamedDESFireISOAuth1, this, std::placeholders::_1, std::placeholders::_2)));
     }
-    ~WithStreamedUnaryMethod_DESFireAuth1() override {
+    ~WithStreamedUnaryMethod_DESFireISOAuth1() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status DESFireAuth1(::grpc::ServerContext* context, const ::CMSG_DesfireAuth_Step1* request, ::SMSG_DesfireAuth_Step1* response) final override {
+    ::grpc::Status DESFireISOAuth1(::grpc::ServerContext* context, const ::CMSG_DesfireISOAuth_Step1* request, ::SMSG_DesfireISOAuth_Step1* response) final override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedDESFireAuth1(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::CMSG_DesfireAuth_Step1,::SMSG_DesfireAuth_Step1>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedDESFireISOAuth1(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::CMSG_DesfireISOAuth_Step1,::SMSG_DesfireISOAuth_Step1>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_DESFireAuth2 : public BaseClass {
+  class WithStreamedUnaryMethod_DESFireISOAuth2 : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
-    WithStreamedUnaryMethod_DESFireAuth2() {
+    WithStreamedUnaryMethod_DESFireISOAuth2() {
       ::grpc::Service::MarkMethodStreamed(4,
-        new ::grpc::internal::StreamedUnaryHandler< ::CMSG_DesfireAuth_Step2, ::SMSG_DesfireAuth_Step2>(std::bind(&WithStreamedUnaryMethod_DESFireAuth2<BaseClass>::StreamedDESFireAuth2, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler< ::CMSG_DesfireAuth_Step2, ::SMSG_DesfireAuth_Step2>(std::bind(&WithStreamedUnaryMethod_DESFireISOAuth2<BaseClass>::StreamedDESFireISOAuth2, this, std::placeholders::_1, std::placeholders::_2)));
     }
-    ~WithStreamedUnaryMethod_DESFireAuth2() override {
+    ~WithStreamedUnaryMethod_DESFireISOAuth2() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status DESFireAuth2(::grpc::ServerContext* context, const ::CMSG_DesfireAuth_Step2* request, ::SMSG_DesfireAuth_Step2* response) final override {
+    ::grpc::Status DESFireISOAuth2(::grpc::ServerContext* context, const ::CMSG_DesfireAuth_Step2* request, ::SMSG_DesfireAuth_Step2* response) final override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedDESFireAuth2(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::CMSG_DesfireAuth_Step2,::SMSG_DesfireAuth_Step2>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedDESFireISOAuth2(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::CMSG_DesfireAuth_Step2,::SMSG_DesfireAuth_Step2>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_DESFireAESAuth1 : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithStreamedUnaryMethod_DESFireAESAuth1() {
+      ::grpc::Service::MarkMethodStreamed(5,
+        new ::grpc::internal::StreamedUnaryHandler< ::CMSG_DesfireAESAuth_Step1, ::SMSG_DesfireAESAuth_Step1>(std::bind(&WithStreamedUnaryMethod_DESFireAESAuth1<BaseClass>::StreamedDESFireAESAuth1, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_DESFireAESAuth1() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status DESFireAESAuth1(::grpc::ServerContext* context, const ::CMSG_DesfireAESAuth_Step1* request, ::SMSG_DesfireAESAuth_Step1* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedDESFireAESAuth1(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::CMSG_DesfireAESAuth_Step1,::SMSG_DesfireAESAuth_Step1>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_DESFireAESAuth2 : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithStreamedUnaryMethod_DESFireAESAuth2() {
+      ::grpc::Service::MarkMethodStreamed(6,
+        new ::grpc::internal::StreamedUnaryHandler< ::CMSG_DesfireAuth_Step2, ::SMSG_DesfireAuth_Step2>(std::bind(&WithStreamedUnaryMethod_DESFireAESAuth2<BaseClass>::StreamedDESFireAESAuth2, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_DESFireAESAuth2() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status DESFireAESAuth2(::grpc::ServerContext* context, const ::CMSG_DesfireAuth_Step2* request, ::SMSG_DesfireAuth_Step2* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedDESFireAESAuth2(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::CMSG_DesfireAuth_Step2,::SMSG_DesfireAuth_Step2>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_DESFireChangeKey : public BaseClass {
@@ -519,7 +677,7 @@ class IKSService final {
     void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithStreamedUnaryMethod_DESFireChangeKey() {
-      ::grpc::Service::MarkMethodStreamed(5,
+      ::grpc::Service::MarkMethodStreamed(7,
         new ::grpc::internal::StreamedUnaryHandler< ::CMSG_DesfireChangeKey, ::SMSG_DesfireChangeKey>(std::bind(&WithStreamedUnaryMethod_DESFireChangeKey<BaseClass>::StreamedDESFireChangeKey, this, std::placeholders::_1, std::placeholders::_2)));
     }
     ~WithStreamedUnaryMethod_DESFireChangeKey() override {
@@ -533,9 +691,9 @@ class IKSService final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedDESFireChangeKey(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::CMSG_DesfireChangeKey,::SMSG_DesfireChangeKey>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_GenRandom<WithStreamedUnaryMethod_AESEncrypt<WithStreamedUnaryMethod_AESDecrypt<WithStreamedUnaryMethod_DESFireAuth1<WithStreamedUnaryMethod_DESFireAuth2<WithStreamedUnaryMethod_DESFireChangeKey<Service > > > > > > StreamedUnaryService;
+  typedef WithStreamedUnaryMethod_GenRandom<WithStreamedUnaryMethod_AESEncrypt<WithStreamedUnaryMethod_AESDecrypt<WithStreamedUnaryMethod_DESFireISOAuth1<WithStreamedUnaryMethod_DESFireISOAuth2<WithStreamedUnaryMethod_DESFireAESAuth1<WithStreamedUnaryMethod_DESFireAESAuth2<WithStreamedUnaryMethod_DESFireChangeKey<Service > > > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_GenRandom<WithStreamedUnaryMethod_AESEncrypt<WithStreamedUnaryMethod_AESDecrypt<WithStreamedUnaryMethod_DESFireAuth1<WithStreamedUnaryMethod_DESFireAuth2<WithStreamedUnaryMethod_DESFireChangeKey<Service > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_GenRandom<WithStreamedUnaryMethod_AESEncrypt<WithStreamedUnaryMethod_AESDecrypt<WithStreamedUnaryMethod_DESFireISOAuth1<WithStreamedUnaryMethod_DESFireISOAuth2<WithStreamedUnaryMethod_DESFireAESAuth1<WithStreamedUnaryMethod_DESFireAESAuth2<WithStreamedUnaryMethod_DESFireChangeKey<Service > > > > > > > > StreamedService;
 };
 
 

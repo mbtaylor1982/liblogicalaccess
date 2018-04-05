@@ -79,11 +79,12 @@ int main(int ac, char **av)
     // key->fromString("00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00");
     // key->setKeyStorage(std::make_shared<IKSStorage>("d852a915-7435-464d-9fbf-680d056c827b"));
     // key->setKeyStorage(std::make_shared<IKSStorage>("df30845a-3ca4-40ab-91f4-f45cb2e37b67"));
-    // auto kst = std::make_shared<IKSStorage>("36ff2fbc-dcf5-413b-a274-b9531fdbd92c");
+    // auto kst = std::make_shared<IKSStorage>("36ff2fbc-dcf5-413b-a274-b9531fdbd9c");
     // auto kst = std::make_shared<IKSStorage>("12c856a2-969a-4bad-a9c0-37b09ca69304");
-    auto kst = std::make_shared<IKSStorage>("41fafacf-030d-42dc-a4bd-e6d9c9e437f8");
+    // KEY EV 2 !!!
+    auto kst = std::make_shared<IKSStorage>("271cdd1b-9710-41dd-900a-e441fecfa6fc");
 
-    // key->fromString("4a 9b 22 a6 b0 01 d2 9f 4e c8 a0 02 66 e0 06 b2");
+    //key->fromString("4a 9b 22 a6 b0 01 d2 9f 4e c8 a0 02 66 e0 06 b2");
     key->setKeyStorage(kst);
     auto ai       = std::make_shared<DESFireAccessInfo>();
     ai->readKey   = key;
@@ -111,7 +112,7 @@ int main(int ac, char **av)
                   << BufferHelper::getHex(sig_res.signature_description_.payload())
                   << std::endl
                   << "\tRun UUID: "
-                  << BufferHelper::getHex(sig_res.signature_description_.uuid())
+                  << BufferHelper::getHex(sig_res.signature_description_.run_uuid())
                   << std::endl;
 
         std::cout << "DescriptionBlob: "

@@ -911,37 +911,52 @@ void DESFireEV1ISO7816Commands::iks_authenticateAES(std::shared_ptr<DESFireKey> 
     EXCEPTION_ASSERT_WITH_LOG(err == DF_INS_ADDITIONAL_FRAME, LibLogicalAccessException,
                               "No additional frame for ISO authentication.");
 
+    std::cout << "ENC_PICC: " << BufferHelper::getHex(encRndB) << std::endl;
+
     auto rndB = rpc_client.aes_decrypt(encRndB, kst->getKeyIdentity(), ByteVector(16, 0));
-    auto iv = ByteVector(encRndB.end() - 16, encRndB.end());
+    auto iv   = ByteVector(encRndB.end() - 16, encRndB.end());
 
     ByteVector rndB1;
     rndB1.insert(rndB1.end(), rndB.begin() + 1, rndB.begin() + 1 + 15);
     rndB1.push_back(rndB[0]);
 
     auto rndA = rpc_client.gen_random(16);
+    std::cout << "CLIENT_RND: " << BufferHelper::getHex(rndA) << std::endl;
+
     ByteVector rndAB;
     rndAB.insert(rndAB.end(), rndA.begin(), rndA.end());
     rndAB.insert(rndAB.end(), rndB1.begin(), rndB1.end());
 
-    auto cryptogram = rpc_client.aes_encrypt(rndAB, kst->getKeyIdentity(), iv);
-    iv =  ByteVector(cryptogram.end() - 16, cryptogram.end());
+    auto cryptogram     = rpc_client.aes_encrypt(rndAB, kst->getKeyIdentity(), iv);
+    std::cout << "CLIENT_ENC_CRYPTOGRAM: " << BufferHelper::getHex(cryptogram) << std::endl;
+
+    iv                  = ByteVector(cryptogram.end() - 16, cryptogram.end());
     ByteVector encRndA1 = transmit_plain(DF_INS_ADDITIONAL_FRAME, cryptogram);
     encRndA1.resize(encRndA1.size() - 2);
+
+    std::cout << "PICC_STEP2: " << BufferHelper::getHex(encRndA1) << std::endl;
 
     ByteVector checkRndA;
     auto clear_rnda_picc = rpc_client.aes_decrypt(encRndA1, kst->getKeyIdentity(), iv);
     checkRndA.push_back(clear_rnda_picc[15]);
-    checkRndA.insert(checkRndA.end(), clear_rnda_picc.begin(), clear_rnda_picc.begin() + 15);
+    checkRndA.insert(checkRndA.end(), clear_rnda_picc.begin(),
+                     clear_rnda_picc.begin() + 15);
 
     std::cout << "RNDA: " << rndA << std::endl;
     std::cout << "CHEC: " << checkRndA << std::endl;
 
     if (checkRndA == rndA)
     {
-        crypto->d_sessionKey.insert(crypto->d_sessionKey.end(), rndA.begin(), rndA.begin() + 4);
-        crypto->d_sessionKey.insert(crypto->d_sessionKey.end(), rndB.begin(), rndB.begin() + 4);
-        crypto->d_sessionKey.insert(crypto->d_sessionKey.end(), rndA.begin() + 12, rndA.begin() + 16);
-        crypto->d_sessionKey.insert(crypto->d_sessionKey.end(), rndB.begin() + 12, rndB.begin() + 16);
+        crypto->d_sessionKey.insert(crypto->d_sessionKey.end(), rndA.begin(),
+                                    rndA.begin() + 4);
+        crypto->d_sessionKey.insert(crypto->d_sessionKey.end(), rndB.begin(),
+                                    rndB.begin() + 4);
+        crypto->d_sessionKey.insert(crypto->d_sessionKey.end(), rndA.begin() + 12,
+                                    rndA.begin() + 16);
+        crypto->d_sessionKey.insert(crypto->d_sessionKey.end(), rndB.begin() + 12,
+                                    rndB.begin() + 16);
+
+        std::cout << "SESSION_KEY " << BufferHelper::getHex(crypto->d_sessionKey) << std::endl;
 
         crypto->d_currentKeyNo = keyno;
     }
@@ -1665,12 +1680,12 @@ void DESFireEV1ISO7816Commands::iks_iso_authenticate(std::shared_ptr<DESFireKey>
     ByteVector RPICC1                     = iso_getChallenge(16); // 16 because aes
 
     iks::IKSRPCClient rpc_client(iks::IslogKeyServer::get_global_config());
-    CMSG_DesfireAuth_Step1 step1_req;
+    CMSG_DesfireISOAuth_Step1 step1_req;
     step1_req.set_key_uuid(
         std::dynamic_pointer_cast<IKSStorage>(key->getKeyStorage())->getKeyIdentity());
     step1_req.set_random_picc(std::string(RPICC1.begin(), RPICC1.end()));
 
-    SMSG_DesfireAuth_Step1 step1_resp = rpc_client.desfire_auth_step1(step1_req);
+    SMSG_DesfireISOAuth_Step1 step1_resp = rpc_client.desfire_auth_iso_step1(step1_req);
 
     /*iks::DesfireAuthCommand cmd;
     cmd.algo_ = iks::DESFIRE_AUTH_ALGO_AES;
@@ -1713,7 +1728,7 @@ void DESFireEV1ISO7816Commands::iks_iso_authenticate(std::shared_ptr<DESFireKey>
                                   "Cannot retrieve proper response from server.");
         EXCEPTION_ASSERT_WITH_LOG(resp->success_, IKSException,
                                   "Mutual authentication failure.");*/
-    SMSG_DesfireAuth_Step2 step2_resp = rpc_client.desfire_auth_step2(step2_req);
+    SMSG_DesfireAuth_Step2 step2_resp = rpc_client.desfire_auth_iso_step2(step2_req);
     EXCEPTION_ASSERT_WITH_LOG(step2_resp.success(), IKSException,
                               "Mutual authentication failure.");
 

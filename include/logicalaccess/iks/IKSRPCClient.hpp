@@ -31,9 +31,8 @@ class IKSRPCClient
                            const ByteVector &iv,
                            SignatureResult *out_signature = nullptr);
 
-    SMSG_DesfireAuth_Step1 desfire_auth_step1(CMSG_DesfireAuth_Step1 req);
-    SMSG_DesfireAuth_Step2 desfire_auth_step2(CMSG_DesfireAuth_Step2 req);
-
+    SMSG_DesfireISOAuth_Step1 desfire_auth_iso_step1(CMSG_DesfireISOAuth_Step1 req);
+    SMSG_DesfireAuth_Step2 desfire_auth_iso_step2(CMSG_DesfireAuth_Step2 req);
 
   private:
     IslogKeyServer::IKSConfig config_;

@@ -18,8 +18,10 @@ static const char* IKSService_method_names[] = {
   "/IKSService/GenRandom",
   "/IKSService/AESEncrypt",
   "/IKSService/AESDecrypt",
-  "/IKSService/DESFireAuth1",
-  "/IKSService/DESFireAuth2",
+  "/IKSService/DESFireISOAuth1",
+  "/IKSService/DESFireISOAuth2",
+  "/IKSService/DESFireAESAuth1",
+  "/IKSService/DESFireAESAuth2",
   "/IKSService/DESFireChangeKey",
 };
 
@@ -33,9 +35,11 @@ IKSService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel
   : channel_(channel), rpcmethod_GenRandom_(IKSService_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_AESEncrypt_(IKSService_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_AESDecrypt_(IKSService_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_DESFireAuth1_(IKSService_method_names[3], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_DESFireAuth2_(IKSService_method_names[4], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_DESFireChangeKey_(IKSService_method_names[5], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_DESFireISOAuth1_(IKSService_method_names[3], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_DESFireISOAuth2_(IKSService_method_names[4], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_DESFireAESAuth1_(IKSService_method_names[5], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_DESFireAESAuth2_(IKSService_method_names[6], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_DESFireChangeKey_(IKSService_method_names[7], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status IKSService::Stub::GenRandom(::grpc::ClientContext* context, const ::CMSG_GenRandom& request, ::SMSG_GenRandom* response) {
@@ -74,28 +78,52 @@ IKSService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel
   return ::grpc::internal::ClientAsyncResponseReaderFactory< ::SMSG_AESResult>::Create(channel_.get(), cq, rpcmethod_AESDecrypt_, context, request, false);
 }
 
-::grpc::Status IKSService::Stub::DESFireAuth1(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step1& request, ::SMSG_DesfireAuth_Step1* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_DESFireAuth1_, context, request, response);
+::grpc::Status IKSService::Stub::DESFireISOAuth1(::grpc::ClientContext* context, const ::CMSG_DesfireISOAuth_Step1& request, ::SMSG_DesfireISOAuth_Step1* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_DESFireISOAuth1_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step1>* IKSService::Stub::AsyncDESFireAuth1Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step1& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::SMSG_DesfireAuth_Step1>::Create(channel_.get(), cq, rpcmethod_DESFireAuth1_, context, request, true);
+::grpc::ClientAsyncResponseReader< ::SMSG_DesfireISOAuth_Step1>* IKSService::Stub::AsyncDESFireISOAuth1Raw(::grpc::ClientContext* context, const ::CMSG_DesfireISOAuth_Step1& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::SMSG_DesfireISOAuth_Step1>::Create(channel_.get(), cq, rpcmethod_DESFireISOAuth1_, context, request, true);
 }
 
-::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step1>* IKSService::Stub::PrepareAsyncDESFireAuth1Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step1& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::SMSG_DesfireAuth_Step1>::Create(channel_.get(), cq, rpcmethod_DESFireAuth1_, context, request, false);
+::grpc::ClientAsyncResponseReader< ::SMSG_DesfireISOAuth_Step1>* IKSService::Stub::PrepareAsyncDESFireISOAuth1Raw(::grpc::ClientContext* context, const ::CMSG_DesfireISOAuth_Step1& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::SMSG_DesfireISOAuth_Step1>::Create(channel_.get(), cq, rpcmethod_DESFireISOAuth1_, context, request, false);
 }
 
-::grpc::Status IKSService::Stub::DESFireAuth2(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::SMSG_DesfireAuth_Step2* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_DESFireAuth2_, context, request, response);
+::grpc::Status IKSService::Stub::DESFireISOAuth2(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::SMSG_DesfireAuth_Step2* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_DESFireISOAuth2_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>* IKSService::Stub::AsyncDESFireAuth2Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::SMSG_DesfireAuth_Step2>::Create(channel_.get(), cq, rpcmethod_DESFireAuth2_, context, request, true);
+::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>* IKSService::Stub::AsyncDESFireISOAuth2Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::SMSG_DesfireAuth_Step2>::Create(channel_.get(), cq, rpcmethod_DESFireISOAuth2_, context, request, true);
 }
 
-::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>* IKSService::Stub::PrepareAsyncDESFireAuth2Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::SMSG_DesfireAuth_Step2>::Create(channel_.get(), cq, rpcmethod_DESFireAuth2_, context, request, false);
+::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>* IKSService::Stub::PrepareAsyncDESFireISOAuth2Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::SMSG_DesfireAuth_Step2>::Create(channel_.get(), cq, rpcmethod_DESFireISOAuth2_, context, request, false);
+}
+
+::grpc::Status IKSService::Stub::DESFireAESAuth1(::grpc::ClientContext* context, const ::CMSG_DesfireAESAuth_Step1& request, ::SMSG_DesfireAESAuth_Step1* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_DESFireAESAuth1_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAESAuth_Step1>* IKSService::Stub::AsyncDESFireAESAuth1Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAESAuth_Step1& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::SMSG_DesfireAESAuth_Step1>::Create(channel_.get(), cq, rpcmethod_DESFireAESAuth1_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAESAuth_Step1>* IKSService::Stub::PrepareAsyncDESFireAESAuth1Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAESAuth_Step1& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::SMSG_DesfireAESAuth_Step1>::Create(channel_.get(), cq, rpcmethod_DESFireAESAuth1_, context, request, false);
+}
+
+::grpc::Status IKSService::Stub::DESFireAESAuth2(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::SMSG_DesfireAuth_Step2* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_DESFireAESAuth2_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>* IKSService::Stub::AsyncDESFireAESAuth2Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::SMSG_DesfireAuth_Step2>::Create(channel_.get(), cq, rpcmethod_DESFireAESAuth2_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::SMSG_DesfireAuth_Step2>* IKSService::Stub::PrepareAsyncDESFireAESAuth2Raw(::grpc::ClientContext* context, const ::CMSG_DesfireAuth_Step2& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::SMSG_DesfireAuth_Step2>::Create(channel_.get(), cq, rpcmethod_DESFireAESAuth2_, context, request, false);
 }
 
 ::grpc::Status IKSService::Stub::DESFireChangeKey(::grpc::ClientContext* context, const ::CMSG_DesfireChangeKey& request, ::SMSG_DesfireChangeKey* response) {
@@ -129,15 +157,25 @@ IKSService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       IKSService_method_names[3],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< IKSService::Service, ::CMSG_DesfireAuth_Step1, ::SMSG_DesfireAuth_Step1>(
-          std::mem_fn(&IKSService::Service::DESFireAuth1), this)));
+      new ::grpc::internal::RpcMethodHandler< IKSService::Service, ::CMSG_DesfireISOAuth_Step1, ::SMSG_DesfireISOAuth_Step1>(
+          std::mem_fn(&IKSService::Service::DESFireISOAuth1), this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       IKSService_method_names[4],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< IKSService::Service, ::CMSG_DesfireAuth_Step2, ::SMSG_DesfireAuth_Step2>(
-          std::mem_fn(&IKSService::Service::DESFireAuth2), this)));
+          std::mem_fn(&IKSService::Service::DESFireISOAuth2), this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       IKSService_method_names[5],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< IKSService::Service, ::CMSG_DesfireAESAuth_Step1, ::SMSG_DesfireAESAuth_Step1>(
+          std::mem_fn(&IKSService::Service::DESFireAESAuth1), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      IKSService_method_names[6],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< IKSService::Service, ::CMSG_DesfireAuth_Step2, ::SMSG_DesfireAuth_Step2>(
+          std::mem_fn(&IKSService::Service::DESFireAESAuth2), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      IKSService_method_names[7],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< IKSService::Service, ::CMSG_DesfireChangeKey, ::SMSG_DesfireChangeKey>(
           std::mem_fn(&IKSService::Service::DESFireChangeKey), this)));
@@ -167,14 +205,28 @@ IKSService::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status IKSService::Service::DESFireAuth1(::grpc::ServerContext* context, const ::CMSG_DesfireAuth_Step1* request, ::SMSG_DesfireAuth_Step1* response) {
+::grpc::Status IKSService::Service::DESFireISOAuth1(::grpc::ServerContext* context, const ::CMSG_DesfireISOAuth_Step1* request, ::SMSG_DesfireISOAuth_Step1* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status IKSService::Service::DESFireAuth2(::grpc::ServerContext* context, const ::CMSG_DesfireAuth_Step2* request, ::SMSG_DesfireAuth_Step2* response) {
+::grpc::Status IKSService::Service::DESFireISOAuth2(::grpc::ServerContext* context, const ::CMSG_DesfireAuth_Step2* request, ::SMSG_DesfireAuth_Step2* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status IKSService::Service::DESFireAESAuth1(::grpc::ServerContext* context, const ::CMSG_DesfireAESAuth_Step1* request, ::SMSG_DesfireAESAuth_Step1* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status IKSService::Service::DESFireAESAuth2(::grpc::ServerContext* context, const ::CMSG_DesfireAuth_Step2* request, ::SMSG_DesfireAuth_Step2* response) {
   (void) context;
   (void) request;
   (void) response;
