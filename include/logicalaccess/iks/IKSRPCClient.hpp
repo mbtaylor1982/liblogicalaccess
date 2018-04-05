@@ -20,7 +20,7 @@ struct SignatureResult;
 class IKSRPCClient
 {
   public:
-    IKSRPCClient(IslogKeyServer::IKSConfig config);
+    explicit IKSRPCClient(IslogKeyServer::IKSConfig config);
 
     ByteVector gen_random(int size);
 
@@ -33,6 +33,9 @@ class IKSRPCClient
 
     SMSG_DesfireISOAuth_Step1 desfire_auth_iso_step1(CMSG_DesfireISOAuth_Step1 req);
     SMSG_DesfireAuth_Step2 desfire_auth_iso_step2(CMSG_DesfireAuth_Step2 req);
+
+    SMSG_DesfireAESAuth_Step1 desfire_auth_aes_step1(CMSG_DesfireAESAuth_Step1 req);
+    SMSG_DesfireAuth_Step2 desfire_auth_aes_step2(CMSG_DesfireAuth_Step2 req);
 
   private:
     IslogKeyServer::IKSConfig config_;

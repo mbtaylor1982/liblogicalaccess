@@ -100,13 +100,39 @@ IKSRPCClient::desfire_auth_iso_step1(CMSG_DesfireISOAuth_Step1 req)
     throw RPCException(rpc_status.error_message() + ": " + rpc_status.error_details());
 }
 
-SMSG_DesfireAuth_Step2
-IKSRPCClient::desfire_auth_iso_step2(CMSG_DesfireAuth_Step2 req)
+SMSG_DesfireAuth_Step2 IKSRPCClient::desfire_auth_iso_step2(CMSG_DesfireAuth_Step2 req)
 {
     grpc::ClientContext context;
 
     SMSG_DesfireAuth_Step2 rep;
     grpc::Status rpc_status = stub_->DESFireISOAuth2(&context, req, &rep);
+    if (rpc_status.ok())
+    {
+        return rep;
+    }
+    throw RPCException(rpc_status.error_message() + ": " + rpc_status.error_details());
+}
+
+SMSG_DesfireAESAuth_Step1
+IKSRPCClient::desfire_auth_aes_step1(CMSG_DesfireAESAuth_Step1 req)
+{
+    grpc::ClientContext context;
+
+    SMSG_DesfireAESAuth_Step1 rep;
+    grpc::Status rpc_status = stub_->DESFireAESAuth1(&context, req, &rep);
+    if (rpc_status.ok())
+    {
+        return rep;
+    }
+    throw RPCException(rpc_status.error_message() + ": " + rpc_status.error_details());
+}
+
+SMSG_DesfireAuth_Step2 IKSRPCClient::desfire_auth_aes_step2(CMSG_DesfireAuth_Step2 req)
+{
+    grpc::ClientContext context;
+
+    SMSG_DesfireAuth_Step2 rep;
+    grpc::Status rpc_status = stub_->DESFireAESAuth2(&context, req, &rep);
     if (rpc_status.ok())
     {
         return rep;

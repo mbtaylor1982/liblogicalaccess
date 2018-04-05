@@ -911,53 +911,39 @@ void DESFireEV1ISO7816Commands::iks_authenticateAES(std::shared_ptr<DESFireKey> 
     EXCEPTION_ASSERT_WITH_LOG(err == DF_INS_ADDITIONAL_FRAME, LibLogicalAccessException,
                               "No additional frame for ISO authentication.");
 
-    std::cout << "ENC_PICC: " << BufferHelper::getHex(encRndB) << std::endl;
+    CMSG_DesfireAESAuth_Step1 req;
+    req.set_key_uuid(kst->getKeyIdentity());
+    req.set_encrypted_random_picc(BufferHelper::getStdString(encRndB));
+    auto step1_response = rpc_client.desfire_auth_aes_step1(req);
 
-    auto rndB = rpc_client.aes_decrypt(encRndB, kst->getKeyIdentity(), ByteVector(16, 0));
-    auto iv   = ByteVector(encRndB.end() - 16, encRndB.end());
-
-    ByteVector rndB1;
-    rndB1.insert(rndB1.end(), rndB.begin() + 1, rndB.begin() + 1 + 15);
-    rndB1.push_back(rndB[0]);
-
-    auto rndA = rpc_client.gen_random(16);
-    std::cout << "CLIENT_RND: " << BufferHelper::getHex(rndA) << std::endl;
-
-    ByteVector rndAB;
-    rndAB.insert(rndAB.end(), rndA.begin(), rndA.end());
-    rndAB.insert(rndAB.end(), rndB1.begin(), rndB1.end());
-
-    auto cryptogram     = rpc_client.aes_encrypt(rndAB, kst->getKeyIdentity(), iv);
-    std::cout << "CLIENT_ENC_CRYPTOGRAM: " << BufferHelper::getHex(cryptogram) << std::endl;
-
-    iv                  = ByteVector(cryptogram.end() - 16, cryptogram.end());
-    ByteVector encRndA1 = transmit_plain(DF_INS_ADDITIONAL_FRAME, cryptogram);
+    ByteVector encRndA1 = transmit_plain(
+        DF_INS_ADDITIONAL_FRAME, ByteVector(step1_response.encrypted_cryptogram().begin(),
+                                            step1_response.encrypted_cryptogram().end()));
     encRndA1.resize(encRndA1.size() - 2);
 
-    std::cout << "PICC_STEP2: " << BufferHelper::getHex(encRndA1) << std::endl;
+    CMSG_DesfireAuth_Step2 step2;
+    step2.set_key_uuid(kst->getKeyIdentity());
+    step2.set_auth_context_id(step1_response.auth_context_id());
+    step2.set_picc_cryptogram(BufferHelper::getStdString(encRndA1));
 
-    ByteVector checkRndA;
-    auto clear_rnda_picc = rpc_client.aes_decrypt(encRndA1, kst->getKeyIdentity(), iv);
-    checkRndA.push_back(clear_rnda_picc[15]);
-    checkRndA.insert(checkRndA.end(), clear_rnda_picc.begin(),
-                     clear_rnda_picc.begin() + 15);
+    auto step2_response = rpc_client.desfire_auth_aes_step2(step2);
 
-    std::cout << "RNDA: " << rndA << std::endl;
-    std::cout << "CHEC: " << checkRndA << std::endl;
-
-    if (checkRndA == rndA)
+    if (step2_response.success())
     {
-        crypto->d_sessionKey.insert(crypto->d_sessionKey.end(), rndA.begin(),
-                                    rndA.begin() + 4);
-        crypto->d_sessionKey.insert(crypto->d_sessionKey.end(), rndB.begin(),
-                                    rndB.begin() + 4);
-        crypto->d_sessionKey.insert(crypto->d_sessionKey.end(), rndA.begin() + 12,
-                                    rndA.begin() + 16);
-        crypto->d_sessionKey.insert(crypto->d_sessionKey.end(), rndB.begin() + 12,
-                                    rndB.begin() + 16);
-
-        std::cout << "SESSION_KEY " << BufferHelper::getHex(crypto->d_sessionKey) << std::endl;
-
+        if (!step2_response.session_key().empty())
+        {
+            // Raw key material. Use as is.
+            crypto->d_sessionKey = ByteVector(step2_response.session_key().begin(),
+                                              step2_response.session_key().end());
+        }
+        else
+        {
+            // We received a KeyReference. We need to create an IKSCryptoWrapper
+            // for use by DESFireCrypto so CMAC calculation, data decryption and stuff
+            // like that gets rerouted through IKS.
+            crypto->iks_wrapper_                  = std::make_unique<IKSCryptoWrapper>();
+            crypto->iks_wrapper_->remote_key_name = step2_response.session_key_ref();
+        }
         crypto->d_currentKeyNo = keyno;
     }
     else
