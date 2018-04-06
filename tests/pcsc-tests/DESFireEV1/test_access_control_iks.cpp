@@ -82,7 +82,10 @@ int main(int ac, char **av)
     // auto kst = std::make_shared<IKSStorage>("36ff2fbc-dcf5-413b-a274-b9531fdbd9c");
     // auto kst = std::make_shared<IKSStorage>("12c856a2-969a-4bad-a9c0-37b09ca69304");
     // KEY EV 2 !!!
-    auto kst = std::make_shared<IKSStorage>("62bf5ff8-1fee-4c8d-8ebe-3ccdaa4cfb44");
+    auto div = std::make_shared<NXPAV2KeyDiversification>();
+    div->setSystemIdentifier(ByteVector{0x94, 0x56});
+    auto kst = std::make_shared<IKSStorage>("660557b6-846c-4cfe-bd38-027c6bb98f3b");
+    key->setKeyDiversification(div);
 
     // key->fromString("4a 9b 22 a6 b0 01 d2 9f 4e c8 a0 02 66 e0 06 b2");
     key->setKeyStorage(kst);

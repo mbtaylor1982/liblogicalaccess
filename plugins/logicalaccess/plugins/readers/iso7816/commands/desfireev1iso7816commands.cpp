@@ -902,7 +902,6 @@ void DESFireEV1ISO7816Commands::iks_authenticateAES(std::shared_ptr<DESFireKey> 
 
     ByteVector data;
     data.push_back(keyno);
-    auto diversify = getKeyInformations(key, keyno);
 
     // Get cryptogram from card.
     ByteVector encRndB = transmit_plain(DFEV1_INS_AUTHENTICATE_AES, data);
@@ -914,7 +913,8 @@ void DESFireEV1ISO7816Commands::iks_authenticateAES(std::shared_ptr<DESFireKey> 
     CMSG_DesfireAESAuth_Step1 req;
     req.set_key_uuid(kst->getKeyIdentity());
     req.set_encrypted_random_picc(BufferHelper::getStdString(encRndB));
-    auto step1_response = rpc_client.desfire_auth_aes_step1(req);
+    *req.mutable_diversification() = extract_iks_div_info(key, keyno);
+    auto step1_response            = rpc_client.desfire_auth_aes_step1(req);
 
     ByteVector encRndA1 = transmit_plain(
         DF_INS_ADDITIONAL_FRAME, ByteVector(step1_response.encrypted_cryptogram().begin(),
@@ -1657,6 +1657,28 @@ ByteVector DESFireEV1ISO7816Commands::transmit_nomacv(unsigned char cmd,
     return DESFireISO7816Commands::transmit(cmd, buf, lc, forceLc);
 }
 
+KeyDiversificationInfo
+DESFireEV1ISO7816Commands::extract_iks_div_info(std::shared_ptr<Key> key, uint8_t keyno)
+{
+    KeyDiversificationInfo ret{};
+
+    auto diversification = key->getKeyDiversification();
+    if (diversification && diversification->getType() == "NXPAV2")
+    {
+        auto crypto = getDESFireChip()->getCrypto();
+
+        ByteVector diversify;
+        if (key->getKeyDiversification())
+            key->getKeyDiversification()->initDiversification(
+                crypto->getIdentifier(), crypto->d_currentAid, key, keyno, diversify);
+
+        ret.set_div_input(std::string(diversify.begin(), diversify.end()));
+        ret.set_div_type(KeyDiversificationInfo_Type::KeyDiversificationInfo_Type_AV2);
+    }
+
+    return ret;
+}
+
 void DESFireEV1ISO7816Commands::iks_iso_authenticate(std::shared_ptr<DESFireKey> key,
                                                      bool isMasterCardKey, uint8_t keyno)
 {
@@ -1670,6 +1692,7 @@ void DESFireEV1ISO7816Commands::iks_iso_authenticate(std::shared_ptr<DESFireKey>
     step1_req.set_key_uuid(
         std::dynamic_pointer_cast<IKSStorage>(key->getKeyStorage())->getKeyIdentity());
     step1_req.set_random_picc(std::string(RPICC1.begin(), RPICC1.end()));
+    *step1_req.mutable_diversification() = extract_iks_div_info(key, keyno);
 
     SMSG_DesfireISOAuth_Step1 step1_resp = rpc_client.desfire_auth_iso_step1(step1_req);
 
@@ -1702,6 +1725,7 @@ void DESFireEV1ISO7816Commands::iks_iso_authenticate(std::shared_ptr<DESFireKey>
         std::dynamic_pointer_cast<IKSStorage>(key->getKeyStorage())->getKeyIdentity());
     step2_req.set_auth_context_id(step1_resp.auth_context_id());
     step2_req.set_picc_cryptogram(std::string(cryptogram.begin(), cryptogram.end()));
+    *step2_req.mutable_diversification() = extract_iks_div_info(key, keyno);
 
     /*    cmd.step_     = 2;
         cmd.div_info_ = iks::KeyDivInfo::build(key, getChip()->getChipIdentifier(), keyno,

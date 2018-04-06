@@ -7,14 +7,16 @@
 
 using namespace logicalaccess;
 
-TEST(test_diversificaiton, av2) {
+TEST(test_diversificaiton, av2)
+{
     auto k = std::make_shared<DESFireKey>();
     k->setKeyType(DESFireKeyType::DF_KEY_AES);
     k->fromString("00 11 22 33 44 55 66 77 88 99 AA BB CC DD EE FF");
 
     auto div = std::make_shared<NXPAV2KeyDiversification>();
     k->setKeyDiversification(div);
-    auto user_div_input = BufferHelper::fromHexString("04782E21801D803042F54E585020416275");
+    auto user_div_input =
+        BufferHelper::fromHexString("04782E21801D803042F54E585020416275");
 
     auto diversified = div->getDiversifiedKey(k, user_div_input);
 
@@ -22,7 +24,8 @@ TEST(test_diversificaiton, av2) {
               diversified);
 }
 
-TEST(test_diversificaiton, av2_2) {
+TEST(test_diversificaiton, av2_2)
+{
     auto k = std::make_shared<DESFireKey>();
     k->setKeyType(DESFireKeyType::DF_KEY_AES);
     k->fromString("f3 f9 37 76 98 70 7b 68 8e af 84 ab e3 9e 37 91");

@@ -363,6 +363,8 @@ class LIBLOGICALACCESS_API DESFireEV1ISO7816Commands : public DESFireISO7816Comm
     virtual void iks_iso_authenticate(std::shared_ptr<DESFireKey> key,
                                       bool isMasterCardKey, uint8_t keyno);
 
+    KeyDiversificationInfo extract_iks_div_info(std::shared_ptr<Key> key, uint8_t keyno);
+
     void selectApplication(unsigned int aid) override;
 
     /**

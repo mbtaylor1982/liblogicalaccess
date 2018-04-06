@@ -133,7 +133,6 @@ extern SignatureDescriptionDefaultTypeInternal _SignatureDescription_default_ins
 
 enum KeyDiversificationInfo_Type {
   KeyDiversificationInfo_Type_NONE = 0,
-  KeyDiversificationInfo_Type_AV1 = 1,
   KeyDiversificationInfo_Type_AV2 = 2,
   KeyDiversificationInfo_Type_KeyDiversificationInfo_Type_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   KeyDiversificationInfo_Type_KeyDiversificationInfo_Type_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
@@ -238,8 +237,6 @@ class KeyDiversificationInfo : public ::google::protobuf::Message /* @@protoc_in
   typedef KeyDiversificationInfo_Type Type;
   static const Type NONE =
     KeyDiversificationInfo_Type_NONE;
-  static const Type AV1 =
-    KeyDiversificationInfo_Type_AV1;
   static const Type AV2 =
     KeyDiversificationInfo_Type_AV2;
   static inline bool Type_IsValid(int value) {
@@ -1086,6 +1083,15 @@ class CMSG_AESOperation : public ::google::protobuf::Message /* @@protoc_inserti
   ::std::string* release_iv();
   void set_allocated_iv(::std::string* iv);
 
+  // .KeyDiversificationInfo diversification = 6;
+  bool has_diversification() const;
+  void clear_diversification();
+  static const int kDiversificationFieldNumber = 6;
+  const ::KeyDiversificationInfo& diversification() const;
+  ::KeyDiversificationInfo* release_diversification();
+  ::KeyDiversificationInfo* mutable_diversification();
+  void set_allocated_diversification(::KeyDiversificationInfo* diversification);
+
   // bool request_signature = 5;
   void clear_request_signature();
   static const int kRequestSignatureFieldNumber = 5;
@@ -1099,6 +1105,7 @@ class CMSG_AESOperation : public ::google::protobuf::Message /* @@protoc_inserti
   ::google::protobuf::internal::ArenaStringPtr key_uuid_;
   ::google::protobuf::internal::ArenaStringPtr payload_;
   ::google::protobuf::internal::ArenaStringPtr iv_;
+  ::KeyDiversificationInfo* diversification_;
   bool request_signature_;
   mutable int _cached_size_;
   friend struct ::protobuf_iks_2eproto::TableStruct;
@@ -1348,12 +1355,22 @@ class CMSG_DesfireAESAuth_Step1 : public ::google::protobuf::Message /* @@protoc
   ::std::string* release_encrypted_random_picc();
   void set_allocated_encrypted_random_picc(::std::string* encrypted_random_picc);
 
+  // .KeyDiversificationInfo diversification = 3;
+  bool has_diversification() const;
+  void clear_diversification();
+  static const int kDiversificationFieldNumber = 3;
+  const ::KeyDiversificationInfo& diversification() const;
+  ::KeyDiversificationInfo* release_diversification();
+  ::KeyDiversificationInfo* mutable_diversification();
+  void set_allocated_diversification(::KeyDiversificationInfo* diversification);
+
   // @@protoc_insertion_point(class_scope:CMSG_DesfireAESAuth_Step1)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr key_uuid_;
   ::google::protobuf::internal::ArenaStringPtr encrypted_random_picc_;
+  ::KeyDiversificationInfo* diversification_;
   mutable int _cached_size_;
   friend struct ::protobuf_iks_2eproto::TableStruct;
   friend void ::protobuf_iks_2eproto::InitDefaultsCMSG_DesfireAESAuth_Step1Impl();
@@ -1599,12 +1616,22 @@ class CMSG_DesfireISOAuth_Step1 : public ::google::protobuf::Message /* @@protoc
   ::std::string* release_random_picc();
   void set_allocated_random_picc(::std::string* random_picc);
 
+  // .KeyDiversificationInfo diversification = 3;
+  bool has_diversification() const;
+  void clear_diversification();
+  static const int kDiversificationFieldNumber = 3;
+  const ::KeyDiversificationInfo& diversification() const;
+  ::KeyDiversificationInfo* release_diversification();
+  ::KeyDiversificationInfo* mutable_diversification();
+  void set_allocated_diversification(::KeyDiversificationInfo* diversification);
+
   // @@protoc_insertion_point(class_scope:CMSG_DesfireISOAuth_Step1)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr key_uuid_;
   ::google::protobuf::internal::ArenaStringPtr random_picc_;
+  ::KeyDiversificationInfo* diversification_;
   mutable int _cached_size_;
   friend struct ::protobuf_iks_2eproto::TableStruct;
   friend void ::protobuf_iks_2eproto::InitDefaultsCMSG_DesfireISOAuth_Step1Impl();
@@ -1879,6 +1906,15 @@ class CMSG_DesfireAuth_Step2 : public ::google::protobuf::Message /* @@protoc_in
   ::std::string* release_auth_context_id();
   void set_allocated_auth_context_id(::std::string* auth_context_id);
 
+  // .KeyDiversificationInfo diversification = 4;
+  bool has_diversification() const;
+  void clear_diversification();
+  static const int kDiversificationFieldNumber = 4;
+  const ::KeyDiversificationInfo& diversification() const;
+  ::KeyDiversificationInfo* release_diversification();
+  ::KeyDiversificationInfo* mutable_diversification();
+  void set_allocated_diversification(::KeyDiversificationInfo* diversification);
+
   // @@protoc_insertion_point(class_scope:CMSG_DesfireAuth_Step2)
  private:
 
@@ -1886,6 +1922,7 @@ class CMSG_DesfireAuth_Step2 : public ::google::protobuf::Message /* @@protoc_in
   ::google::protobuf::internal::ArenaStringPtr key_uuid_;
   ::google::protobuf::internal::ArenaStringPtr picc_cryptogram_;
   ::google::protobuf::internal::ArenaStringPtr auth_context_id_;
+  ::KeyDiversificationInfo* diversification_;
   mutable int _cached_size_;
   friend struct ::protobuf_iks_2eproto::TableStruct;
   friend void ::protobuf_iks_2eproto::InitDefaultsCMSG_DesfireAuth_Step2Impl();
@@ -2994,6 +3031,56 @@ inline void CMSG_AESOperation::set_request_signature(bool value) {
   // @@protoc_insertion_point(field_set:CMSG_AESOperation.request_signature)
 }
 
+// .KeyDiversificationInfo diversification = 6;
+inline bool CMSG_AESOperation::has_diversification() const {
+  return this != internal_default_instance() && diversification_ != NULL;
+}
+inline void CMSG_AESOperation::clear_diversification() {
+  if (GetArenaNoVirtual() == NULL && diversification_ != NULL) {
+    delete diversification_;
+  }
+  diversification_ = NULL;
+}
+inline const ::KeyDiversificationInfo& CMSG_AESOperation::diversification() const {
+  const ::KeyDiversificationInfo* p = diversification_;
+  // @@protoc_insertion_point(field_get:CMSG_AESOperation.diversification)
+  return p != NULL ? *p : *reinterpret_cast<const ::KeyDiversificationInfo*>(
+      &::_KeyDiversificationInfo_default_instance_);
+}
+inline ::KeyDiversificationInfo* CMSG_AESOperation::release_diversification() {
+  // @@protoc_insertion_point(field_release:CMSG_AESOperation.diversification)
+  
+  ::KeyDiversificationInfo* temp = diversification_;
+  diversification_ = NULL;
+  return temp;
+}
+inline ::KeyDiversificationInfo* CMSG_AESOperation::mutable_diversification() {
+  
+  if (diversification_ == NULL) {
+    diversification_ = new ::KeyDiversificationInfo;
+  }
+  // @@protoc_insertion_point(field_mutable:CMSG_AESOperation.diversification)
+  return diversification_;
+}
+inline void CMSG_AESOperation::set_allocated_diversification(::KeyDiversificationInfo* diversification) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete diversification_;
+  }
+  if (diversification) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      diversification = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, diversification, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  diversification_ = diversification;
+  // @@protoc_insertion_point(field_set_allocated:CMSG_AESOperation.diversification)
+}
+
 // -------------------------------------------------------------------
 
 // SMSG_AESResult
@@ -3264,6 +3351,56 @@ inline void CMSG_DesfireAESAuth_Step1::set_allocated_encrypted_random_picc(::std
   // @@protoc_insertion_point(field_set_allocated:CMSG_DesfireAESAuth_Step1.encrypted_random_picc)
 }
 
+// .KeyDiversificationInfo diversification = 3;
+inline bool CMSG_DesfireAESAuth_Step1::has_diversification() const {
+  return this != internal_default_instance() && diversification_ != NULL;
+}
+inline void CMSG_DesfireAESAuth_Step1::clear_diversification() {
+  if (GetArenaNoVirtual() == NULL && diversification_ != NULL) {
+    delete diversification_;
+  }
+  diversification_ = NULL;
+}
+inline const ::KeyDiversificationInfo& CMSG_DesfireAESAuth_Step1::diversification() const {
+  const ::KeyDiversificationInfo* p = diversification_;
+  // @@protoc_insertion_point(field_get:CMSG_DesfireAESAuth_Step1.diversification)
+  return p != NULL ? *p : *reinterpret_cast<const ::KeyDiversificationInfo*>(
+      &::_KeyDiversificationInfo_default_instance_);
+}
+inline ::KeyDiversificationInfo* CMSG_DesfireAESAuth_Step1::release_diversification() {
+  // @@protoc_insertion_point(field_release:CMSG_DesfireAESAuth_Step1.diversification)
+  
+  ::KeyDiversificationInfo* temp = diversification_;
+  diversification_ = NULL;
+  return temp;
+}
+inline ::KeyDiversificationInfo* CMSG_DesfireAESAuth_Step1::mutable_diversification() {
+  
+  if (diversification_ == NULL) {
+    diversification_ = new ::KeyDiversificationInfo;
+  }
+  // @@protoc_insertion_point(field_mutable:CMSG_DesfireAESAuth_Step1.diversification)
+  return diversification_;
+}
+inline void CMSG_DesfireAESAuth_Step1::set_allocated_diversification(::KeyDiversificationInfo* diversification) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete diversification_;
+  }
+  if (diversification) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      diversification = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, diversification, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  diversification_ = diversification;
+  // @@protoc_insertion_point(field_set_allocated:CMSG_DesfireAESAuth_Step1.diversification)
+}
+
 // -------------------------------------------------------------------
 
 // SMSG_DesfireAESAuth_Step1
@@ -3496,6 +3633,56 @@ inline void CMSG_DesfireISOAuth_Step1::set_allocated_random_picc(::std::string* 
   }
   random_picc_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), random_picc);
   // @@protoc_insertion_point(field_set_allocated:CMSG_DesfireISOAuth_Step1.random_picc)
+}
+
+// .KeyDiversificationInfo diversification = 3;
+inline bool CMSG_DesfireISOAuth_Step1::has_diversification() const {
+  return this != internal_default_instance() && diversification_ != NULL;
+}
+inline void CMSG_DesfireISOAuth_Step1::clear_diversification() {
+  if (GetArenaNoVirtual() == NULL && diversification_ != NULL) {
+    delete diversification_;
+  }
+  diversification_ = NULL;
+}
+inline const ::KeyDiversificationInfo& CMSG_DesfireISOAuth_Step1::diversification() const {
+  const ::KeyDiversificationInfo* p = diversification_;
+  // @@protoc_insertion_point(field_get:CMSG_DesfireISOAuth_Step1.diversification)
+  return p != NULL ? *p : *reinterpret_cast<const ::KeyDiversificationInfo*>(
+      &::_KeyDiversificationInfo_default_instance_);
+}
+inline ::KeyDiversificationInfo* CMSG_DesfireISOAuth_Step1::release_diversification() {
+  // @@protoc_insertion_point(field_release:CMSG_DesfireISOAuth_Step1.diversification)
+  
+  ::KeyDiversificationInfo* temp = diversification_;
+  diversification_ = NULL;
+  return temp;
+}
+inline ::KeyDiversificationInfo* CMSG_DesfireISOAuth_Step1::mutable_diversification() {
+  
+  if (diversification_ == NULL) {
+    diversification_ = new ::KeyDiversificationInfo;
+  }
+  // @@protoc_insertion_point(field_mutable:CMSG_DesfireISOAuth_Step1.diversification)
+  return diversification_;
+}
+inline void CMSG_DesfireISOAuth_Step1::set_allocated_diversification(::KeyDiversificationInfo* diversification) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete diversification_;
+  }
+  if (diversification) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      diversification = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, diversification, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  diversification_ = diversification;
+  // @@protoc_insertion_point(field_set_allocated:CMSG_DesfireISOAuth_Step1.diversification)
 }
 
 // -------------------------------------------------------------------
@@ -3836,6 +4023,56 @@ inline void CMSG_DesfireAuth_Step2::set_allocated_auth_context_id(::std::string*
   }
   auth_context_id_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), auth_context_id);
   // @@protoc_insertion_point(field_set_allocated:CMSG_DesfireAuth_Step2.auth_context_id)
+}
+
+// .KeyDiversificationInfo diversification = 4;
+inline bool CMSG_DesfireAuth_Step2::has_diversification() const {
+  return this != internal_default_instance() && diversification_ != NULL;
+}
+inline void CMSG_DesfireAuth_Step2::clear_diversification() {
+  if (GetArenaNoVirtual() == NULL && diversification_ != NULL) {
+    delete diversification_;
+  }
+  diversification_ = NULL;
+}
+inline const ::KeyDiversificationInfo& CMSG_DesfireAuth_Step2::diversification() const {
+  const ::KeyDiversificationInfo* p = diversification_;
+  // @@protoc_insertion_point(field_get:CMSG_DesfireAuth_Step2.diversification)
+  return p != NULL ? *p : *reinterpret_cast<const ::KeyDiversificationInfo*>(
+      &::_KeyDiversificationInfo_default_instance_);
+}
+inline ::KeyDiversificationInfo* CMSG_DesfireAuth_Step2::release_diversification() {
+  // @@protoc_insertion_point(field_release:CMSG_DesfireAuth_Step2.diversification)
+  
+  ::KeyDiversificationInfo* temp = diversification_;
+  diversification_ = NULL;
+  return temp;
+}
+inline ::KeyDiversificationInfo* CMSG_DesfireAuth_Step2::mutable_diversification() {
+  
+  if (diversification_ == NULL) {
+    diversification_ = new ::KeyDiversificationInfo;
+  }
+  // @@protoc_insertion_point(field_mutable:CMSG_DesfireAuth_Step2.diversification)
+  return diversification_;
+}
+inline void CMSG_DesfireAuth_Step2::set_allocated_diversification(::KeyDiversificationInfo* diversification) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete diversification_;
+  }
+  if (diversification) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      diversification = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, diversification, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  diversification_ = diversification;
+  // @@protoc_insertion_point(field_set_allocated:CMSG_DesfireAuth_Step2.diversification)
 }
 
 // -------------------------------------------------------------------
