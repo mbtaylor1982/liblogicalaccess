@@ -19,6 +19,7 @@
 #include <logicalaccess/cards/IKSStorage.hpp>
 #include <logicalaccess/iks/packet/DesfireChangeKey.hpp>
 #include <logicalaccess/cards/computermemorykeystorage.hpp>
+#include <logicalaccess/iks/IKSRPCClient.hpp>
 
 namespace logicalaccess
 {
@@ -1161,44 +1162,36 @@ ByteVector
 DESFireISO7816Commands::getChangeKeyIKSCryptogram(unsigned char keyno,
                                                   std::shared_ptr<DESFireKey> key) const
 {
+    std::shared_ptr<DESFireCrypto> crypto = getDESFireChip()->getCrypto();
     auto storage = std::dynamic_pointer_cast<IKSStorage>(key->getKeyStorage());
     assert(storage);
-
-    iks::IslogKeyServer &key_server = iks::IslogKeyServer::fromGlobalSettings();
-    iks::DesfireChangeKeyCommand cmd;
-    std::shared_ptr<DESFireCrypto> crypto = getDESFireChip()->getCrypto();
-
-    cmd.newkey_idt_ = storage->getKeyIdentity();
-    auto old_key    = crypto->getKey(0, keyno);
+    auto old_key = crypto->getKey(0, keyno);
     auto old_key_storage =
         std::dynamic_pointer_cast<IKSStorage>(old_key->getKeyStorage());
     assert(old_key_storage);
-    cmd.oldkey_idt_  = old_key_storage->getKeyIdentity();
-    cmd.session_key_ = crypto->d_sessionKey;
 
-    cmd.iv_    = crypto->d_lastIV;
-    cmd.keyno_ = keyno;
-    cmd.flag_  = ((keyno & 0x0F) == crypto->d_currentKeyNo)
-                    ? IKS_COMMAND_DESFIRE_CHANGEKEY_SAME_KEY
-                    : IKS_COMMAND_DESFIRE_CHANGEKEY_OTHER_KEY;
-    cmd.oldkey_divinfo_ = iks::KeyDivInfo::build(old_key, getChip()->getChipIdentifier(),
-                                                 keyno, crypto->d_currentAid);
-    cmd.newkey_divinfo_ = iks::KeyDivInfo::build(key, getChip()->getChipIdentifier(),
-                                                 keyno, crypto->d_currentAid);
+    iks::IKSRPCClient rpc_client(iks::IslogKeyServer::get_global_config());
 
-    key_server.send_command(cmd);
+    CMSG_DesfireChangeKey req;
+    req.set_key_number(keyno);
+    req.set_old_key_uuid(old_key_storage->getKeyIdentity());
+    req.set_new_key_uuid(storage->getKeyIdentity());
+    req.set_iv(std::string(crypto->d_lastIV.begin(), crypto->d_lastIV.end()));
+    req.set_change_same_key((keyno & 0x0F) == crypto->d_currentKeyNo);
 
+    // Do we know our own session key?
+    if (crypto->iks_wrapper_)
+        req.set_session_key_uuid(crypto->iks_wrapper_->remote_key_name);
+    else
+        req.set_session_key(
+            std::string(crypto->d_sessionKey.begin(), crypto->d_sessionKey.end()));
 
-    auto resp =
-        std::dynamic_pointer_cast<iks::DesfireChangeKeyResponse>(key_server.recv());
-    EXCEPTION_ASSERT_WITH_LOG(resp, IKSException,
-                              "Cannot retrieve a proper response from IKS.");
-    EXCEPTION_ASSERT_WITH_LOG(resp->status_ == iks::SMSG_STATUS_SUCCESS, IKSException,
-                              "Cannot retrieve a proper response from IKS.");
+    auto rep = rpc_client.desfire_change_key(req);
 
     // When changing an AES key in "OTHER_KEY" mode
-    if (cmd.flag_ & IKS_COMMAND_DESFIRE_CHANGEKEY_OTHER_KEY)
-        crypto->d_lastIV = ByteVector(resp->bytes_.end() - 16, resp->bytes_.end());
-    return resp->bytes_;
+    if (req.change_same_key())
+        crypto->d_lastIV =
+            ByteVector(rep.cryptogram().end() - 16, rep.cryptogram().end());
+    return ByteVector(rep.cryptogram().begin(), rep.cryptogram().end());
 }
 }

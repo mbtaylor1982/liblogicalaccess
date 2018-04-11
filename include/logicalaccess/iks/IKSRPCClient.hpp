@@ -37,6 +37,8 @@ class IKSRPCClient
     SMSG_DesfireAESAuth_Step1 desfire_auth_aes_step1(CMSG_DesfireAESAuth_Step1 req);
     SMSG_DesfireAuth_Step2 desfire_auth_aes_step2(CMSG_DesfireAuth_Step2 req);
 
+    SMSG_DesfireChangeKey desfire_change_key(CMSG_DesfireChangeKey req);
+
   private:
     IslogKeyServer::IKSConfig config_;
     std::shared_ptr<::grpc::ChannelInterface> channel;

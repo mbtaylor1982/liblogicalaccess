@@ -84,7 +84,7 @@ int main(int ac, char **av)
     // KEY EV 2 !!!
     auto div = std::make_shared<NXPAV2KeyDiversification>();
     div->setSystemIdentifier(ByteVector{0x94, 0x56});
-    auto kst = std::make_shared<IKSStorage>("660557b6-846c-4cfe-bd38-027c6bb98f3b");
+    auto kst = std::make_shared<IKSStorage>("ae6b9177-4ea0-49a0-a91d-ca72a0ab8955");
     key->setKeyDiversification(div);
 
     // key->fromString("4a 9b 22 a6 b0 01 d2 9f 4e c8 a0 02 66 e0 06 b2");

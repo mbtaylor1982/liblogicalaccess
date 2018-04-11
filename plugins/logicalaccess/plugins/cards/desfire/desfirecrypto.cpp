@@ -771,14 +771,21 @@ ByteVector DESFireCrypto::changeKey_PICC(uint8_t keyno, ByteVector oldKeyDiversi
         }
         else
         {
+            std::cout << "WE ARE HERE" << std::endl;
             if (newkey->getKeyType() == DF_KEY_AES)
             {
+                std::cout << "NEW KEY: " << newkeydiv << std::endl;
+                std::cout << "AND ALSO THERE (" << +keyno
+                          << ") (new-key-version: " << +newkey->getKeyVersion() << ")"
+                          << std::endl;
                 // For AES, add key version.
                 newkeydiv.push_back(newkey->getKeyVersion());
             }
 
             encCryptogram.push_back(DF_INS_CHANGE_KEY);
             encCryptogram.push_back(keyno);
+            std::cout << "FULL NEW_KEY_DIV: " << newkeydiv
+                      << ". ENC_CRYPTO: " << encCryptogram << std::endl;
             cryptogram = desfireEncrypt(newkeydiv, encCryptogram);
         }
     }
@@ -1217,6 +1224,8 @@ ByteVector DESFireCrypto::desfire_iso_encrypt(
             iv.reset(new openssl::DESInitializationVector(
                 openssl::DESInitializationVector::createFromData(d_lastIV)));
         }
+        std::cout << "LAST IV BEFORE CIPHER: " << d_lastIV << ". FULL PAYLOAD:" << decdata
+                  << std::endl;
         cipher->cipher(decdata, encdata, *isokey, *iv, false);
         if (cipher == d_cipher)
         {

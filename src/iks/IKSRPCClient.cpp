@@ -139,5 +139,18 @@ SMSG_DesfireAuth_Step2 IKSRPCClient::desfire_auth_aes_step2(CMSG_DesfireAuth_Ste
     }
     throw RPCException(rpc_status.error_message() + ": " + rpc_status.error_details());
 }
+
+SMSG_DesfireChangeKey IKSRPCClient::desfire_change_key(CMSG_DesfireChangeKey req)
+{
+    grpc::ClientContext context;
+
+    SMSG_DesfireChangeKey rep;
+    grpc::Status rpc_status = stub_->DESFireChangeKey(&context, req, &rep);
+    if (rpc_status.ok())
+    {
+        return rep;
+    }
+    throw RPCException(rpc_status.error_message() + ": " + rpc_status.error_details());
+}
 }
 }

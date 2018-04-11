@@ -13,6 +13,7 @@
 
 #include <logicalaccess/plugins/lla-tests/macros.hpp>
 #include <logicalaccess/plugins/lla-tests/utils.hpp>
+#include <logicalaccess/cards/IKSStorage.hpp>
 
 void introduction()
 {
@@ -72,6 +73,11 @@ int main(int ac, char **av)
     ChipPtr chip;
     tie(provider, readerUnit, chip) = lla_test_init("DESFireEV1");
 
+    iks::IslogKeyServer::configureGlobalInstance(
+        "iksf", 6565, "/home/xaqq/Documents/iks/crypto/arnaud.pem",
+        "/home/xaqq/Documents/iks/crypto/arnaud.key",
+        "/home/xaqq/Documents/iks/crypto/MyRootCA.pem");
+
     PRINT_TIME("CHip identifier: "
                << logicalaccess::BufferHelper::getHex(chip->getChipIdentifier()));
 
@@ -91,13 +97,17 @@ int main(int ac, char **av)
     LLA_ASSERT(cmd && cmdev1, "Cannot get correct command object from chip.");
 
 
-    std::shared_ptr<DESFireKey> key(new DESFireKey());
-    key->fromString("11 11 11 11 11 11 11 11 11 11 11 11 11 11 11 11");
-    key->setKeyType(DF_KEY_AES);
+    std::shared_ptr<DESFireKey> new_key(new DESFireKey());
+    auto kst_11 = std::make_shared<IKSStorage>("a5b1e51e-b763-4232-bec9-5429cbd101af");
+    //key->fromString("11 11 11 11 11 11 11 11 11 11 11 11 11 11 11 11");
+    new_key->setKeyType(DF_KEY_AES);
+    new_key->setKeyStorage(kst_11);
 
-    std::shared_ptr<DESFireKey> newkey(new DESFireKey());
-    newkey->setKeyType(DF_KEY_AES);
-    newkey->fromString("00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00");
+    std::shared_ptr<DESFireKey> oldkey(new DESFireKey());
+    oldkey->setKeyType(DF_KEY_AES);
+    //newkey->fromString("00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00");
+    auto kst_zero = std::make_shared<IKSStorage>("e8c0e771-3db8-4f53-9209-98ba4209ca59");
+    oldkey->setKeyStorage(kst_zero);
 
     cmd->selectApplication(0x00);
     cmd->authenticate(0);
@@ -112,7 +122,9 @@ int main(int ac, char **av)
     std::cout << "Created 0x521" << std::endl;
 
     cmd->selectApplication(0x521);
-    cmd->authenticate(0, newkey);
+    std::cout << "Selected..." << std::endl;
+    cmd->authenticate(0, oldkey);
+    std::cout << "Auth..." << std::endl;
     LLA_SUBTEST_PASSED("Authenticate");
     /*
         DESFireAccessRights ar;
@@ -122,8 +134,17 @@ int main(int ac, char **av)
         ar.changeAccess       = AR_KEY1;
         cmdev1->createStdDataFile(0x00, CM_ENCRYPT, ar, 4, 0);*/
 
-    cmd->authenticate(0x00, newkey);
-    cmd->changeKey(0x01, key);
+    cmd->authenticate(0x00, oldkey);
+    std::cout << "Auth..." << std::endl;
+    try
+    {
+        cmd->getFileIDs();
+        std::cout << "Got files ids..." << std::endl;
+    }
+    catch (logicalaccess::CardException &e)
+    {
+    }
+    cmd->changeKey(0x00, new_key);
     //  LLA_SUBTEST_PASSED("ChangeKey");
 
     pcsc_test_shutdown(readerUnit);

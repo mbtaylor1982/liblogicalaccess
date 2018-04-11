@@ -596,6 +596,20 @@ class CMSG_DesfireChangeKey : public ::google::protobuf::Message /* @@protoc_ins
   ::std::string* release_session_key();
   void set_allocated_session_key(::std::string* session_key);
 
+  // bytes iv = 11;
+  void clear_iv();
+  static const int kIvFieldNumber = 11;
+  const ::std::string& iv() const;
+  void set_iv(const ::std::string& value);
+  #if LANG_CXX11
+  void set_iv(::std::string&& value);
+  #endif
+  void set_iv(const char* value);
+  void set_iv(const void* value, size_t size);
+  ::std::string* mutable_iv();
+  ::std::string* release_iv();
+  void set_allocated_iv(::std::string* iv);
+
   // .KeyDiversificationInfo old_key_div = 8;
   bool has_old_key_div() const;
   void clear_old_key_div();
@@ -636,6 +650,7 @@ class CMSG_DesfireChangeKey : public ::google::protobuf::Message /* @@protoc_ins
   ::google::protobuf::internal::ArenaStringPtr new_key_bytes_;
   ::google::protobuf::internal::ArenaStringPtr session_key_uuid_;
   ::google::protobuf::internal::ArenaStringPtr session_key_;
+  ::google::protobuf::internal::ArenaStringPtr iv_;
   ::KeyDiversificationInfo* old_key_div_;
   ::KeyDiversificationInfo* new_key_div_;
   bool change_same_key_;
@@ -2720,6 +2735,59 @@ inline void CMSG_DesfireChangeKey::set_key_number(::google::protobuf::int32 valu
   
   key_number_ = value;
   // @@protoc_insertion_point(field_set:CMSG_DesfireChangeKey.key_number)
+}
+
+// bytes iv = 11;
+inline void CMSG_DesfireChangeKey::clear_iv() {
+  iv_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& CMSG_DesfireChangeKey::iv() const {
+  // @@protoc_insertion_point(field_get:CMSG_DesfireChangeKey.iv)
+  return iv_.GetNoArena();
+}
+inline void CMSG_DesfireChangeKey::set_iv(const ::std::string& value) {
+  
+  iv_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:CMSG_DesfireChangeKey.iv)
+}
+#if LANG_CXX11
+inline void CMSG_DesfireChangeKey::set_iv(::std::string&& value) {
+  
+  iv_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:CMSG_DesfireChangeKey.iv)
+}
+#endif
+inline void CMSG_DesfireChangeKey::set_iv(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  iv_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:CMSG_DesfireChangeKey.iv)
+}
+inline void CMSG_DesfireChangeKey::set_iv(const void* value, size_t size) {
+  
+  iv_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:CMSG_DesfireChangeKey.iv)
+}
+inline ::std::string* CMSG_DesfireChangeKey::mutable_iv() {
+  
+  // @@protoc_insertion_point(field_mutable:CMSG_DesfireChangeKey.iv)
+  return iv_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* CMSG_DesfireChangeKey::release_iv() {
+  // @@protoc_insertion_point(field_release:CMSG_DesfireChangeKey.iv)
+  
+  return iv_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void CMSG_DesfireChangeKey::set_allocated_iv(::std::string* iv) {
+  if (iv != NULL) {
+    
+  } else {
+    
+  }
+  iv_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), iv);
+  // @@protoc_insertion_point(field_set_allocated:CMSG_DesfireChangeKey.iv)
 }
 
 // -------------------------------------------------------------------

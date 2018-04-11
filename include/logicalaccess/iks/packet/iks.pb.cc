@@ -425,6 +425,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::CMSG_DesfireChangeKey, old_key_div_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::CMSG_DesfireChangeKey, new_key_div_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::CMSG_DesfireChangeKey, key_number_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::CMSG_DesfireChangeKey, iv_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::SMSG_DesfireChangeKey, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -516,17 +517,17 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROT
   { 0, -1, sizeof(::KeyDiversificationInfo)},
   { 7, -1, sizeof(::SignatureDescription)},
   { 16, -1, sizeof(::CMSG_DesfireChangeKey)},
-  { 31, -1, sizeof(::SMSG_DesfireChangeKey)},
-  { 37, -1, sizeof(::CMSG_GenRandom)},
-  { 43, -1, sizeof(::SMSG_GenRandom)},
-  { 49, -1, sizeof(::CMSG_AESOperation)},
-  { 59, -1, sizeof(::SMSG_AESResult)},
-  { 67, -1, sizeof(::CMSG_DesfireAESAuth_Step1)},
-  { 75, -1, sizeof(::SMSG_DesfireAESAuth_Step1)},
-  { 83, -1, sizeof(::CMSG_DesfireISOAuth_Step1)},
-  { 91, -1, sizeof(::SMSG_DesfireISOAuth_Step1)},
-  { 100, -1, sizeof(::CMSG_DesfireAuth_Step2)},
-  { 109, -1, sizeof(::SMSG_DesfireAuth_Step2)},
+  { 32, -1, sizeof(::SMSG_DesfireChangeKey)},
+  { 38, -1, sizeof(::CMSG_GenRandom)},
+  { 44, -1, sizeof(::SMSG_GenRandom)},
+  { 50, -1, sizeof(::CMSG_AESOperation)},
+  { 60, -1, sizeof(::SMSG_AESResult)},
+  { 68, -1, sizeof(::CMSG_DesfireAESAuth_Step1)},
+  { 76, -1, sizeof(::SMSG_DesfireAESAuth_Step1)},
+  { 84, -1, sizeof(::CMSG_DesfireISOAuth_Step1)},
+  { 92, -1, sizeof(::SMSG_DesfireISOAuth_Step1)},
+  { 101, -1, sizeof(::CMSG_DesfireAuth_Step2)},
+  { 110, -1, sizeof(::SMSG_DesfireAuth_Step2)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -573,7 +574,7 @@ void AddDescriptorsImpl() {
       ".Type\022\021\n\tdiv_input\030\002 \001(\014\"\031\n\004Type\022\010\n\004NONE"
       "\020\000\022\007\n\003AV2\020\002\"[\n\024SignatureDescription\022\017\n\007p"
       "ayload\030\001 \001(\014\022\r\n\005nonce\030\002 \001(\004\022\020\n\010run_uuid\030"
-      "\003 \001(\014\022\021\n\ttimestamp\030\004 \001(\004\"\251\002\n\025CMSG_Desfir"
+      "\003 \001(\014\022\021\n\ttimestamp\030\004 \001(\004\"\265\002\n\025CMSG_Desfir"
       "eChangeKey\022\024\n\014old_key_uuid\030\001 \001(\t\022\025\n\rold_"
       "key_bytes\030\002 \001(\014\022\024\n\014new_key_uuid\030\003 \001(\t\022\025\n"
       "\rnew_key_bytes\030\004 \001(\014\022\027\n\017change_same_key\030"
@@ -581,50 +582,51 @@ void AddDescriptorsImpl() {
       "on_key\030\007 \001(\014\022,\n\013old_key_div\030\010 \001(\0132\027.KeyD"
       "iversificationInfo\022,\n\013new_key_div\030\t \001(\0132"
       "\027.KeyDiversificationInfo\022\022\n\nkey_number\030\n"
-      " \001(\005\"+\n\025SMSG_DesfireChangeKey\022\022\n\ncryptog"
-      "ram\030\001 \001(\014\"\036\n\016CMSG_GenRandom\022\014\n\004size\030\001 \001("
-      "\005\"%\n\016SMSG_GenRandom\022\023\n\013randomBytes\030\001 \001(\014"
-      "\"\217\001\n\021CMSG_AESOperation\022\020\n\010key_uuid\030\001 \001(\t"
-      "\022\017\n\007payload\030\003 \001(\014\022\n\n\002iv\030\004 \001(\014\022\031\n\021request"
-      "_signature\030\005 \001(\010\0220\n\017diversification\030\006 \001("
-      "\0132\027.KeyDiversificationInfo\"i\n\016SMSG_AESRe"
-      "sult\022\017\n\007payload\030\001 \001(\014\0223\n\024signatureDescri"
-      "ption\030\002 \001(\0132\025.SignatureDescription\022\021\n\tsi"
-      "gnature\030\003 \001(\014\"~\n\031CMSG_DesfireAESAuth_Ste"
-      "p1\022\020\n\010key_uuid\030\001 \001(\t\022\035\n\025encrypted_random"
-      "_picc\030\002 \001(\014\0220\n\017diversification\030\003 \001(\0132\027.K"
-      "eyDiversificationInfo\"c\n\031SMSG_DesfireAES"
-      "Auth_Step1\022\017\n\007success\030\001 \001(\010\022\034\n\024encrypted"
-      "_cryptogram\030\003 \001(\014\022\027\n\017auth_context_id\030\004 \001"
-      "(\014\"t\n\031CMSG_DesfireISOAuth_Step1\022\020\n\010key_u"
-      "uid\030\001 \001(\t\022\023\n\013random_picc\030\002 \001(\014\0220\n\017divers"
-      "ification\030\003 \001(\0132\027.KeyDiversificationInfo"
-      "\"t\n\031SMSG_DesfireISOAuth_Step1\022\017\n\007success"
-      "\030\001 \001(\010\022\017\n\007random2\030\002 \001(\014\022\034\n\024encrypted_cry"
-      "ptogram\030\003 \001(\014\022\027\n\017auth_context_id\030\004 \001(\014\"\216"
-      "\001\n\026CMSG_DesfireAuth_Step2\022\020\n\010key_uuid\030\001 "
-      "\001(\t\022\027\n\017picc_cryptogram\030\002 \001(\014\022\027\n\017auth_con"
-      "text_id\030\003 \001(\014\0220\n\017diversification\030\004 \001(\0132\027"
-      ".KeyDiversificationInfo\"W\n\026SMSG_DesfireA"
-      "uth_Step2\022\017\n\007success\030\001 \001(\010\022\023\n\013session_ke"
-      "y\030\002 \001(\014\022\027\n\017session_key_ref\030\003 \001(\t2\225\004\n\nIKS"
-      "Service\022/\n\tGenRandom\022\017.CMSG_GenRandom\032\017."
-      "SMSG_GenRandom\"\000\0223\n\nAESEncrypt\022\022.CMSG_AE"
-      "SOperation\032\017.SMSG_AESResult\"\000\0223\n\nAESDecr"
-      "ypt\022\022.CMSG_AESOperation\032\017.SMSG_AESResult"
-      "\"\000\022K\n\017DESFireISOAuth1\022\032.CMSG_DesfireISOA"
-      "uth_Step1\032\032.SMSG_DesfireISOAuth_Step1\"\000\022"
-      "E\n\017DESFireISOAuth2\022\027.CMSG_DesfireAuth_St"
-      "ep2\032\027.SMSG_DesfireAuth_Step2\"\000\022K\n\017DESFir"
-      "eAESAuth1\022\032.CMSG_DesfireAESAuth_Step1\032\032."
-      "SMSG_DesfireAESAuth_Step1\"\000\022E\n\017DESFireAE"
-      "SAuth2\022\027.CMSG_DesfireAuth_Step2\032\027.SMSG_D"
-      "esfireAuth_Step2\"\000\022D\n\020DESFireChangeKey\022\026"
-      ".CMSG_DesfireChangeKey\032\026.SMSG_DesfireCha"
-      "ngeKey\"\000B\026\n\022com.islog.iks.grpcP\001b\006proto3"
+      " \001(\005\022\n\n\002iv\030\013 \001(\014\"+\n\025SMSG_DesfireChangeKe"
+      "y\022\022\n\ncryptogram\030\001 \001(\014\"\036\n\016CMSG_GenRandom\022"
+      "\014\n\004size\030\001 \001(\005\"%\n\016SMSG_GenRandom\022\023\n\013rando"
+      "mBytes\030\001 \001(\014\"\217\001\n\021CMSG_AESOperation\022\020\n\010ke"
+      "y_uuid\030\001 \001(\t\022\017\n\007payload\030\003 \001(\014\022\n\n\002iv\030\004 \001("
+      "\014\022\031\n\021request_signature\030\005 \001(\010\0220\n\017diversif"
+      "ication\030\006 \001(\0132\027.KeyDiversificationInfo\"i"
+      "\n\016SMSG_AESResult\022\017\n\007payload\030\001 \001(\014\0223\n\024sig"
+      "natureDescription\030\002 \001(\0132\025.SignatureDescr"
+      "iption\022\021\n\tsignature\030\003 \001(\014\"~\n\031CMSG_Desfir"
+      "eAESAuth_Step1\022\020\n\010key_uuid\030\001 \001(\t\022\035\n\025encr"
+      "ypted_random_picc\030\002 \001(\014\0220\n\017diversificati"
+      "on\030\003 \001(\0132\027.KeyDiversificationInfo\"c\n\031SMS"
+      "G_DesfireAESAuth_Step1\022\017\n\007success\030\001 \001(\010\022"
+      "\034\n\024encrypted_cryptogram\030\003 \001(\014\022\027\n\017auth_co"
+      "ntext_id\030\004 \001(\014\"t\n\031CMSG_DesfireISOAuth_St"
+      "ep1\022\020\n\010key_uuid\030\001 \001(\t\022\023\n\013random_picc\030\002 \001"
+      "(\014\0220\n\017diversification\030\003 \001(\0132\027.KeyDiversi"
+      "ficationInfo\"t\n\031SMSG_DesfireISOAuth_Step"
+      "1\022\017\n\007success\030\001 \001(\010\022\017\n\007random2\030\002 \001(\014\022\034\n\024e"
+      "ncrypted_cryptogram\030\003 \001(\014\022\027\n\017auth_contex"
+      "t_id\030\004 \001(\014\"\216\001\n\026CMSG_DesfireAuth_Step2\022\020\n"
+      "\010key_uuid\030\001 \001(\t\022\027\n\017picc_cryptogram\030\002 \001(\014"
+      "\022\027\n\017auth_context_id\030\003 \001(\014\0220\n\017diversifica"
+      "tion\030\004 \001(\0132\027.KeyDiversificationInfo\"W\n\026S"
+      "MSG_DesfireAuth_Step2\022\017\n\007success\030\001 \001(\010\022\023"
+      "\n\013session_key\030\002 \001(\014\022\027\n\017session_key_ref\030\003"
+      " \001(\t2\225\004\n\nIKSService\022/\n\tGenRandom\022\017.CMSG_"
+      "GenRandom\032\017.SMSG_GenRandom\"\000\0223\n\nAESEncry"
+      "pt\022\022.CMSG_AESOperation\032\017.SMSG_AESResult\""
+      "\000\0223\n\nAESDecrypt\022\022.CMSG_AESOperation\032\017.SM"
+      "SG_AESResult\"\000\022K\n\017DESFireISOAuth1\022\032.CMSG"
+      "_DesfireISOAuth_Step1\032\032.SMSG_DesfireISOA"
+      "uth_Step1\"\000\022E\n\017DESFireISOAuth2\022\027.CMSG_De"
+      "sfireAuth_Step2\032\027.SMSG_DesfireAuth_Step2"
+      "\"\000\022K\n\017DESFireAESAuth1\022\032.CMSG_DesfireAESA"
+      "uth_Step1\032\032.SMSG_DesfireAESAuth_Step1\"\000\022"
+      "E\n\017DESFireAESAuth2\022\027.CMSG_DesfireAuth_St"
+      "ep2\032\027.SMSG_DesfireAuth_Step2\"\000\022D\n\020DESFir"
+      "eChangeKey\022\026.CMSG_DesfireChangeKey\032\026.SMS"
+      "G_DesfireChangeKey\"\000B\026\n\022com.islog.iks.gr"
+      "pcP\001b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 2160);
+      descriptor, 2172);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "iks.proto", &protobuf_RegisterTypes);
 }
@@ -1336,6 +1338,7 @@ const int CMSG_DesfireChangeKey::kSessionKeyFieldNumber;
 const int CMSG_DesfireChangeKey::kOldKeyDivFieldNumber;
 const int CMSG_DesfireChangeKey::kNewKeyDivFieldNumber;
 const int CMSG_DesfireChangeKey::kKeyNumberFieldNumber;
+const int CMSG_DesfireChangeKey::kIvFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 CMSG_DesfireChangeKey::CMSG_DesfireChangeKey()
@@ -1375,6 +1378,10 @@ CMSG_DesfireChangeKey::CMSG_DesfireChangeKey(const CMSG_DesfireChangeKey& from)
   if (from.session_key().size() > 0) {
     session_key_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.session_key_);
   }
+  iv_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.iv().size() > 0) {
+    iv_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.iv_);
+  }
   if (from.has_old_key_div()) {
     old_key_div_ = new ::KeyDiversificationInfo(*from.old_key_div_);
   } else {
@@ -1398,6 +1405,7 @@ void CMSG_DesfireChangeKey::SharedCtor() {
   new_key_bytes_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   session_key_uuid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   session_key_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  iv_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&old_key_div_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&key_number_) -
       reinterpret_cast<char*>(&old_key_div_)) + sizeof(key_number_));
@@ -1416,6 +1424,7 @@ void CMSG_DesfireChangeKey::SharedDtor() {
   new_key_bytes_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   session_key_uuid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   session_key_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  iv_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete old_key_div_;
   if (this != internal_default_instance()) delete new_key_div_;
 }
@@ -1455,6 +1464,7 @@ void CMSG_DesfireChangeKey::Clear() {
   new_key_bytes_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   session_key_uuid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   session_key_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  iv_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (GetArenaNoVirtual() == NULL && old_key_div_ != NULL) {
     delete old_key_div_;
   }
@@ -1615,6 +1625,18 @@ bool CMSG_DesfireChangeKey::MergePartialFromCodedStream(
         break;
       }
 
+      // bytes iv = 11;
+      case 11: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(90u /* 90 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+                input, this->mutable_iv()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -1711,6 +1733,12 @@ void CMSG_DesfireChangeKey::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(10, this->key_number(), output);
   }
 
+  // bytes iv = 11;
+  if (this->iv().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
+      11, this->iv(), output);
+  }
+
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
@@ -1803,6 +1831,13 @@ void CMSG_DesfireChangeKey::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(10, this->key_number(), target);
   }
 
+  // bytes iv = 11;
+  if (this->iv().size() > 0) {
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
+        11, this->iv(), target);
+  }
+
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
@@ -1860,6 +1895,13 @@ size_t CMSG_DesfireChangeKey::ByteSizeLong() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::BytesSize(
         this->session_key());
+  }
+
+  // bytes iv = 11;
+  if (this->iv().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
+        this->iv());
   }
 
   // .KeyDiversificationInfo old_key_div = 8;
@@ -1941,6 +1983,10 @@ void CMSG_DesfireChangeKey::MergeFrom(const CMSG_DesfireChangeKey& from) {
 
     session_key_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.session_key_);
   }
+  if (from.iv().size() > 0) {
+
+    iv_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.iv_);
+  }
   if (from.has_old_key_div()) {
     mutable_old_key_div()->::KeyDiversificationInfo::MergeFrom(from.old_key_div());
   }
@@ -1985,6 +2031,7 @@ void CMSG_DesfireChangeKey::InternalSwap(CMSG_DesfireChangeKey* other) {
   new_key_bytes_.Swap(&other->new_key_bytes_);
   session_key_uuid_.Swap(&other->session_key_uuid_);
   session_key_.Swap(&other->session_key_);
+  iv_.Swap(&other->iv_);
   swap(old_key_div_, other->old_key_div_);
   swap(new_key_div_, other->new_key_div_);
   swap(change_same_key_, other->change_same_key_);

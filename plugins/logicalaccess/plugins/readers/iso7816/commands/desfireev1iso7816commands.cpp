@@ -1364,9 +1364,7 @@ void DESFireEV1ISO7816Commands::changeKey(unsigned char keyno,
         cryptogram =
             crypto->changeKey_PICC(keynobyte, oldKeyDiversify, key, newKeyDiversify);
     }
-    std::cout << "session key: " << crypto->d_sessionKey << std::endl;
-    std::cout << "CRYPTOGRAM: " << cryptogram << std::endl;
-
+    
     ByteVector data;
     data.push_back(keynobyte);
     data.insert(data.end(), cryptogram.begin(), cryptogram.end());
