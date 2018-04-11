@@ -994,6 +994,7 @@ DESFireCrypto::desfire_cmac(const ByteVector &key,
                                                        data, d_lastIV, block_size);
         d_lastIV = ByteVector(ret.end() - block_size, ret.end());
         // Need to understand this "if (chipher == d_cipher)".
+        ret = ByteVector(ret.end() - 16, ret.end() - 8);
         return ret;
     }
 

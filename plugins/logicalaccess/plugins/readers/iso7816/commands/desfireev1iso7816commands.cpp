@@ -1364,7 +1364,7 @@ void DESFireEV1ISO7816Commands::changeKey(unsigned char keyno,
         cryptogram =
             crypto->changeKey_PICC(keynobyte, oldKeyDiversify, key, newKeyDiversify);
     }
-    
+
     ByteVector data;
     data.push_back(keynobyte);
     data.insert(data.end(), cryptogram.begin(), cryptogram.end());

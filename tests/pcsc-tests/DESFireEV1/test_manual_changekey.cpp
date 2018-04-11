@@ -134,7 +134,7 @@ int main(int ac, char **av)
         ar.changeAccess       = AR_KEY1;
         cmdev1->createStdDataFile(0x00, CM_ENCRYPT, ar, 4, 0);*/
 
-    cmd->authenticate(0x00, oldkey);
+   // cmd->authenticate(0x00, oldkey);
     std::cout << "Auth..." << std::endl;
     try
     {
