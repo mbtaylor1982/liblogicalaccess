@@ -106,7 +106,7 @@ int main(int ac, char **av)
     std::shared_ptr<DESFireKey> oldkey(new DESFireKey());
     oldkey->setKeyType(DF_KEY_AES);
     //newkey->fromString("00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00");
-    auto kst_zero = std::make_shared<IKSStorage>("e8c0e771-3db8-4f53-9209-98ba4209ca59");
+    auto kst_zero = std::make_shared<IKSStorage>("00000000-0000-0000-0000-000000000000");
     oldkey->setKeyStorage(kst_zero);
 
     cmd->selectApplication(0x00);
