@@ -15,9 +15,7 @@
 
 #include <logicalaccess/iks/IslogKeyServer.hpp>
 #include <logicalaccess/settings.hpp>
-#include <logicalaccess/iks/packet/DesfireAuth.hpp>
 #include <logicalaccess/cards/IKSStorage.hpp>
-#include <logicalaccess/iks/packet/DesfireChangeKey.hpp>
 #include <logicalaccess/cards/computermemorykeystorage.hpp>
 #include <logicalaccess/iks/IKSRPCClient.hpp>
 
@@ -1083,79 +1081,6 @@ void DESFireISO7816Commands::setChip(std::shared_ptr<Chip> chip)
 {
     DESFireCommands::setChip(chip);
     getDESFireChip()->getCrypto()->setCryptoContext(chip->getChipIdentifier());
-}
-
-void DESFireISO7816Commands::iks_des_authenticate(unsigned char keyno,
-                                                  std::shared_ptr<DESFireKey> key)
-{
-    assert(key->getKeyType() == DF_KEY_DES &&
-           key->getKeyStorage()->getType() == KST_SERVER);
-
-    /**
-     * Todo handle key diversification !
-     * Currently this is copy-paste from DESFireISO7816Commands::authenticate()
-     */
-    ByteVector command;
-    std::shared_ptr<DESFireCrypto> crypto = getDESFireChip()->getCrypto();
-
-    if (!key)
-    {
-        key = crypto->getDefaultKey(DF_KEY_DES);
-    }
-    crypto->setKey(crypto->d_currentAid, 0, keyno, key);
-
-    ByteVector diversify;
-    if (key->getKeyDiversification())
-    {
-        key->getKeyDiversification()->initDiversification(
-            crypto->getIdentifier(), crypto->d_currentAid, key, keyno, diversify);
-    }
-    command.push_back(keyno);
-
-    ByteVector result = DESFireISO7816Commands::transmit(DF_INS_AUTHENTICATE, command);
-    if (result[result.size() - 1] == DF_INS_ADDITIONAL_FRAME && (result.size() - 2) >= 8)
-    {
-        result.resize(8);
-        iks::IslogKeyServer &iks = iks::IslogKeyServer::fromGlobalSettings();
-
-        iks::DesfireAuthCommand cmd;
-        cmd.key_idt_ =
-            std::static_pointer_cast<IKSStorage>(key->getKeyStorage())->getKeyIdentity();
-        cmd.step_ = 1;
-        cmd.algo_ = iks::DESFIRE_AUTH_ALGO_DES;
-        memcpy(&cmd.data_[0], &result[0], result.size());
-
-        iks.send_command(cmd);
-        auto resp = std::dynamic_pointer_cast<iks::DesfireAuthResponse>(iks.recv());
-        EXCEPTION_ASSERT_WITH_LOG(resp, IKSException,
-                                  "Cannot retrieve proper response from server.");
-        ByteVector rndAB =
-            std::vector<uint8_t>(resp->data_.begin(), resp->data_.begin() + 16);
-
-        result = DESFireISO7816Commands::transmit(DF_INS_ADDITIONAL_FRAME, rndAB);
-        if ((result.size() - 2) >= 8)
-        {
-            result.resize(result.size() - 2);
-            cmd.step_ = 2;
-            assert(result.size() == 8);
-            assert(result.size() <= cmd.data_.max_size());
-            memcpy(&cmd.data_[0], &result[0], result.size());
-            iks.send_command(cmd);
-            resp = std::dynamic_pointer_cast<iks::DesfireAuthResponse>(iks.recv());
-            EXCEPTION_ASSERT_WITH_LOG(resp, IKSException,
-                                      "Cannot retrieve proper response from server.");
-            EXCEPTION_ASSERT_WITH_LOG(resp->success_, IKSException,
-                                      "Mutual Authentication failed.");
-
-            crypto->d_sessionKey.clear();
-            crypto->d_sessionKey.resize(16);
-            memcpy(&crypto->d_sessionKey[0], &resp->data_[0], 16);
-
-            crypto->d_currentKeyNo = keyno;
-            crypto->d_auth_method  = CM_LEGACY;
-            crypto->d_mac_size     = 4;
-        }
-    }
 }
 
 ByteVector

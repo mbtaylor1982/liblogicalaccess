@@ -6,6 +6,7 @@
 #include <grpc++/client_context.h>
 #include <grpc++/create_channel.h>
 #include <grpc++/security/credentials.h>
+#include "logicalaccess/lla_fwd.hpp"
 #include "logicalaccess/iks/packet/iks.grpc.pb.h"
 
 namespace logicalaccess

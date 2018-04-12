@@ -10,7 +10,6 @@
 #include <openssl/rand.h>
 #include <logicalaccess/iks/IslogKeyServer.hpp>
 #include <logicalaccess/settings.hpp>
-#include <logicalaccess/iks/packet/DesfireAuth.hpp>
 #include <logicalaccess/cards/IKSStorage.hpp>
 #include <chrono>
 #include <thread>
@@ -430,9 +429,7 @@ void DESFireEV1ISO7816Commands::authenticate(unsigned char keyno,
     }
     else if (key->getKeyStorage()->getType() == KST_SERVER)
     {
-        if (key->getKeyType() == DF_KEY_DES)
-            iks_des_authenticate(keyno, key);
-        else if (key->getKeyType() == DF_KEY_AES)
+        if (key->getKeyType() == DF_KEY_AES)
             iks_iso_authenticate(key, (crypto->d_currentAid == 0 && keyno == 0), keyno);
         else
         {
