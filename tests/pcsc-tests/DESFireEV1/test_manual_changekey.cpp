@@ -105,14 +105,15 @@ int main(int ac, char **av)
     auto div = std::make_shared<NXPAV2KeyDiversification>();
     div->setDivInput(ByteVector{'B', 'O', 'A', 'P'});
     new_key->setKeyDiversification(div);
-    //new_key->setKeyStorage(kst_11);
+    // new_key->setKeyStorage(kst_11);
 
     std::shared_ptr<DESFireKey> oldkey(new DESFireKey());
     oldkey->setKeyType(DF_KEY_AES);
     oldkey->fromString("00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00");
-    //auto kst_zero = std::make_shared<IKSStorage>("e8c0e771-3db8-4f53-9209-98ba4209ca59");
+    // auto kst_zero =
+    // std::make_shared<IKSStorage>("e8c0e771-3db8-4f53-9209-98ba4209ca59");
     auto kst_zero = std::make_shared<IKSStorage>("9b21ba66-a1ea-4e90-95c8-f8e00143aa3f");
-    //oldkey->setKeyStorage(kst_zero);
+    // oldkey->setKeyStorage(kst_zero);
 
     cmd->selectApplication(0x00);
     cmd->authenticate(0);
@@ -139,7 +140,7 @@ int main(int ac, char **av)
         ar.changeAccess       = AR_KEY1;
         cmdev1->createStdDataFile(0x00, CM_ENCRYPT, ar, 4, 0);*/
 
-   // cmd->authenticate(0x00, oldkey);
+    // cmd->authenticate(0x00, oldkey);
     std::cout << "Auth..." << std::endl;
     try
     {

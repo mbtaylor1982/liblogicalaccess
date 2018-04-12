@@ -1525,7 +1525,8 @@ void DESFireEV1ISO7816Commands::setConfiguration(bool formatCardEnabled,
     command[0] = ((formatCardEnabled) ? 0x00 : 0x01) | ((randomIdEnabled) ? 0x02 : 0x00);
 
     crypto->initBuf();
-    ByteVector param;    param.push_back(DFEV1_INS_SET_CONFIGURATION);
+    ByteVector param;
+    param.push_back(DFEV1_INS_SET_CONFIGURATION);
     param.push_back(0x00); // PICC App key config
     ByteVector encBuffer = crypto->desfireEncrypt(command, param);
     ByteVector buf;
