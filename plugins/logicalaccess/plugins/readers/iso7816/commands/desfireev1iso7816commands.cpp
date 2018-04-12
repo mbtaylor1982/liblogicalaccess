@@ -1351,6 +1351,8 @@ void DESFireEV1ISO7816Commands::changeKey(unsigned char keyno,
     }
 
     ByteVector cryptogram;
+    std::cout << "SESSION KEY: " << crypto->d_sessionKey << std::endl;
+    std::cout << "LAST_IV: " << crypto->d_lastIV << std::endl;
     if (samChangeKey)
     {
         cryptogram = getChangeKeySAMCryptogram(keyno, key);
@@ -1364,6 +1366,8 @@ void DESFireEV1ISO7816Commands::changeKey(unsigned char keyno,
         cryptogram =
             crypto->changeKey_PICC(keynobyte, oldKeyDiversify, key, newKeyDiversify);
     }
+
+    std::cout << "CRYPTOGRAM: " << cryptogram << std::endl;
 
     ByteVector data;
     data.push_back(keynobyte);
@@ -1524,8 +1528,7 @@ void DESFireEV1ISO7816Commands::setConfiguration(bool formatCardEnabled,
     command[0] = ((formatCardEnabled) ? 0x00 : 0x01) | ((randomIdEnabled) ? 0x02 : 0x00);
 
     crypto->initBuf();
-    ByteVector param;
-    param.push_back(DFEV1_INS_SET_CONFIGURATION);
+    ByteVector param;    param.push_back(DFEV1_INS_SET_CONFIGURATION);
     param.push_back(0x00); // PICC App key config
     ByteVector encBuffer = crypto->desfireEncrypt(command, param);
     ByteVector buf;

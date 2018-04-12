@@ -1188,10 +1188,7 @@ DESFireISO7816Commands::getChangeKeyIKSCryptogram(unsigned char keyno,
 
     auto rep = rpc_client.desfire_change_key(req);
 
-    // When changing an AES key in "OTHER_KEY" mode
-    if (req.change_same_key())
-        crypto->d_lastIV =
-            ByteVector(rep.cryptogram().end() - 16, rep.cryptogram().end());
+    crypto->d_lastIV = ByteVector(rep.cryptogram().end() - 16, rep.cryptogram().end());
     return ByteVector(rep.cryptogram().begin(), rep.cryptogram().end());
 }
 }

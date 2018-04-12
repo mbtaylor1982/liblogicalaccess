@@ -14,6 +14,7 @@
 #include <logicalaccess/plugins/lla-tests/macros.hpp>
 #include <logicalaccess/plugins/lla-tests/utils.hpp>
 #include <logicalaccess/cards/IKSStorage.hpp>
+#include <logicalaccess/plugins/cards/desfire/nxpav2keydiversification.hpp>
 
 void introduction()
 {
@@ -99,15 +100,19 @@ int main(int ac, char **av)
 
     std::shared_ptr<DESFireKey> new_key(new DESFireKey());
     auto kst_11 = std::make_shared<IKSStorage>("a5b1e51e-b763-4232-bec9-5429cbd101af");
-    //key->fromString("11 11 11 11 11 11 11 11 11 11 11 11 11 11 11 11");
+    new_key->fromString("11 11 11 11 11 11 11 11 11 11 11 11 11 11 11 11");
     new_key->setKeyType(DF_KEY_AES);
-    new_key->setKeyStorage(kst_11);
+    auto div = std::make_shared<NXPAV2KeyDiversification>();
+    div->setDivInput(ByteVector{'B', 'O', 'A', 'P'});
+    new_key->setKeyDiversification(div);
+    //new_key->setKeyStorage(kst_11);
 
     std::shared_ptr<DESFireKey> oldkey(new DESFireKey());
     oldkey->setKeyType(DF_KEY_AES);
-    //newkey->fromString("00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00");
-    auto kst_zero = std::make_shared<IKSStorage>("00000000-0000-0000-0000-000000000000");
-    oldkey->setKeyStorage(kst_zero);
+    oldkey->fromString("00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00");
+    //auto kst_zero = std::make_shared<IKSStorage>("e8c0e771-3db8-4f53-9209-98ba4209ca59");
+    auto kst_zero = std::make_shared<IKSStorage>("9b21ba66-a1ea-4e90-95c8-f8e00143aa3f");
+    //oldkey->setKeyStorage(kst_zero);
 
     cmd->selectApplication(0x00);
     cmd->authenticate(0);
@@ -144,7 +149,8 @@ int main(int ac, char **av)
     catch (logicalaccess::CardException &e)
     {
     }
-    cmd->changeKey(0x00, new_key);
+    desfirechip->getCrypto()->setKey(0x521, 0, 1, oldkey);
+    cmd->changeKey(0x01, new_key);
     //  LLA_SUBTEST_PASSED("ChangeKey");
 
     pcsc_test_shutdown(readerUnit);

@@ -682,6 +682,8 @@ ByteVector DESFireCrypto::changeKey_PICC(uint8_t keyno, ByteVector oldKeyDiversi
 
     ByteVector encCryptogram;
 
+    std::cout << "NEW KEY DIV: " << newkeydiv << std::endl;
+
     if (d_auth_method == CM_LEGACY) // Native DESFire
     {
         if (keyno_only != d_currentKeyNo || keysetno)
