@@ -13,6 +13,8 @@ function(create_test file)
            ${GTEST_BOTH_LIBRARIES} ${Boost_LIBRARIES}
            pthread logicalaccess pcscreaders stidprgreaders
            epasscards)
+
+    target_compile_options(${test_name} PRIVATE -O3)
 endfunction()
 
 function(add_gtest_test file)
