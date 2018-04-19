@@ -34,7 +34,7 @@
 
 namespace protobuf_iks_2eproto {
 // Internal implementation detail -- do not use these members.
-struct LIBLOGICALACCESS_API TableStruct {
+struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
   static const ::google::protobuf::internal::ParseTable schema[14];
@@ -42,36 +42,36 @@ struct LIBLOGICALACCESS_API TableStruct {
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
 };
-void LIBLOGICALACCESS_API AddDescriptors();
-void LIBLOGICALACCESS_API InitDefaultsKeyDiversificationInfoImpl();
-void LIBLOGICALACCESS_API InitDefaultsKeyDiversificationInfo();
-void LIBLOGICALACCESS_API InitDefaultsSignatureDescriptionImpl();
-void LIBLOGICALACCESS_API InitDefaultsSignatureDescription();
-void LIBLOGICALACCESS_API InitDefaultsCMSG_DesfireChangeKeyImpl();
-void LIBLOGICALACCESS_API InitDefaultsCMSG_DesfireChangeKey();
-void LIBLOGICALACCESS_API InitDefaultsSMSG_DesfireChangeKeyImpl();
-void LIBLOGICALACCESS_API InitDefaultsSMSG_DesfireChangeKey();
-void LIBLOGICALACCESS_API InitDefaultsCMSG_GenRandomImpl();
-void LIBLOGICALACCESS_API InitDefaultsCMSG_GenRandom();
-void LIBLOGICALACCESS_API InitDefaultsSMSG_GenRandomImpl();
-void LIBLOGICALACCESS_API InitDefaultsSMSG_GenRandom();
-void LIBLOGICALACCESS_API InitDefaultsCMSG_AESOperationImpl();
-void LIBLOGICALACCESS_API InitDefaultsCMSG_AESOperation();
-void LIBLOGICALACCESS_API InitDefaultsSMSG_AESResultImpl();
-void LIBLOGICALACCESS_API InitDefaultsSMSG_AESResult();
-void LIBLOGICALACCESS_API InitDefaultsCMSG_DesfireAESAuth_Step1Impl();
-void LIBLOGICALACCESS_API InitDefaultsCMSG_DesfireAESAuth_Step1();
-void LIBLOGICALACCESS_API InitDefaultsSMSG_DesfireAESAuth_Step1Impl();
-void LIBLOGICALACCESS_API InitDefaultsSMSG_DesfireAESAuth_Step1();
-void LIBLOGICALACCESS_API InitDefaultsCMSG_DesfireISOAuth_Step1Impl();
-void LIBLOGICALACCESS_API InitDefaultsCMSG_DesfireISOAuth_Step1();
-void LIBLOGICALACCESS_API InitDefaultsSMSG_DesfireISOAuth_Step1Impl();
-void LIBLOGICALACCESS_API InitDefaultsSMSG_DesfireISOAuth_Step1();
-void LIBLOGICALACCESS_API InitDefaultsCMSG_DesfireAuth_Step2Impl();
-void LIBLOGICALACCESS_API InitDefaultsCMSG_DesfireAuth_Step2();
-void LIBLOGICALACCESS_API InitDefaultsSMSG_DesfireAuth_Step2Impl();
-void LIBLOGICALACCESS_API InitDefaultsSMSG_DesfireAuth_Step2();
-inline void LIBLOGICALACCESS_API InitDefaults() {
+void AddDescriptors();
+void InitDefaultsKeyDiversificationInfoImpl();
+void InitDefaultsKeyDiversificationInfo();
+void InitDefaultsSignatureDescriptionImpl();
+void InitDefaultsSignatureDescription();
+void InitDefaultsCMSG_DesfireChangeKeyImpl();
+void InitDefaultsCMSG_DesfireChangeKey();
+void InitDefaultsSMSG_DesfireChangeKeyImpl();
+void InitDefaultsSMSG_DesfireChangeKey();
+void InitDefaultsCMSG_GenRandomImpl();
+void InitDefaultsCMSG_GenRandom();
+void InitDefaultsSMSG_GenRandomImpl();
+void InitDefaultsSMSG_GenRandom();
+void InitDefaultsCMSG_AESOperationImpl();
+void InitDefaultsCMSG_AESOperation();
+void InitDefaultsSMSG_AESResultImpl();
+void InitDefaultsSMSG_AESResult();
+void InitDefaultsCMSG_DesfireAESAuth_Step1Impl();
+void InitDefaultsCMSG_DesfireAESAuth_Step1();
+void InitDefaultsSMSG_DesfireAESAuth_Step1Impl();
+void InitDefaultsSMSG_DesfireAESAuth_Step1();
+void InitDefaultsCMSG_DesfireISOAuth_Step1Impl();
+void InitDefaultsCMSG_DesfireISOAuth_Step1();
+void InitDefaultsSMSG_DesfireISOAuth_Step1Impl();
+void InitDefaultsSMSG_DesfireISOAuth_Step1();
+void InitDefaultsCMSG_DesfireAuth_Step2Impl();
+void InitDefaultsCMSG_DesfireAuth_Step2();
+void InitDefaultsSMSG_DesfireAuth_Step2Impl();
+void InitDefaultsSMSG_DesfireAuth_Step2();
+inline void InitDefaults() {
   InitDefaultsKeyDiversificationInfo();
   InitDefaultsSignatureDescription();
   InitDefaultsCMSG_DesfireChangeKey();
@@ -90,46 +90,46 @@ inline void LIBLOGICALACCESS_API InitDefaults() {
 }  // namespace protobuf_iks_2eproto
 class CMSG_AESOperation;
 class CMSG_AESOperationDefaultTypeInternal;
-LIBLOGICALACCESS_API extern CMSG_AESOperationDefaultTypeInternal _CMSG_AESOperation_default_instance_;
+extern CMSG_AESOperationDefaultTypeInternal _CMSG_AESOperation_default_instance_;
 class CMSG_DesfireAESAuth_Step1;
 class CMSG_DesfireAESAuth_Step1DefaultTypeInternal;
-LIBLOGICALACCESS_API extern CMSG_DesfireAESAuth_Step1DefaultTypeInternal _CMSG_DesfireAESAuth_Step1_default_instance_;
+extern CMSG_DesfireAESAuth_Step1DefaultTypeInternal _CMSG_DesfireAESAuth_Step1_default_instance_;
 class CMSG_DesfireAuth_Step2;
 class CMSG_DesfireAuth_Step2DefaultTypeInternal;
-LIBLOGICALACCESS_API extern CMSG_DesfireAuth_Step2DefaultTypeInternal _CMSG_DesfireAuth_Step2_default_instance_;
+extern CMSG_DesfireAuth_Step2DefaultTypeInternal _CMSG_DesfireAuth_Step2_default_instance_;
 class CMSG_DesfireChangeKey;
 class CMSG_DesfireChangeKeyDefaultTypeInternal;
-LIBLOGICALACCESS_API extern CMSG_DesfireChangeKeyDefaultTypeInternal _CMSG_DesfireChangeKey_default_instance_;
+extern CMSG_DesfireChangeKeyDefaultTypeInternal _CMSG_DesfireChangeKey_default_instance_;
 class CMSG_DesfireISOAuth_Step1;
 class CMSG_DesfireISOAuth_Step1DefaultTypeInternal;
-LIBLOGICALACCESS_API extern CMSG_DesfireISOAuth_Step1DefaultTypeInternal _CMSG_DesfireISOAuth_Step1_default_instance_;
+extern CMSG_DesfireISOAuth_Step1DefaultTypeInternal _CMSG_DesfireISOAuth_Step1_default_instance_;
 class CMSG_GenRandom;
 class CMSG_GenRandomDefaultTypeInternal;
-LIBLOGICALACCESS_API extern CMSG_GenRandomDefaultTypeInternal _CMSG_GenRandom_default_instance_;
+extern CMSG_GenRandomDefaultTypeInternal _CMSG_GenRandom_default_instance_;
 class KeyDiversificationInfo;
 class KeyDiversificationInfoDefaultTypeInternal;
-LIBLOGICALACCESS_API extern KeyDiversificationInfoDefaultTypeInternal _KeyDiversificationInfo_default_instance_;
+extern KeyDiversificationInfoDefaultTypeInternal _KeyDiversificationInfo_default_instance_;
 class SMSG_AESResult;
 class SMSG_AESResultDefaultTypeInternal;
-LIBLOGICALACCESS_API extern SMSG_AESResultDefaultTypeInternal _SMSG_AESResult_default_instance_;
+extern SMSG_AESResultDefaultTypeInternal _SMSG_AESResult_default_instance_;
 class SMSG_DesfireAESAuth_Step1;
 class SMSG_DesfireAESAuth_Step1DefaultTypeInternal;
-LIBLOGICALACCESS_API extern SMSG_DesfireAESAuth_Step1DefaultTypeInternal _SMSG_DesfireAESAuth_Step1_default_instance_;
+extern SMSG_DesfireAESAuth_Step1DefaultTypeInternal _SMSG_DesfireAESAuth_Step1_default_instance_;
 class SMSG_DesfireAuth_Step2;
 class SMSG_DesfireAuth_Step2DefaultTypeInternal;
-LIBLOGICALACCESS_API extern SMSG_DesfireAuth_Step2DefaultTypeInternal _SMSG_DesfireAuth_Step2_default_instance_;
+extern SMSG_DesfireAuth_Step2DefaultTypeInternal _SMSG_DesfireAuth_Step2_default_instance_;
 class SMSG_DesfireChangeKey;
 class SMSG_DesfireChangeKeyDefaultTypeInternal;
-LIBLOGICALACCESS_API extern SMSG_DesfireChangeKeyDefaultTypeInternal _SMSG_DesfireChangeKey_default_instance_;
+extern SMSG_DesfireChangeKeyDefaultTypeInternal _SMSG_DesfireChangeKey_default_instance_;
 class SMSG_DesfireISOAuth_Step1;
 class SMSG_DesfireISOAuth_Step1DefaultTypeInternal;
-LIBLOGICALACCESS_API extern SMSG_DesfireISOAuth_Step1DefaultTypeInternal _SMSG_DesfireISOAuth_Step1_default_instance_;
+extern SMSG_DesfireISOAuth_Step1DefaultTypeInternal _SMSG_DesfireISOAuth_Step1_default_instance_;
 class SMSG_GenRandom;
 class SMSG_GenRandomDefaultTypeInternal;
-LIBLOGICALACCESS_API extern SMSG_GenRandomDefaultTypeInternal _SMSG_GenRandom_default_instance_;
+extern SMSG_GenRandomDefaultTypeInternal _SMSG_GenRandom_default_instance_;
 class SignatureDescription;
 class SignatureDescriptionDefaultTypeInternal;
-LIBLOGICALACCESS_API extern SignatureDescriptionDefaultTypeInternal _SignatureDescription_default_instance_;
+extern SignatureDescriptionDefaultTypeInternal _SignatureDescription_default_instance_;
 
 enum KeyDiversificationInfo_Type {
   KeyDiversificationInfo_Type_NONE = 0,
@@ -137,12 +137,12 @@ enum KeyDiversificationInfo_Type {
   KeyDiversificationInfo_Type_KeyDiversificationInfo_Type_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   KeyDiversificationInfo_Type_KeyDiversificationInfo_Type_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
-LIBLOGICALACCESS_API bool KeyDiversificationInfo_Type_IsValid(int value);
+bool KeyDiversificationInfo_Type_IsValid(int value);
 const KeyDiversificationInfo_Type KeyDiversificationInfo_Type_Type_MIN = KeyDiversificationInfo_Type_NONE;
 const KeyDiversificationInfo_Type KeyDiversificationInfo_Type_Type_MAX = KeyDiversificationInfo_Type_AV2;
 const int KeyDiversificationInfo_Type_Type_ARRAYSIZE = KeyDiversificationInfo_Type_Type_MAX + 1;
 
-LIBLOGICALACCESS_API const ::google::protobuf::EnumDescriptor* KeyDiversificationInfo_Type_descriptor();
+const ::google::protobuf::EnumDescriptor* KeyDiversificationInfo_Type_descriptor();
 inline const ::std::string& KeyDiversificationInfo_Type_Name(KeyDiversificationInfo_Type value) {
   return ::google::protobuf::internal::NameOfEnum(
     KeyDiversificationInfo_Type_descriptor(), value);
@@ -154,7 +154,7 @@ inline bool KeyDiversificationInfo_Type_Parse(
 }
 // ===================================================================
 
-class LIBLOGICALACCESS_API KeyDiversificationInfo : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:KeyDiversificationInfo) */ {
+class KeyDiversificationInfo : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:KeyDiversificationInfo) */ {
  public:
   KeyDiversificationInfo();
   virtual ~KeyDiversificationInfo();
@@ -294,7 +294,7 @@ class LIBLOGICALACCESS_API KeyDiversificationInfo : public ::google::protobuf::M
 };
 // -------------------------------------------------------------------
 
-class LIBLOGICALACCESS_API SignatureDescription : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:SignatureDescription) */ {
+class SignatureDescription : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:SignatureDescription) */ {
  public:
   SignatureDescription();
   virtual ~SignatureDescription();
@@ -430,7 +430,7 @@ class LIBLOGICALACCESS_API SignatureDescription : public ::google::protobuf::Mes
 };
 // -------------------------------------------------------------------
 
-class LIBLOGICALACCESS_API CMSG_DesfireChangeKey : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:CMSG_DesfireChangeKey) */ {
+class CMSG_DesfireChangeKey : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:CMSG_DesfireChangeKey) */ {
  public:
   CMSG_DesfireChangeKey();
   virtual ~CMSG_DesfireChangeKey();
@@ -661,7 +661,7 @@ class LIBLOGICALACCESS_API CMSG_DesfireChangeKey : public ::google::protobuf::Me
 };
 // -------------------------------------------------------------------
 
-class LIBLOGICALACCESS_API SMSG_DesfireChangeKey : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:SMSG_DesfireChangeKey) */ {
+class SMSG_DesfireChangeKey : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:SMSG_DesfireChangeKey) */ {
  public:
   SMSG_DesfireChangeKey();
   virtual ~SMSG_DesfireChangeKey();
@@ -768,7 +768,7 @@ class LIBLOGICALACCESS_API SMSG_DesfireChangeKey : public ::google::protobuf::Me
 };
 // -------------------------------------------------------------------
 
-class LIBLOGICALACCESS_API CMSG_GenRandom : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:CMSG_GenRandom) */ {
+class CMSG_GenRandom : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:CMSG_GenRandom) */ {
  public:
   CMSG_GenRandom();
   virtual ~CMSG_GenRandom();
@@ -867,7 +867,7 @@ class LIBLOGICALACCESS_API CMSG_GenRandom : public ::google::protobuf::Message /
 };
 // -------------------------------------------------------------------
 
-class LIBLOGICALACCESS_API SMSG_GenRandom : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:SMSG_GenRandom) */ {
+class SMSG_GenRandom : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:SMSG_GenRandom) */ {
  public:
   SMSG_GenRandom();
   virtual ~SMSG_GenRandom();
@@ -974,7 +974,7 @@ class LIBLOGICALACCESS_API SMSG_GenRandom : public ::google::protobuf::Message /
 };
 // -------------------------------------------------------------------
 
-class LIBLOGICALACCESS_API CMSG_AESOperation : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:CMSG_AESOperation) */ {
+class CMSG_AESOperation : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:CMSG_AESOperation) */ {
  public:
   CMSG_AESOperation();
   virtual ~CMSG_AESOperation();
@@ -1128,7 +1128,7 @@ class LIBLOGICALACCESS_API CMSG_AESOperation : public ::google::protobuf::Messag
 };
 // -------------------------------------------------------------------
 
-class LIBLOGICALACCESS_API SMSG_AESResult : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:SMSG_AESResult) */ {
+class SMSG_AESResult : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:SMSG_AESResult) */ {
  public:
   SMSG_AESResult();
   virtual ~SMSG_AESResult();
@@ -1260,7 +1260,7 @@ class LIBLOGICALACCESS_API SMSG_AESResult : public ::google::protobuf::Message /
 };
 // -------------------------------------------------------------------
 
-class LIBLOGICALACCESS_API CMSG_DesfireAESAuth_Step1 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:CMSG_DesfireAESAuth_Step1) */ {
+class CMSG_DesfireAESAuth_Step1 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:CMSG_DesfireAESAuth_Step1) */ {
  public:
   CMSG_DesfireAESAuth_Step1();
   virtual ~CMSG_DesfireAESAuth_Step1();
@@ -1392,7 +1392,7 @@ class LIBLOGICALACCESS_API CMSG_DesfireAESAuth_Step1 : public ::google::protobuf
 };
 // -------------------------------------------------------------------
 
-class LIBLOGICALACCESS_API SMSG_DesfireAESAuth_Step1 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:SMSG_DesfireAESAuth_Step1) */ {
+class SMSG_DesfireAESAuth_Step1 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:SMSG_DesfireAESAuth_Step1) */ {
  public:
   SMSG_DesfireAESAuth_Step1();
   virtual ~SMSG_DesfireAESAuth_Step1();
@@ -1521,7 +1521,7 @@ class LIBLOGICALACCESS_API SMSG_DesfireAESAuth_Step1 : public ::google::protobuf
 };
 // -------------------------------------------------------------------
 
-class LIBLOGICALACCESS_API CMSG_DesfireISOAuth_Step1 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:CMSG_DesfireISOAuth_Step1) */ {
+class CMSG_DesfireISOAuth_Step1 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:CMSG_DesfireISOAuth_Step1) */ {
  public:
   CMSG_DesfireISOAuth_Step1();
   virtual ~CMSG_DesfireISOAuth_Step1();
@@ -1653,7 +1653,7 @@ class LIBLOGICALACCESS_API CMSG_DesfireISOAuth_Step1 : public ::google::protobuf
 };
 // -------------------------------------------------------------------
 
-class LIBLOGICALACCESS_API SMSG_DesfireISOAuth_Step1 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:SMSG_DesfireISOAuth_Step1) */ {
+class SMSG_DesfireISOAuth_Step1 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:SMSG_DesfireISOAuth_Step1) */ {
  public:
   SMSG_DesfireISOAuth_Step1();
   virtual ~SMSG_DesfireISOAuth_Step1();
@@ -1797,7 +1797,7 @@ class LIBLOGICALACCESS_API SMSG_DesfireISOAuth_Step1 : public ::google::protobuf
 };
 // -------------------------------------------------------------------
 
-class LIBLOGICALACCESS_API CMSG_DesfireAuth_Step2 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:CMSG_DesfireAuth_Step2) */ {
+class CMSG_DesfireAuth_Step2 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:CMSG_DesfireAuth_Step2) */ {
  public:
   CMSG_DesfireAuth_Step2();
   virtual ~CMSG_DesfireAuth_Step2();
@@ -1944,7 +1944,7 @@ class LIBLOGICALACCESS_API CMSG_DesfireAuth_Step2 : public ::google::protobuf::M
 };
 // -------------------------------------------------------------------
 
-class LIBLOGICALACCESS_API SMSG_DesfireAuth_Step2 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:SMSG_DesfireAuth_Step2) */ {
+class SMSG_DesfireAuth_Step2 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:SMSG_DesfireAuth_Step2) */ {
  public:
   SMSG_DesfireAuth_Step2();
   virtual ~SMSG_DesfireAuth_Step2();

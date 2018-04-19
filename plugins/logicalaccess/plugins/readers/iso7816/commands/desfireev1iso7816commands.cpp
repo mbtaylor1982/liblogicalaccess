@@ -27,7 +27,8 @@
 #include <logicalaccess/plugins/cards/desfire/nxpav2keydiversification.hpp>
 #include <logicalaccess/myexception.hpp>
 #include <cassert>
-#include <logicalaccess/iks/IKSRPCClient.hpp>
+#include <logicalaccess/iks/RemoteCrypto.hpp>
+#include <logicalaccess/dynlibrary/librarymanager.hpp>
 
 namespace logicalaccess
 {
@@ -895,7 +896,7 @@ void DESFireEV1ISO7816Commands::iks_authenticateAES(std::shared_ptr<DESFireKey> 
     auto kst = std::dynamic_pointer_cast<IKSStorage>(key->getKeyStorage());
     assert(kst);
 
-    iks::IKSRPCClient rpc_client(iks::IslogKeyServer::get_global_config());
+    auto remote_crypto = LibraryManager::getInstance()->getRemoteCrypto();
 
     ByteVector data;
     data.push_back(keyno);
@@ -907,39 +908,54 @@ void DESFireEV1ISO7816Commands::iks_authenticateAES(std::shared_ptr<DESFireKey> 
     EXCEPTION_ASSERT_WITH_LOG(err == DF_INS_ADDITIONAL_FRAME, LibLogicalAccessException,
                               "No additional frame for ISO authentication.");
 
-    CMSG_DesfireAESAuth_Step1 req;
-    req.set_key_uuid(kst->getKeyIdentity());
-    req.set_encrypted_random_picc(BufferHelper::getStdString(encRndB));
-    *req.mutable_diversification() = extract_iks_div_info(key, keyno);
-    auto step1_response            = rpc_client.desfire_auth_aes_step1(req);
+    bool out_success;
+    ByteVector out_encrypted_cryptogram, out_auth_context_id;
+    remote_crypto->aes_authenticate_step1(kst->getKeyIdentity(), encRndB,
+                                          extract_iks_div_info(key, keyno), out_success,
+                                          out_encrypted_cryptogram, out_auth_context_id);
+    /*
 
-    ByteVector encRndA1 = transmit_plain(
-        DF_INS_ADDITIONAL_FRAME, ByteVector(step1_response.encrypted_cryptogram().begin(),
-                                            step1_response.encrypted_cryptogram().end()));
+        CMSG_DesfireAESAuth_Step1 req;
+        req.set_key_uuid(kst->getKeyIdentity());
+        req.set_encrypted_random_picc(BufferHelper::getStdString(encRndB));
+        *req.mutable_diversification() = extract_iks_div_info(key, keyno);
+        auto step1_response            = rpc_client.desfire_auth_aes_step1(req);
+
+    */
+
+    ByteVector encRndA1 =
+        transmit_plain(DF_INS_ADDITIONAL_FRAME, out_encrypted_cryptogram);
     encRndA1.resize(encRndA1.size() - 2);
+    /*
+        CMSG_DesfireAuth_Step2 step2;
+        step2.set_key_uuid(kst->getKeyIdentity());
+        step2.set_auth_context_id(step1_response.auth_context_id());
+        step2.set_picc_cryptogram(BufferHelper::getStdString(encRndA1));
 
-    CMSG_DesfireAuth_Step2 step2;
-    step2.set_key_uuid(kst->getKeyIdentity());
-    step2.set_auth_context_id(step1_response.auth_context_id());
-    step2.set_picc_cryptogram(BufferHelper::getStdString(encRndA1));
+        auto step2_response = rpc_client.desfire_auth_aes_step2(step2);*/
 
-    auto step2_response = rpc_client.desfire_auth_aes_step2(step2);
+    ByteVector out_session_key, out_session_key_ref;
+    remote_crypto->aes_authenticate_step2(kst->getKeyIdentity(), encRndA1,
+                                          out_auth_context_id,
+                                          extract_iks_div_info(key, keyno), out_success,
+                                          out_session_key, out_session_key_ref);
 
-    if (step2_response.success())
+    if (out_success)
     {
-        if (!step2_response.session_key().empty())
+        if (!out_session_key.empty())
         {
             // Raw key material. Use as is.
-            crypto->d_sessionKey = ByteVector(step2_response.session_key().begin(),
-                                              step2_response.session_key().end());
+            crypto->d_sessionKey =
+                ByteVector(out_session_key.begin(), out_session_key.end());
         }
         else
         {
             // We received a KeyReference. We need to create an IKSCryptoWrapper
             // for use by DESFireCrypto so CMAC calculation, data decryption and stuff
             // like that gets rerouted through IKS.
-            crypto->iks_wrapper_                  = std::make_unique<IKSCryptoWrapper>();
-            crypto->iks_wrapper_->remote_key_name = step2_response.session_key_ref();
+            crypto->iks_wrapper_ = std::make_unique<IKSCryptoWrapper>();
+            crypto->iks_wrapper_->remote_key_name =
+                std::string(out_session_key_ref.begin(), out_session_key_ref.end());
         }
         crypto->d_currentKeyNo = keyno;
     }
@@ -1656,10 +1672,10 @@ ByteVector DESFireEV1ISO7816Commands::transmit_nomacv(unsigned char cmd,
     return DESFireISO7816Commands::transmit(cmd, buf, lc, forceLc);
 }
 
-KeyDiversificationInfo
-DESFireEV1ISO7816Commands::extract_iks_div_info(std::shared_ptr<Key> key, uint8_t keyno)
+MyDivInfo DESFireEV1ISO7816Commands::extract_iks_div_info(std::shared_ptr<Key> key,
+                                                          uint8_t keyno)
 {
-    KeyDiversificationInfo ret{};
+    MyDivInfo ret{};
 
     auto diversification = key->getKeyDiversification();
     if (diversification && diversification->getType() == "NXPAV2")
@@ -1671,8 +1687,8 @@ DESFireEV1ISO7816Commands::extract_iks_div_info(std::shared_ptr<Key> key, uint8_
             key->getKeyDiversification()->initDiversification(
                 crypto->getIdentifier(), crypto->d_currentAid, key, keyno, diversify);
 
-        ret.set_div_input(std::string(diversify.begin(), diversify.end()));
-        ret.set_div_type(KeyDiversificationInfo_Type::KeyDiversificationInfo_Type_AV2);
+        ret.div_input = diversify;
+        ret.div_type  = "NXPAV2";
     }
 
     return ret;
@@ -1685,15 +1701,26 @@ void DESFireEV1ISO7816Commands::iks_iso_authenticate(std::shared_ptr<DESFireKey>
            key->getKeyStorage()->getType() == KST_SERVER);
     std::shared_ptr<DESFireCrypto> crypto = getDESFireChip()->getCrypto();
     ByteVector RPICC1                     = iso_getChallenge(16); // 16 because aes
+    auto kst = std::dynamic_pointer_cast<IKSStorage>(key->getKeyStorage());
+    assert(kst);
 
-    iks::IKSRPCClient rpc_client(iks::IslogKeyServer::get_global_config());
-    CMSG_DesfireISOAuth_Step1 step1_req;
-    step1_req.set_key_uuid(
-        std::dynamic_pointer_cast<IKSStorage>(key->getKeyStorage())->getKeyIdentity());
-    step1_req.set_random_picc(std::string(RPICC1.begin(), RPICC1.end()));
-    *step1_req.mutable_diversification() = extract_iks_div_info(key, keyno);
+    auto remote_crypto = LibraryManager::getInstance()->getRemoteCrypto();
 
-    SMSG_DesfireISOAuth_Step1 step1_resp = rpc_client.desfire_auth_iso_step1(step1_req);
+    bool out_success;
+    ByteVector out_random2, out_encrypted_cryptogram, out_auth_context_id;
+    remote_crypto->iso_authenticate_step1(
+        kst->getKeyIdentity(), RPICC1, extract_iks_div_info(key, keyno), out_success,
+        out_random2, out_encrypted_cryptogram, out_auth_context_id);
+    /*
+        CMSG_DesfireISOAuth_Step1 step1_req;
+        step1_req.set_key_uuid(
+            std::dynamic_pointer_cast<IKSStorage>(key->getKeyStorage())->getKeyIdentity());
+        step1_req.set_random_picc(std::string(RPICC1.begin(), RPICC1.end()));
+        *step1_req.mutable_diversification() = extract_iks_div_info(key, keyno);
+
+        SMSG_DesfireISOAuth_Step1 step1_resp =
+       rpc_client.desfire_auth_iso_step1(step1_req);
+    */
 
     /*iks::DesfireAuthCommand cmd;
     cmd.algo_ = iks::DESFIRE_AUTH_ALGO_AES;
@@ -1710,21 +1737,26 @@ void DESFireEV1ISO7816Commands::iks_iso_authenticate(std::shared_ptr<DESFireKey>
                               "Cannot retrieve proper response from server.");
                               */
 
-    auto cryptogram = ByteVector(step1_resp.encrypted_cryptogram().begin(),
-                                 step1_resp.encrypted_cryptogram().end());
-
+    auto cryptogram = out_encrypted_cryptogram;
     iso_externalAuthenticate(DF_ALG_AES, isMasterCardKey, keyno, cryptogram);
 
-    auto RPCD2 = ByteVector(step1_resp.random2().begin(), step1_resp.random2().end());
+    auto RPCD2 = ByteVector(out_random2.begin(), out_random2.end());
     cryptogram =
         iso_internalAuthenticate(DF_ALG_AES, isMasterCardKey, keyno, RPCD2, 2 * 16);
 
+    ByteVector out_session_key, out_session_key_ref;
+    remote_crypto->iso_authenticate_step2(kst->getKeyIdentity(), cryptogram,
+                                          out_auth_context_id,
+                                          extract_iks_div_info(key, keyno), out_success,
+                                          out_session_key, out_session_key_ref);
+
+    /*
     CMSG_DesfireAuth_Step2 step2_req;
     step2_req.set_key_uuid(
         std::dynamic_pointer_cast<IKSStorage>(key->getKeyStorage())->getKeyIdentity());
     step2_req.set_auth_context_id(step1_resp.auth_context_id());
     step2_req.set_picc_cryptogram(std::string(cryptogram.begin(), cryptogram.end()));
-    *step2_req.mutable_diversification() = extract_iks_div_info(key, keyno);
+    *step2_req.mutable_diversification() = extract_iks_div_info(key, keyno);*/
 
     /*    cmd.step_     = 2;
         cmd.div_info_ = iks::KeyDivInfo::build(key, getChip()->getChipIdentifier(), keyno,
@@ -1737,8 +1769,8 @@ void DESFireEV1ISO7816Commands::iks_iso_authenticate(std::shared_ptr<DESFireKey>
                                   "Cannot retrieve proper response from server.");
         EXCEPTION_ASSERT_WITH_LOG(resp->success_, IKSException,
                                   "Mutual authentication failure.");*/
-    SMSG_DesfireAuth_Step2 step2_resp = rpc_client.desfire_auth_iso_step2(step2_req);
-    EXCEPTION_ASSERT_WITH_LOG(step2_resp.success(), IKSException,
+    // SMSG_DesfireAuth_Step2 step2_resp = rpc_client.desfire_auth_iso_step2(step2_req);
+    EXCEPTION_ASSERT_WITH_LOG(out_success, IKSException,
                               "Mutual authentication failure.");
 
     crypto->d_currentKeyNo = keyno;
@@ -1747,19 +1779,19 @@ void DESFireEV1ISO7816Commands::iks_iso_authenticate(std::shared_ptr<DESFireKey>
 
     // Session key from IKS. Either it is an IKS key reference, or directly
     // the key value.
-    if (!step2_resp.session_key().empty())
+    if (!out_session_key.empty())
     {
         // Raw key material. Use as is.
-        crypto->d_sessionKey =
-            ByteVector(step2_resp.session_key().begin(), step2_resp.session_key().end());
+        crypto->d_sessionKey = ByteVector(out_session_key.begin(), out_session_key.end());
     }
     else
     {
         // We received a KeyReference. We need to create an IKSCryptoWrapper
         // for use by DESFireCrypto so CMAC calculation, data decryption and stuff
         // like that gets rerouted through IKS.
-        crypto->iks_wrapper_                  = std::make_unique<IKSCryptoWrapper>();
-        crypto->iks_wrapper_->remote_key_name = step2_resp.session_key_ref();
+        crypto->iks_wrapper_ = std::make_unique<IKSCryptoWrapper>();
+        crypto->iks_wrapper_->remote_key_name =
+            std::string(out_session_key_ref.begin(), out_session_key_ref.end());
     }
 
     crypto->d_cipher.reset(new openssl::AESCipher());
@@ -1788,7 +1820,7 @@ void DESFireEV1ISO7816Commands::onAuthenticated()
     }
 }
 
-iks::SignatureResult DESFireEV1ISO7816Commands::IKS_getLastReadSignature() const
+SignatureResult DESFireEV1ISO7816Commands::IKS_getLastReadSignature() const
 {
     return handle_read_data_last_sig_;
 }

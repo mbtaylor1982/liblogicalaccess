@@ -24,7 +24,8 @@
 #include <logicalaccess/plugins/crypto/cmac.hpp>
 #include <logicalaccess/myexception.hpp>
 #include <logicalaccess/iks/IslogKeyServer.hpp>
-#include <logicalaccess/iks/IKSRPCClient.hpp>
+#include <logicalaccess/iks/RemoteCrypto.hpp>
+#include <logicalaccess/dynlibrary/librarymanager.hpp>
 
 namespace logicalaccess
 {
@@ -1062,10 +1063,10 @@ ByteVector DESFireCrypto::desfire_iso_decrypt(
     else
     {
         // Delegate cryptography to the IKS.
-        iks::IKSRPCClient rpc(iks::IslogKeyServer::get_global_config());
-        iks::SignatureResult signature_result;
-        decdata = rpc.aes_decrypt(data, iks_wrapper_->remote_key_name, d_lastIV,
-                                  &signature_result);
+        auto remote_crypto = LibraryManager::getInstance()->getRemoteCrypto();
+        SignatureResult signature_result;
+        decdata = remote_crypto->aes_decrypt(data, iks_wrapper_->remote_key_name,
+                                             d_lastIV, &signature_result);
         d_lastIV               = ByteVector(data.end() - block_size, data.end());
         iks_wrapper_->last_sig = signature_result;
     }
@@ -1238,8 +1239,9 @@ ByteVector DESFireCrypto::desfire_iso_encrypt(
     else
     {
         // Delegate cryptography to the IKS.
-        iks::IKSRPCClient rpc(iks::IslogKeyServer::get_global_config());
-        encdata  = rpc.aes_encrypt(decdata, iks_wrapper_->remote_key_name, d_lastIV);
+        auto remote_crypto = LibraryManager::getInstance()->getRemoteCrypto();
+        encdata =
+            remote_crypto->aes_encrypt(decdata, iks_wrapper_->remote_key_name, d_lastIV);
         d_lastIV = ByteVector(encdata.end() - block_size, encdata.end());
     }
 
@@ -1363,11 +1365,11 @@ void DESFireCrypto::setKeyInAllKeySet(size_t aid, uint8_t keySlotNb, uint8_t nbK
         d_keys[std::make_tuple(aid, keySlotNb, x)] = key;
 }
 
-iks::SignatureResult DESFireCrypto::get_last_signature() const
+SignatureResult DESFireCrypto::get_last_signature() const
 {
     if (iks_wrapper_)
         return iks_wrapper_->last_sig;
 
-    return iks::SignatureResult{};
+    return SignatureResult{};
 }
 }

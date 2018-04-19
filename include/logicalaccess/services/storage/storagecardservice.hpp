@@ -10,7 +10,7 @@
 #include <logicalaccess/services/cardservice.hpp>
 #include <logicalaccess/cards/location.hpp>
 #include <logicalaccess/cards/accessinfo.hpp>
-#include <logicalaccess/iks/signature.hpp>
+#include <logicalaccess/iks/RemoteCrypto.hpp>
 
 namespace logicalaccess
 {
@@ -85,13 +85,13 @@ class LIBLOGICALACCESS_API StorageCardService : public CardService
      * Retrieve the signature for the data that were read last.
      * This is an IKS specific feature.
      */
-    iks::SignatureResult IKS_getLastReadSignature()
+    SignatureResult IKS_getLastReadSignature()
     {
         return last_read_signature_;
     }
 
   protected:
-    iks::SignatureResult last_read_signature_;
+    SignatureResult last_read_signature_;
 };
 }
 

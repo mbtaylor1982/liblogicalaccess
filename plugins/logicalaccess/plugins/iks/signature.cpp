@@ -1,3 +1,4 @@
+/*
 #include <openssl/evp.h>
 #include <openssl/rsa.h>
 #include <openssl/pem.h>
@@ -17,3 +18,4 @@ bool SignatureResult::verify(const std::string &pem_pubkey)
 }
 }
 }
+*/

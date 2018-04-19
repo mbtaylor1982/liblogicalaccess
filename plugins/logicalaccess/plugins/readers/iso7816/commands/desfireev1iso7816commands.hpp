@@ -363,7 +363,7 @@ class LIBLOGICALACCESS_API DESFireEV1ISO7816Commands : public DESFireISO7816Comm
     virtual void iks_iso_authenticate(std::shared_ptr<DESFireKey> key,
                                       bool isMasterCardKey, uint8_t keyno);
 
-    KeyDiversificationInfo extract_iks_div_info(std::shared_ptr<Key> key, uint8_t keyno);
+    MyDivInfo extract_iks_div_info(std::shared_ptr<Key> key, uint8_t keyno);
 
     void selectApplication(unsigned int aid) override;
 
@@ -393,7 +393,7 @@ class LIBLOGICALACCESS_API DESFireEV1ISO7816Commands : public DESFireISO7816Comm
      * therefore signature can only be retrieve for by block passed
      * to handleReadData().
      */
-    iks::SignatureResult IKS_getLastReadSignature() const override;
+    SignatureResult IKS_getLastReadSignature() const override;
 
   protected:
     /**
@@ -489,7 +489,7 @@ class LIBLOGICALACCESS_API DESFireEV1ISO7816Commands : public DESFireISO7816Comm
     }
 
   protected:
-    iks::SignatureResult handle_read_data_last_sig_;
+    SignatureResult handle_read_data_last_sig_;
 };
 }
 

@@ -249,8 +249,7 @@ set(include ${include_root} ${include_cards} ${include_readerproviders}
         ${include_formats} ${include_customformat} ${include_nfctag} ${include_uidchanger}
         ${include_license_checker}
         ${include_dynlibrary} ${include_storage} ${include_vc}
-        ${include_iks} ${include_iks_packet} ${include_service_identity}
-        include/logicalaccess/iks/IKSRPCClient.hpp include/logicalaccess/iks/RPCException.hpp)
+        ${include_iks} ${include_iks_packet} ${include_service_identity})
 
 
 add_library(
@@ -270,7 +269,7 @@ if (MSVC)
 endif()
 
 set_target_properties(${LIBLOGICALACCESS_LIBRARY} PROPERTIES VERSION ${LIBLOGICALACCESS_VERSION_STRING})
-target_link_libraries(${LIBLOGICALACCESS_LIBRARY} ${OPENSSL_LIBRARIES} grpc grpc++ protobuf)
+target_link_libraries(${LIBLOGICALACCESS_LIBRARY} ${OPENSSL_LIBRARIES})
 
 if (WIN32)
 
@@ -286,6 +285,7 @@ elseif (UNIX)
 endif()
 
 add_subdirectory(plugins/logicalaccess/plugins/crypto)
+add_subdirectory(plugins/logicalaccess/plugins/iks)
 add_subdirectory(plugins/logicalaccess/plugins/cards)
 add_subdirectory(plugins/logicalaccess/plugins/readers)
 if (NOT ANDROID)

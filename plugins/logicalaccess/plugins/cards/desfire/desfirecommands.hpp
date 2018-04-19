@@ -11,7 +11,7 @@
 #include <logicalaccess/plugins/cards/desfire/desfirelocation.hpp>
 #include <logicalaccess/cards/commands.hpp>
 #include <vector>
-#include <logicalaccess/iks/signature.hpp>
+#include <logicalaccess/iks/RemoteCrypto.hpp>
 
 namespace logicalaccess
 {
@@ -539,9 +539,9 @@ class LIBLOGICALACCESS_API DESFireCommands : public Commands
      *    1) DESFireEV1ISO7816 is used.
      *    2) An IKS backend is used.
      */
-    virtual iks::SignatureResult IKS_getLastReadSignature() const
+    virtual SignatureResult IKS_getLastReadSignature() const
     {
-        return iks::SignatureResult{};
+        return SignatureResult{};
     }
 
   protected:

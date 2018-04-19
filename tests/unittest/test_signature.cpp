@@ -1,7 +1,8 @@
 #include <gtest/gtest.h>
+#include <logicalaccess/dynlibrary/librarymanager.hpp>
 #include "logicalaccess/bufferhelper.hpp"
 #include "logicalaccess/plugins/crypto/signature_helper.hpp"
-#include "logicalaccess/iks/signature.hpp"
+#include "logicalaccess/iks/RemoteCrypto.hpp"
 
 using namespace logicalaccess;
 
@@ -37,8 +38,9 @@ TEST(test_signature, verify1)
 
 TEST(test_signature, verify_iks)
 {
-    iks::SignatureResult sigres;
-    sigres.signature_ = BufferHelper::fromHexString(
+    auto remote_crypto = LibraryManager::getInstance()->getRemoteCrypto();
+    SignatureResult sigres;
+    sigres.signature = BufferHelper::fromHexString(
         "3A2D7B0847493F53E841A0402AFCC25E914E55F48BD7597BCED08DD7BF76C01B14733115F2075DFB"
         "C3CD7F2EFA8DF7033F4118D9FDE7846E387FAD15B6850A32EA283A51A77BF201C52BD540DF255F30"
         "FE6B0503B80D3C7619BCE1539921CA1BB15797B6302F224E08E5614DFF04F34B4B88D50DE24AF851"
@@ -46,35 +48,30 @@ TEST(test_signature, verify_iks)
         "2DE1641F0F601028D266CC5B514CBF35EDACE03DF8F3AEFEAD7B42143134992B78A996FF4E280C2D"
         "737BDA9550018A19CA97AA11BF9D23C86B337D5143A148D08C2F556B2A4F960F7FB3DA58733C0328"
         "2558536D09599DED45833F4C5C36781E");
-    sigres.signature_description_.set_payload(BufferHelper::getStdString(
-        BufferHelper::fromHexString("000010920A438C660000000000000000")));
-    sigres.signature_description_.set_run_uuid(BufferHelper::getStdString(
-        BufferHelper::fromHexString("D43DEBC7D61B4127A01EC5B1EA3923C8")));
-    sigres.signature_description_.set_nonce(3);
-    sigres.signature_description_.set_timestamp(1522842692598);
+    sigres.desc.payload = BufferHelper::fromHexString("000010920A438C660000000000000000");
+    sigres.desc.run_uuid =  BufferHelper::fromHexString("D43DEBC7D61B4127A01EC5B1EA3923C8");
+    sigres.desc.nonce = 3;
+    sigres.desc.timestamp = 1522842692598;
 
-    ASSERT_TRUE(sigres.verify(pubkey));
+    ASSERT_TRUE(remote_crypto->verify_signature(sigres, pubkey));
 }
 
 TEST(test_signature, verify_iks_fails)
 {
-    iks::SignatureResult sigres;
-    sigres.signature_ = BufferHelper::fromHexString(
-        "3A2D7B0847493F53E841A0402AFCC25E914E55F48BD7597BCED08DD7BF76C01B14733115F2075DFB"
-        "C3CD7F2EFA8DF7033F4118D9FDE7846E387FAD15B6850A32EA283A51A77BF201C52BD540DF255F30"
-        "FE6B0503B80D3C7619BCE1539921CA1BB15797B6302F224E08E5614DFF04F34B4B88D50DE24AF851"
-        "ED17D032203FAF74993345592C6601EA7C0052103BABDBE643FC563B449FD0C68CCFE67B7AD31A33"
-        "2DE1641F0F601028D266CC5B514CBF35EDACE03DF8F3AEFEAD7B42143134992B78A996FF4E280C2D"
-        "737BDA9550018A19CA97AA11BF9D23C86B337D5143A148D08C2F556B2A4F960F7FB3DA58733C0328"
-        "2558536D09599DED45833F4C5C36781E");
-    sigres.signature_description_.set_payload(BufferHelper::getStdString(
-        BufferHelper::fromHexString("000010920A438C660000000000000000")));
-    sigres.signature_description_.set_run_uuid(BufferHelper::getStdString(
-        BufferHelper::fromHexString("D43DEBC7D61B4127A01EC5B1EA3923C8")));
-    sigres.signature_description_.set_nonce(3);
+    auto remote_crypto = LibraryManager::getInstance()->getRemoteCrypto();
+    SignatureResult sigres;
+    sigres.signature = BufferHelper::fromHexString(
+            "3A2D7B0847493F53E841A0402AFCC25E914E55F48BD7597BCED08DD7BF76C01B14733115F2075DFB"
+            "C3CD7F2EFA8DF7033F4118D9FDE7846E387FAD15B6850A32EA283A51A77BF201C52BD540DF255F30"
+            "FE6B0503B80D3C7619BCE1539921CA1BB15797B6302F224E08E5614DFF04F34B4B88D50DE24AF851"
+            "ED17D032203FAF74993345592C6601EA7C0052103BABDBE643FC563B449FD0C68CCFE67B7AD31A33"
+            "2DE1641F0F601028D266CC5B514CBF35EDACE03DF8F3AEFEAD7B42143134992B78A996FF4E280C2D"
+            "737BDA9550018A19CA97AA11BF9D23C86B337D5143A148D08C2F556B2A4F960F7FB3DA58733C0328"
+            "2558536D09599DED45833F4C5C36781E");
+    sigres.desc.payload = BufferHelper::fromHexString("000010920A438C660000000000000000");
+    sigres.desc.run_uuid =  BufferHelper::fromHexString("D43DEBC7D61B4127A01EC5B1EA3923C8");
+    sigres.desc.nonce = 3;
+    sigres.desc.timestamp = 1522842692599;
 
-    // Timestamp is invalid.
-    sigres.signature_description_.set_timestamp(1522842692599);
-
-    ASSERT_FALSE(sigres.verify(pubkey));
+    ASSERT_FALSE(remote_crypto->verify_signature(sigres, pubkey));
 }

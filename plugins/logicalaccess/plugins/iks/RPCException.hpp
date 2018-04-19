@@ -9,7 +9,7 @@ namespace iks
 class RPCException : public LibLogicalAccessException
 {
   public:
-    RPCException(const std::string &message)
+    explicit RPCException(const std::string &message)
         : LibLogicalAccessException(message)
     {
     }

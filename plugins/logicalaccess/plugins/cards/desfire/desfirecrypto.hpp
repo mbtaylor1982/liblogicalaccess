@@ -16,7 +16,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
-#include <logicalaccess/iks/signature.hpp>
+#include <logicalaccess/iks/RemoteCrypto.hpp>
 
 namespace logicalaccess
 {
@@ -39,7 +39,7 @@ struct IKSCryptoWrapper
 
     // Simply the last signature received when we call aes_decrypt() through
     // and IKSRPCClient.
-    iks::SignatureResult last_sig;
+    SignatureResult last_sig;
 };
 
 /**
@@ -515,7 +515,7 @@ class LIBLOGICALACCESS_API DESFireCrypto
      * This will return the empty string if no IKS was used or if the operation
      * mode does make sense to have that.
      */
-    iks::SignatureResult get_last_signature() const;
+    SignatureResult get_last_signature() const;
 
   protected:
     /**
